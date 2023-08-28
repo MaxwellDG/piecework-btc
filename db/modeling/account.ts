@@ -1,4 +1,4 @@
-import { Document, Schema, Types, model } from "mongoose";
+import mongoose, { Document, Schema, Types, model } from "mongoose";
 
 export interface IAccount {
   address: string;
@@ -25,7 +25,8 @@ export const accountSchema = new Schema<IAccount>(
   }
 );
 
-export const AccountModel = model<IAccount>("Account", accountSchema);
+export const AccountModel =
+  mongoose.models.Account || model<IAccount>("Account", accountSchema);
 
 export async function findById(id: string): Promise<
   | (Document<unknown, {}, IAccount> &
@@ -54,16 +55,12 @@ export async function update(
   if (accountDoc) {
     accountDoc.address = address;
     await accountDoc.save();
+    return accountDoc;
+  } else {
+    return null;
   }
-
-  return accountDoc;
 }
 
 export async function create(address: string): Promise<IAccount | null> {
-  const whatisthis = await AccountModel.create({ address });
-
-  console.log("What is this? ", whatisthis);
-  // maybe I need to do whatisthis.exec() as Phind suggests?
-
-  return whatisthis;
+  return await AccountModel.create({ address });
 }

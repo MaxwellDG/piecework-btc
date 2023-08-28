@@ -1,5 +1,3 @@
-import LoginInput from "../components/loginInput";
-
 export default function Page() {
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -10,7 +8,6 @@ export default function Page() {
             Your account is linked to your BTC address. Enter your address below
             in order to navigate to your authenticated project dashboard.
           </p>
-          <LoginInput />
         </div>
       </div>
     </div>
