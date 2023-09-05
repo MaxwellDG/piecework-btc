@@ -10,11 +10,9 @@ export async function HEAD(request: Request) {}
 export async function POST(request: Request) {
   await connectToDb();
 
-  const { address } = await request.json(); // todo make a req type for this???
+  const { address, password } = await request.json(); // todo make a req type for this???
 
-  const account: IAccount | null = await AccountsHandler.create(address);
-
-  console.log("post created: ", account);
+  const account: IAccount | null = await AccountsHandler.create(address, password);
 
   return NextResponse.json(account);
 }

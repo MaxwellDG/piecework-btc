@@ -1,0 +1,7 @@
+# Block
+User-agent: *
+Disallow: /accounts
+
+# Allow 
+User-agent: *
+Allow: /

@@ -1,4 +1,4 @@
-import LoginInput from "../components/loginInput";
+import LoginInput from "./(components)/loginInput";
 
 export default function Page() {
   return (

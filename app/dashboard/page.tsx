@@ -1,3 +1,5 @@
+// todo really rethink how this is setup
+
 export default function Page() {
   return (
     <div className="hero min-h-screen bg-base-200">
