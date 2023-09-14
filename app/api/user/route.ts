@@ -35,12 +35,22 @@ export async function DELETE(request: Request) {
   const account: IAccount | null = await AccountsHandler.deleteAccount(id);
 
   return new Response(
+
+
+    
     JSON.stringify({
       message: "Account: " + account?.username + " deleted",
     }),
   );
 }
 
-export async function PATCH(request: Request) {}
+export async function PATCH(request: Request) {
 
-export async function OPTIONS(request: Request) {}
+
+
+}
+
+export async function OPTIONS(request: Request) {
+
+
+}
