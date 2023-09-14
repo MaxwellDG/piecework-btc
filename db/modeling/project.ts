@@ -16,16 +16,17 @@ export const projectSchema = new Schema<IProject>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export const ProjectModel =
   mongoose.models.Project || model<IProject>("project", projectSchema);
 
+export async function create(
+  name: string,
+  accountOwnerId: number,
+): Promise<IAccount | null> {
+  // todo get account entity here and link it? or just need the id and it does the job????
 
-export async function create(name: string, accountOwnerId: number): Promise<IAccount | null> {
-    // todo get account entity here and link it? or just need the id and it does the job????
-
-    return await ProjectModel.create({ name, accountOwnerId }); // todo correct values
-  }
-  
+  return await ProjectModel.create({ name, accountOwnerId }); // todo correct values
+}

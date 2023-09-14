@@ -1,6 +1,6 @@
 import SignupInput from "../../(components)/signupInput";
 
-// todo 'Hello' should change to a random greeting in any language 
+// todo 'Hello' should change to a random greeting in any language
 // with the defintion next to it to explain it's a greeting in some language
 
 export default function Page() {

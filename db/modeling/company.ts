@@ -40,7 +40,7 @@ export const companySchema = new Schema<ICompany>(
   {
     // add createdAt and updatedAt timestamps
     timestamps: true,
-  }
+  },
 );
 
 export const CompanyModel =
@@ -69,7 +69,7 @@ export async function findByName(name: string): Promise<
 // todo lots of cascading to the users and projects that have this as a foreign key would need to be done here.
 // learn how to do later
 export async function update(
-  updateObj: UpdateCompanyReq
+  updateObj: UpdateCompanyReq,
 ): Promise<ICompany | null> {
   const { name, newName }: UpdateCompanyReq = updateObj;
   const company = await findByName(name);
@@ -105,7 +105,7 @@ export async function create(name: string): Promise<any> {
       const account: IAccount = await AccountHandler.create(
         `admin-${name}`,
         "password",
-        Role.ADMIN
+        Role.ADMIN,
         // session
       );
       company = await CompanyModel.create([

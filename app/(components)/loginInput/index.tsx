@@ -13,31 +13,29 @@ import Link from "next/link";
 export default function LoginInput() {
   const router = useRouter();
 
-  const [input, setInput] = React.useState("");
+  const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [company, setCompany] = React.useState("");
 
-  function navLogin(account: IAccount) {
-    router.push("/" + account.address);
+  function navLogin() {
+    router.push("/dashboard");
   }
 
   async function handleLogin() {
     // Check if account already exists
-    const res = await fetch(`/api/user/${input}`);
+    const res = await fetch(`/api/auth/login`, {
+      method: "POST",
+      body: JSON.stringify({
+        company,
+        username,
+        password,
+      }),
+    });
     if (res.ok) {
       const data: IAccount = await res.json();
-      navLogin(data);
+      navLogin();
     } else {
-      // If it doesn't exist, create one
-      const newAccountRes = await fetch(`/api/user`, {
-        method: "POST",
-        body: JSON.stringify({ address: input }),
-      });
-      if (newAccountRes.ok) {
-        const data: IAccount = await newAccountRes.json();
-        navLogin(data);
-      } else {
-        // todo handle error
-      }
+      alert("Invalid login");
     }
   }
 
@@ -45,20 +43,33 @@ export default function LoginInput() {
     <div className="flex flex-col justify-center items-center">
       <input
         type="text"
+        placeholder="Company"
         className="input input-bordered w-full max-w-xs mb-6"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
+        value={company}
+        onChange={(e) => setCompany(e.target.value)}
       />
       <input
         type="text"
+        placeholder="Username"
         className="input input-bordered w-full max-w-xs mb-6"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Password"
+        className="input input-bordered w-full max-w-xs mb-8"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button type="button" className="btn btn-primary mb-2" onClick={handleLogin}>
+      <button
+        type="button"
+        className="btn btn-primary mb-2 w-1/2"
+        onClick={handleLogin}
+      >
         Login
       </button>
-      <Link href="/auth/signup" className="btn btn-primary">
+      <Link href="/auth/signup" className="btn btn-primary w-1/2">
         <p>Sign up</p>
       </Link>
     </div>

@@ -18,7 +18,7 @@ export async function POST(request: Request) {
   } else {
     return NextResponse.json(
       { message: "Company name already exists" },
-      { status: 409 }
+      { status: 409 },
     );
   }
 }
@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
   } else {
     return NextResponse.json(
       { message: "Could not find company" },
-      { status: 404 }
+      { status: 404 },
     );
   }
 }
@@ -48,14 +48,14 @@ export async function PATCH(request: Request) {
     return new Response(
       JSON.stringify({
         company,
-      })
+      }),
     );
   } else {
     return new Response(
       JSON.stringify({
         message: "Could not find company",
       }),
-      { status: 409 }
+      { status: 409 },
     );
   }
 }
@@ -68,6 +68,6 @@ export async function DELETE(request: Request) {
   return new Response(
     JSON.stringify({
       message: "Company with name: " + company?.name + " deleted",
-    })
+    }),
   );
 }

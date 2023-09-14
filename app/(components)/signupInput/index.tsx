@@ -5,7 +5,7 @@ import React from "react";
 import { IAccount } from "../../../db/modeling/account";
 import dynamic from "next/dynamic";
 
-const ErrorText = dynamic(() => import('../ui/text/error'), {
+const ErrorText = dynamic(() => import("../ui/text/error"), {
   ssr: false,
 });
 
@@ -13,7 +13,7 @@ export default function SignupInput() {
   const router = useRouter();
 
   const [organization, setOrganization] = React.useState("");
-  const [error, setError] = React.useState('');
+  const [error, setError] = React.useState("");
 
   function navLogin(company: string) {
     router.push("/dashboard");
@@ -25,8 +25,8 @@ export default function SignupInput() {
       body: JSON.stringify({ name: organization }),
     });
     console.log("we get a res? ", res);
-    if(res.ok){
-      setError('');
+    if (res.ok) {
+      setError("");
       navLogin(organization);
     } else {
       setError(res.message);
@@ -41,7 +41,7 @@ export default function SignupInput() {
         value={organization}
         onChange={(e) => setOrganization(e.target.value)}
       />
-      {error && <ErrorText text={error}/>}
+      {error && <ErrorText text={error} />}
       <button type="button" className="btn btn-primary" onClick={handleCreate}>
         Create company account
       </button>

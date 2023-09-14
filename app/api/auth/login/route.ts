@@ -7,10 +7,14 @@ const MAX_EXPIRY = 60 * 60 * 24;
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const { address, password } = body;
+  const { username, company, password } = body;
 
   await connectToDb();
-  const account: IAccount | null = await AccountsHandler.findByLogin(address, password);
+  const account: IAccount | null = await AccountsHandler.findByLogin(
+    company,
+    username,
+    password,
+  );
 
   if (account) {
     const response = NextResponse.json(account, { status: 200 });
@@ -21,21 +25,21 @@ export async function POST(request: NextRequest) {
         address: account.address,
       },
       process.env.JWT_SECRET || "",
-      { expiresIn: MAX_EXPIRY }
+      { expiresIn: MAX_EXPIRY },
     );
-    response.cookies.set('JWT', jwt, {
+    response.cookies.set("JWT", jwt, {
       httpOnly: true,
       expires: MAX_EXPIRY,
-      path: '/',
-      sameSite: 'strict',
-      secure: true
+      path: "/",
+      sameSite: "strict",
+      secure: true,
     });
 
     return response;
   } else {
     return NextResponse.json(
       { message: "Unable to find address: " + address },
-      { status: 404 }
+      { status: 404 },
     );
   }
 }

@@ -26,7 +26,7 @@ export const _options: NextAuthOptions = {
       },
     }),
   ],
-}
+};
 
 const handler = NextAuth(_options);
 

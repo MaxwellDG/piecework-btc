@@ -7,7 +7,7 @@ export enum Role {
 
 export interface IAccount extends Document {
   _id: Types.ObjectId;
-  address: string;
+  username: string;
   role: Role;
   password: string;
   createdAt?: Date;
@@ -17,22 +17,16 @@ export interface IAccount extends Document {
 
 export default {
   findById,
-  findByAddress,
+  findByUsername,
   findByLogin,
   create,
   deleteAccount,
   update,
 };
 
-// todo for now we're using address cause I was trying to be fancy, but that might not work
-// when the website is meant to be accessed by an organization
-
-// If you're gonna do it like its a company dashboard for web2, should start with creating an organization
-// and THEN create the account(s). If no users present, first one gets 'Admin' role
-
 export const accountSchema = new Schema<IAccount>(
   {
-    address: { type: String, unique: true, required: true },
+    username: { type: String, unique: true, required: true },
     password: { type: String, required: true },
     messages: { type: [String], required: false },
     role: { type: String, enum: Role, required: true, default: Role.USER },
@@ -40,7 +34,7 @@ export const accountSchema = new Schema<IAccount>(
   {
     // add createdAt and updatedAt timestamps
     timestamps: true,
-  }
+  },
 );
 
 export const AccountModel =
@@ -56,15 +50,19 @@ export async function findById(id: string): Promise<
   return await AccountModel.findById(id);
 }
 
-export async function findByAddress(address: string): Promise<IAccount | null> {
-  return await AccountModel.findOne({ address });
+export async function findByUsername(
+  company: string,
+  username: string,
+): Promise<IAccount | null> {
+  return await AccountModel.findOne({ company, username });
 }
 
 export async function findByLogin(
-  address: string,
-  password: string
+  company: string,
+  username: string,
+  password: string,
 ): Promise<IAccount | null> {
-  return await AccountModel.findOne({ address, password });
+  return await AccountModel.findOne({ company, username, password });
 }
 
 export async function deleteAccount(id: string): Promise<IAccount | null> {
@@ -73,12 +71,12 @@ export async function deleteAccount(id: string): Promise<IAccount | null> {
 
 export async function update(
   id: string,
-  address: string
+  username: string,
 ): Promise<IAccount | null> {
   const accountDoc = await findById(id);
 
   if (accountDoc) {
-    accountDoc.address = address;
+    accountDoc.username = username;
     await accountDoc.save();
     return accountDoc;
   } else {
@@ -87,20 +85,20 @@ export async function update(
 }
 
 export async function create(
-  address: string,
+  username: string,
   password: string,
   role: Role,
-  session?: mongoose.mongo.ClientSession
+  session?: mongoose.mongo.ClientSession,
 ): Promise<any> {
   let account = null;
   const param = !!session
-    ? [{ address, role, password }]
-    : { address, role, password };
+    ? [{ username, role, password }]
+    : { username, role, password };
 
   try {
     account = await AccountModel.create(
       param,
-      session ? { session } : undefined
+      session ? { session } : undefined,
     );
   } catch (error) {
     throw error;
