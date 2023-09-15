@@ -1,7 +1,7 @@
 type Props = {
-  text: string;
+    text: string;
 };
 
 export default function ErrorText({ text }: Props) {
-  return <p className="bg-error">{text}</p>;
+    return <p className="text-red-500">{text}</p>;
 }
