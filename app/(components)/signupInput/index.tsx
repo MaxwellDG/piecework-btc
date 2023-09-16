@@ -16,7 +16,7 @@ export default function SignupInput() {
     const [error, setError] = React.useState('');
 
     function navLogin() {
-        router.push('/dashboard');
+        router.push('/dashboard/home');
     }
 
     async function handleCreate() {

@@ -1,110 +1,108 @@
-import mongoose, { Document, Schema, Types, model } from "mongoose";
+import mongoose, { Document, Schema, Types, model } from 'mongoose';
+import { IMessage } from './message';
 
 export enum Role {
-  ADMIN = "ADMIN",
-  USER = "USER",
+    ADMIN = 'ADMIN',
+    USER = 'USER',
 }
 
 export interface IAccount extends Document {
-  _id: Types.ObjectId;
-  username: string;
-  role: Role;
-  password: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-  messages?: string[];
+    username: string;
+    role: Role;
+    password: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    messages?: IMessage[];
 }
 
 export default {
-  findById,
-  findByUsername,
-  findByLogin,
-  create,
-  deleteAccount,
-  update,
+    findById,
+    findByUsername,
+    findByLogin,
+    create,
+    deleteAccount,
+    update,
 };
 
 export const accountSchema = new Schema<IAccount>(
-  {
-    username: { type: String, unique: true, required: true },
-    password: { type: String, required: true },
-    messages: { type: [String], required: false },
-    role: { type: String, enum: Role, required: true, default: Role.USER },
-  },
-  {
-    // add createdAt and updatedAt timestamps
-    timestamps: true,
-  },
+    {
+        username: { type: String, unique: true, required: true },
+        password: { type: String, required: true },
+        messages: { type: [String], required: false },
+        role: { type: String, enum: Role, required: true, default: Role.USER },
+    },
+    {
+        // add createdAt and updatedAt timestamps
+        timestamps: true,
+    }
 );
 
 export const AccountModel =
-  mongoose.models.Account || model<IAccount>("Account", accountSchema);
+    mongoose.models.Account || model<IAccount>('Account', accountSchema);
 
 export async function findById(id: string): Promise<
-  | (Document<unknown, {}, IAccount> &
-      IAccount & {
-        _id: Types.ObjectId;
-      })
-  | null
+    | (Document<unknown, {}, IAccount> &
+          IAccount & {
+              _id: Types.ObjectId;
+          })
+    | null
 > {
-  return await AccountModel.findById(id);
+    return await AccountModel.findById(id);
 }
 
 export async function findByUsername(
-  company: string,
-  username: string,
+    company: string,
+    username: string
 ): Promise<IAccount | null> {
-  return await AccountModel.findOne({ company, username });
+    return await AccountModel.findOne({ company, username });
 }
 
 export async function findByLogin(
-  company: string,
-  username: string,
-  password: string,
+    company: string,
+    username: string,
+    password: string
 ): Promise<IAccount | null> {
-  return await AccountModel.findOne({ company, username, password });
+    return await AccountModel.findOne({ company, username, password });
 }
 
 export async function deleteAccount(id: string): Promise<IAccount | null> {
-  return await AccountModel.findByIdAndDelete(id);
+    return await AccountModel.findByIdAndDelete(id);
 }
 
 export async function update(
-  id: string,
-  username: string,
+    id: string,
+    username: string
 ): Promise<IAccount | null> {
-  const accountDoc = await findById(id);
+    const accountDoc = await findById(id);
 
-  if (accountDoc) {
-    accountDoc.username = username;
-    await accountDoc.save();
-    return accountDoc;
-  } else {
-    return null;
-  }
+    if (accountDoc) {
+        accountDoc.username = username;
+        await accountDoc.save();
+        return accountDoc;
+    } else {
+        return null;
+    }
 }
 
 export async function create(
-  username: string,
-  password: string,
-  role: Role,
-  session?: mongoose.mongo.ClientSession,
+    username: string,
+    password: string,
+    role: Role,
+    session?: mongoose.mongo.ClientSession
 ): Promise<any> {
-  let account = null;
-  const param = !!session
-    ? [{ username, role, password }]
-    : { username, role, password };
+    let account = null;
+    const param = !!session
+        ? [{ username, role, password }]
+        : { username, role, password };
 
-  try {
-    account = await AccountModel.create(
-      param,
-      session ? { session } : undefined,
-    );
-  } catch (error) {
-    throw error;
-  }
+    try {
+        account = await AccountModel.create(
+            param,
+            session ? { session } : undefined
+        );
+    } catch (error) {
+        throw error;
+    }
 
-  console.log("CREATED ACCOUNT: ", account);
-
-  return account;
+    return account;
 }

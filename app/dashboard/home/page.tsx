@@ -1,7 +1,7 @@
-export default function Settings() {
+export default function Home() {
     return (
         <div className="hero min-h-screen w-full bg-base-200">
-            <p>Settings</p>
+            <p>Home</p>
         </div>
     );
 }

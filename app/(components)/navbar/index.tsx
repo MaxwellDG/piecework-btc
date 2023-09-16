@@ -2,41 +2,91 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-
-type Route = {
-    route: string;
-    icon: React.ReactElement;
-};
-
-enum ROUTE_NAME {
-    HOME = 'HOME',
-    PROJECTS = 'PROJECTS',
-    MESSAGES = 'MESSAGES',
-    SETTINGS = 'SETTINGS',
-}
-
-const ROUTES: Route[] = [
-    { route: ROUTE_NAME.HOME, icon: <></> },
-    { route: ROUTE_NAME.PROJECTS, icon: <></> },
-    { route: ROUTE_NAME.MESSAGES, icon: <></> },
-    { route: ROUTE_NAME.SETTINGS, icon: <></> },
-];
+import Home from '../../../public/svgs/home';
+import Projects from '../../../public/svgs/projects';
+import Messages from '../../../public/svgs/messages';
+import Settings from '../../../public/svgs/settings';
+import { usePathname } from 'next/navigation';
 
 export default function NavBar() {
     const [estado, setEstado] = useState(false);
+    const pathname = usePathname();
+
+    function getColor(isActive: boolean) {
+        if (isActive) {
+            return estado ? '#F2A900' : '#F5D6A1';
+        } else {
+            return estado ? 'black' : 'rgba(0,0,0,0.1)';
+        }
+    }
 
     return (
         <div
-            className="flex flex-col p-4 rounded-xl gap-x-2 absolute top-0 bottom-0 left-4"
+            className={`flex flex-col p-4 rounded-xl gap-x-2 justify-center ${
+                estado ? 'bg-gray-200' : ''
+            }`}
             onMouseOver={() => setEstado(true)}
             onMouseLeave={() => setEstado(false)}
         >
-            {ROUTES.map((route: Route, i: number) => (
-                <Link href={route.route} className="flex items-center">
-                    {route.icon}
-                    {estado && <p className="ml-4">{route.route}</p>}
-                </Link>
-            ))}
+            <Link href="home" className="mb-24 flex cursor-pointer">
+                {Home(getColor(pathname.split('/')[2] === 'home'), 25)}
+                {estado && (
+                    <p
+                        className={`ml-12 cursor-pointer ${
+                            pathname.split('/')[2] === 'home'
+                                ? 'text-btcOrange'
+                                : ''
+                        }`}
+                    >
+                        Home
+                    </p>
+                )}
+            </Link>
+            <Link href="projects" className="mb-24 flex cursor-pointer">
+                {Projects(getColor(pathname.split('/')[2] === 'projects'), 25)}
+
+                {estado && (
+                    <p
+                        className={`ml-12 cursor-pointer ${
+                            pathname.split('/')[2] === 'projects'
+                                ? 'text-btcOrange'
+                                : ''
+                        }`}
+                    >
+                        Projects
+                    </p>
+                )}
+            </Link>
+            <Link href="messages" className="mb-24 flex cursor-pointer">
+                {Messages(getColor(pathname.split('/')[2] === 'messages'), 25)}
+
+                {estado && (
+                    <p
+                        className={`ml-12 cursor-pointer ${
+                            pathname.split('/')[2] === 'messages'
+                                ? 'text-btcOrange'
+                                : ''
+                        }`}
+                    >
+                        Messages
+                    </p>
+                )}
+            </Link>
+            <Link href="settings" className="flex cursor-pointer">
+                {Settings(getColor(pathname.split('/')[2] === 'settings'), 25)}
+
+                {estado && (
+                    <p
+                        className={`ml-12 cursor-pointer ${
+                            pathname.split('/')[2] === 'settings'
+                                ? 'text-btcOrange'
+                                : ''
+                        }`}
+                    >
+                        Settings
+                    </p>
+                )}
+            </Link>
         </div>
     );
 }

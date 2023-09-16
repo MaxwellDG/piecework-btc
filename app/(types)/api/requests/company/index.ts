@@ -1,8 +1,8 @@
 export type CompanyNameReq = {
-  name: string;
+    name: string;
 };
 
 export type UpdateCompanyReq = {
-  name: string;
-  newName?: string;
+    name: string;
+    newName?: string;
 };
