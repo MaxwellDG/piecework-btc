@@ -4,8 +4,8 @@ import AccountsHandler, {
     IAccount,
     Role,
 } from '../../../../db/modeling/account';
-import { cookies } from 'next/headers';
 import { sign } from 'jsonwebtoken';
+import { serialize } from 'cookie';
 
 const MAX_EXPIRY = 60 * 60 * 24;
 
@@ -27,23 +27,23 @@ export async function POST(request: NextRequest) {
 
     if (account) {
         const response = NextResponse.json(account, { status: 200 });
-
+        
         // JWT
         const jwt = sign(
             {
                 username: account.username,
             },
             process.env.JWT_SECRET || '',
-            { expiresIn: MAX_EXPIRY }
+            { expiresIn: '12h' }
         );
 
-        cookies().set('JWT', jwt, {
+        const serializedCookie = serialize('JWT', jwt, {
             httpOnly: true,
-            expires: MAX_EXPIRY,
             path: '/',
             sameSite: 'strict',
             secure: true,
         });
+        response.headers.set('SET-COOKIE', serializedCookie);
 
         return response;
     } else {
