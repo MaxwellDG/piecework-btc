@@ -23,7 +23,7 @@ export default function NavBar() {
     return (
         <div
             className={`flex flex-col p-4 rounded-xl gap-x-2 justify-center ${
-                estado ? 'bg-gray-200' : ''
+                estado ? 'custom-bg-color' : ''
             }`}
             onMouseOver={() => setEstado(true)}
             onMouseLeave={() => setEstado(false)}

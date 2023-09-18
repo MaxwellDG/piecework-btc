@@ -3,6 +3,9 @@
 
 const nextConfig = {
     reactStrictMode: true,
+    experimental: {
+        serverActions: true,
+    },
     serverRuntimeConfig: {
         connectionString: `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.t0meamb.mongodb.net/?retryWrites=true&w=majority`,
         secret: process.env.JWT_SECRET,

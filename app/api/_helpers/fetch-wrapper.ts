@@ -1,6 +1,6 @@
 import getConfig from 'next/config';
 
-const { publicRuntimeConfig } = getConfig();
+// const { publicRuntimeConfig } = getConfig();
 
 enum MethodType {
     POST = 'POST',
@@ -21,7 +21,7 @@ export const fetchWrapper = {
 };
 
 function request(method: MethodType) {
-    return async (url: string, body: any) => {
+    return async (url: string, body?: any) => {
         const requestOptions: any = {
             method,
             headers: authHeader(url),
@@ -35,7 +35,8 @@ function request(method: MethodType) {
 }
 
 function getUserInfo() {
-    const _user = typeof window !== 'undefined' && localStorage.getItem('user');
+    const _user = typeof window !== 'undefined' && localStorage.getItem('JWT');
+    console.log("user", _user);
     if (_user) {
         return JSON.parse(_user);
     } else {
@@ -47,12 +48,15 @@ function authHeader(url: string) {
     try {
         const userInfo = getUserInfo();
         if (userInfo) {
-            const isApiUrl = url.startsWith(publicRuntimeConfig.apiUrl);
+            // const isApiUrl = url.startsWith(publicRuntimeConfig.apiUrl);
+            const isApiUrl = url.startsWith('http://localhost:3000/api');
             if (userInfo?.token && isApiUrl) {
                 return { Authorization: `Bearer ${userInfo.token}` };
             } else {
                 return {};
             }
+        } else {
+            return {};
         }
     } catch (e) {
         return {};
