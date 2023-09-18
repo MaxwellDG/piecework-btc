@@ -25,3 +25,13 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.custom-border-color {
+  --border-color: hsl(var(--bc) / 0.2);
+  border-color: hsl(var(--bc) / 0.2);
+}
+
+.custom-bg-color {
+  background-color: hsl(var(--n) / 1);
+  --background-color: hsl(var(--n) / 1);
+}

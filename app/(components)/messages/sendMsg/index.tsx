@@ -7,8 +7,8 @@ type Props = {
 export default function SendMsg({ handleSend }: Props) {
 
     return (
-        <div className="w-full flex gap-x-1">
-            <form action={handleSend} >
+        <div className="w-full">
+            <form action={handleSend} className="flex gap-x-1">
                 <input
                     type="text"
                     name="input"
