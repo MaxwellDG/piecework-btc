@@ -13,7 +13,6 @@ import { revalidatePath } from 'next/cache';
     can interact with the form since it no longer requires Javascript
 */
 
-
 export default async function Page() {
     // const messages = await MessagesHandler.getMessages(1);
     const messages = [
@@ -38,11 +37,11 @@ export default async function Page() {
     ];
 
     async function handleSend(formData: FormData): Promise<void> {
-        "use server"
+        'use server';
 
         const text = formData.get('input');
         const message = await MessagesHandler.create(true, text as string);
-        console.log("New message? ", message);
+        console.log('New message? ', message);
         revalidatePath('/dashboard/messages');
     }
 
@@ -50,10 +49,7 @@ export default async function Page() {
         <div className="hero min-h-screen bg-base-200 flex flex-col justify-center">
             <div className="m-auto w-full max-w-3xl">
                 <h2 className="text-xl font-bold mb-2">Messages</h2>
-                <div 
-                    className="custom-border-color flex flex-col bg-white mb-2 p-2 h-96 overflow-y-auto rounded border" 
-                    
-                >
+                <div className="custom-border-color flex flex-col bg-white mb-2 p-2 h-96 overflow-y-auto rounded border">
                     {messages?.map((msg: IMessage, i: number) => {
                         return <Message key={i} message={msg} />;
                     })}

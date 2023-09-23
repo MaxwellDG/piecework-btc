@@ -1,23 +1,27 @@
-import Card from "../../(components)/settings/card";
-import Logout from "../../../public/svgs/logout";
+import Logout from '../../(components)/logout';
+import Card from '../../(components)/settings/card';
 
 export default function Settings() {
-
-    function handleLogout() {
-        
-    }
+    function handleLogout() {}
 
     return (
-        <div className="hero min-h-screen w-full bg-base-200">
-            <p>Settings</p>
-            <div className="flex flex-col">
-                <Card text="Account settings" route="account" icon={<></>} />
-                <Card text="Company settings" route="company" icon={<></>} />
-                <Card text="How it works" route="howitworks" icon={<></>} />
-                <button type="button" onClick={handleLogout} className="btn bg-white rounded mb-8 w-full items-center">
-                    {Logout(25, 'red')}
-                    <p className={`ml-6 text-red-300`}>Logout</p>
-                </button>
+        <div className="hero min-h-screen bg-base-200 flex flex-col justify-center z-50">
+            <div className="m-auto w-full max-w-3xl">
+                <h2 className="text-xl font-bold mb-2">Settings</h2>
+                <div className="flex flex-col">
+                    <Card
+                        text="Account settings"
+                        route="account"
+                        icon={<></>}
+                    />
+                    <Card
+                        text="Company settings"
+                        route="company"
+                        icon={<></>}
+                    />
+                    <Card text="How it works" route="howitworks" icon={<></>} />
+                    <Logout />
+                </div>
             </div>
         </div>
     );

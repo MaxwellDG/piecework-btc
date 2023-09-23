@@ -22,27 +22,28 @@ export default function NavBar() {
 
     return (
         <div
-            className={`flex flex-col p-4 rounded-xl gap-x-2 justify-center ${
+            className={`absolute top-0 bottom-0 left-12 flex flex-col p-4 rounded-xl gap-x-2 justify-center ${
                 estado ? 'custom-bg-color' : ''
             }`}
             onMouseOver={() => setEstado(true)}
             onMouseLeave={() => setEstado(false)}
         >
-            <Link href="home" className="mb-24 flex cursor-pointer">
-                {Home(getColor(pathname.split('/')[2] === 'home'), 25)}
+            <Link href="/dashboard/" className="mb-24 flex cursor-pointer">
+                {Home(getColor(pathname === '/dashboard'), 25)}
                 {estado && (
                     <p
                         className={`ml-12 cursor-pointer ${
-                            pathname.split('/')[2] === 'home'
-                                ? 'text-btcOrange'
-                                : ''
+                            pathname === '/dashboard' ? 'text-btcOrange' : ''
                         }`}
                     >
                         Home
                     </p>
                 )}
             </Link>
-            <Link href="projects" className="mb-24 flex cursor-pointer">
+            <Link
+                href="/dashboard/projects"
+                className="mb-24 flex cursor-pointer"
+            >
                 {Projects(getColor(pathname.split('/')[2] === 'projects'), 25)}
 
                 {estado && (
@@ -57,7 +58,10 @@ export default function NavBar() {
                     </p>
                 )}
             </Link>
-            <Link href="messages" className="mb-24 flex cursor-pointer">
+            <Link
+                href="/dashboard/messages"
+                className="mb-24 flex cursor-pointer"
+            >
                 {Messages(getColor(pathname.split('/')[2] === 'messages'), 25)}
 
                 {estado && (
@@ -72,7 +76,7 @@ export default function NavBar() {
                     </p>
                 )}
             </Link>
-            <Link href="settings" className="flex cursor-pointer">
+            <Link href="/dashboard/settings" className="flex cursor-pointer">
                 {Settings(getColor(pathname.split('/')[2] === 'settings'), 25)}
 
                 {estado && (

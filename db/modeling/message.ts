@@ -29,7 +29,7 @@ export const messageSchema = new Schema<IMessage>(
 );
 
 export const MessageModel =
-    mongoose.models.Account || model<IMessage>('Account', messageSchema);
+    mongoose.models.Message || model<IMessage>('Message', messageSchema);
 
 export async function getMessages(companyId: number) {
     const messages: IMessage[] = await MessageModel.find({
