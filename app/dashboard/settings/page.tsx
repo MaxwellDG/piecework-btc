@@ -7,7 +7,7 @@ export default function Settings() {
     return (
         <div className="hero min-h-screen bg-base-200 flex flex-col justify-center z-50">
             <div className="m-auto w-full max-w-3xl">
-                <h2 className="text-xl font-bold mb-2">Settings</h2>
+                <h2 className="text-3xl font-bold mb-2">Settings</h2>
                 <div className="flex flex-col">
                     <Card
                         text="Account settings"

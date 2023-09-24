@@ -1,18 +1,15 @@
 import mongoose, { Document, Schema, Types, model } from 'mongoose';
-import AccountHandler, { AccountModel, IAccount } from './account';
+import AccountHandler, { AccountModel, IAccount, Role } from './account';
 import { IProject } from './project';
 import { UpdateCompanyReq } from '../../app/(types)/api/requests/company';
 
-export enum Role {
-    ADMIN = 'ADMIN',
-    USER = 'USER',
-}
-
 export interface ICompany extends Document {
     name: string;
-    admin: IAccount;
-    users: IAccount[];
+    // admin: IAccount;
+    // users: IAccount[];
     projects: IProject[];
+    tasksCompleted: Number;
+    tasksCreated: Number;
 }
 
 export default {
@@ -32,9 +29,11 @@ export default {
 export const companySchema = new Schema<ICompany>(
     {
         name: { type: String, unique: true, required: true },
-        admin: { type: mongoose.SchemaTypes.ObjectId, required: true },
-        users: [{ type: [mongoose.SchemaTypes.ObjectId], required: true }],
+        // admin: { type: mongoose.SchemaTypes.ObjectId, required: true },
+        // users: [{ type: [mongoose.SchemaTypes.ObjectId], required: true }],
         projects: [{ type: [mongoose.SchemaTypes.ObjectId], required: false }],
+        tasksCompleted: { type: Number, required: true, default: 0 },
+        tasksCreated: { type: Number, required: true, default: 0 },
     },
     {
         // add createdAt and updatedAt timestamps

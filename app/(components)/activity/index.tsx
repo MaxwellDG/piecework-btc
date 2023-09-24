@@ -18,23 +18,28 @@ export default function Activity({ activity }: Props) {
     const iconType = React.useMemo(() => {
         switch (type) {
             case ActivityType.MESSAGES:
-                return Messages('black', 30);
+                return Messages('black', 20);
             case ActivityType.PROJECTS:
-                return Projects('black', 30);
+                return Projects('black', 20);
             case ActivityType.USERS:
-                return User('black', 30);
+                return User('black', 20);
         }
     }, []);
 
     return (
-        <div className="flex p-2 rounded bg-gray-200 mb-2">
+        <div className="flex p-2 rounded mb-2">
             <div className="h-full flex justify-center items-center mr-2">
                 {iconType}
             </div>
-            <span>
-                {crud}
+            <div className="w-full">
+                <span className="w-full flex justify-between items-center">
+                    <p className="inline">{crud}</p>
+                    <p className="inline text-gray-600 text-xs">
+                        {createdAt.toLocaleString()}
+                    </p>
+                </span>
                 <p>{text}</p>
-            </span>
+            </div>
         </div>
     );
 }

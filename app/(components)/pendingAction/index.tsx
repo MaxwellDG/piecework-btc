@@ -29,9 +29,9 @@ export default function PendingAction({ pendingAction }: Props) {
     }, []);
 
     return (
-        <Link href={route} className="flex p-2 rounded bg-gray-200 mb-2">
+        <Link href={route} className="flex p-2 rounded items-center">
             <div className="h-full flex justify-center items-center mr-2">
-                {Alert(isFailed ? 'red' : 'yellow', 30)}
+                {Alert(isFailed ? 'rgb(248 113 113)' : '#F2A900', 30)}
             </div>
             <span>
                 <p>{text}</p>
