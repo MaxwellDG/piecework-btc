@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, Types, model } from 'mongoose';
+import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
 import { IMessage } from './message';
 
 export enum Role {
@@ -6,12 +6,13 @@ export enum Role {
     USER = 'USER',
 }
 
-export interface IAccount extends Document {
+export interface IAccount {
     username: string;
     role: Role;
     password: string;
     createdAt?: Date;
     updatedAt?: Date;
+    company: Types.ObjectId;
     messages?: IMessage[];
 }
 
@@ -30,6 +31,7 @@ export const accountSchema = new Schema<IAccount>(
         password: { type: String, required: true },
         messages: { type: [String], required: false },
         role: { type: String, enum: Role, required: true, default: Role.USER },
+        company: { type: Schema.Types.ObjectId, required: true },
     },
     {
         // add createdAt and updatedAt timestamps
@@ -40,20 +42,16 @@ export const accountSchema = new Schema<IAccount>(
 export const AccountModel =
     mongoose.models.Account || model<IAccount>('Account', accountSchema);
 
-export async function findById(id: string): Promise<
-    | (Document<unknown, {}, IAccount> &
-          IAccount & {
-              _id: Types.ObjectId;
-          })
-    | null
-> {
+export async function findById(
+    id: string
+): Promise<HydratedDocument<IAccount> | null> {
     return await AccountModel.findById(id);
 }
 
 export async function findByUsername(
     company: string,
     username: string
-): Promise<IAccount | null> {
+): Promise<HydratedDocument<IAccount> | null> {
     return await AccountModel.findOne({ company, username });
 }
 
@@ -61,18 +59,20 @@ export async function findByLogin(
     company: string,
     username: string,
     password: string
-): Promise<IAccount | null> {
+): Promise<HydratedDocument<IAccount> | null> {
     return await AccountModel.findOne({ company, username, password });
 }
 
-export async function deleteAccount(id: string): Promise<IAccount | null> {
+export async function deleteAccount(
+    id: string
+): Promise<HydratedDocument<IAccount> | null> {
     return await AccountModel.findByIdAndDelete(id);
 }
 
 export async function update(
     id: string,
     username: string
-): Promise<IAccount | null> {
+): Promise<HydratedDocument<IAccount> | null> {
     const accountDoc = await findById(id);
 
     if (accountDoc) {
@@ -88,18 +88,13 @@ export async function create(
     username: string,
     password: string,
     role: Role,
-    session?: mongoose.mongo.ClientSession
-): Promise<any> {
+    company: Types.ObjectId
+): Promise<HydratedDocument<IAccount> | null> {
     let account = null;
-    const param = !!session
-        ? [{ username, role, password }]
-        : { username, role, password };
+    const param = { username, role, password, company };
 
     try {
-        account = await AccountModel.create(
-            param,
-            session ? { session } : undefined
-        );
+        account = await AccountModel.create(param);
     } catch (error) {
         throw error;
     }

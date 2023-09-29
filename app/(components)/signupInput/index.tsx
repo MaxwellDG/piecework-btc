@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import { IAccount } from '../../../db/modeling/account';
 import dynamic from 'next/dynamic';
 
 const ErrorText = dynamic(() => import('../ui/text/error'), {
@@ -24,7 +23,7 @@ export default function SignupInput() {
             method: 'POST',
             body: JSON.stringify({ name: organization }),
         });
-        if (false) {
+        if (res) {
             setError('');
             navLogin();
         } else {

@@ -1,15 +1,10 @@
-import mongoose, { Document, Schema, Types, model } from 'mongoose';
-import AccountHandler, { AccountModel, IAccount, Role } from './account';
-import { IProject } from './project';
+import mongoose, { HydratedDocument, Schema, model } from 'mongoose';
 import { UpdateCompanyReq } from '../../app/(types)/api/requests/company';
 
-export interface ICompany extends Document {
+export interface ICompany {
     name: string;
-    // admin: IAccount;
-    // users: IAccount[];
-    projects: IProject[];
-    tasksCompleted: Number;
-    tasksCreated: Number;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export default {
@@ -29,14 +24,8 @@ export default {
 export const companySchema = new Schema<ICompany>(
     {
         name: { type: String, unique: true, required: true },
-        // admin: { type: mongoose.SchemaTypes.ObjectId, required: true },
-        // users: [{ type: [mongoose.SchemaTypes.ObjectId], required: true }],
-        projects: [{ type: [mongoose.SchemaTypes.ObjectId], required: false }],
-        tasksCompleted: { type: Number, required: true, default: 0 },
-        tasksCreated: { type: Number, required: true, default: 0 },
     },
     {
-        // add createdAt and updatedAt timestamps
         timestamps: true,
     }
 );
@@ -44,23 +33,15 @@ export const companySchema = new Schema<ICompany>(
 export const CompanyModel =
     mongoose.models.Company || model<ICompany>('Company', companySchema);
 
-export async function findById(id: string): Promise<
-    | (Document<unknown, {}, ICompany> &
-          ICompany & {
-              _id: Types.ObjectId;
-          })
-    | null
-> {
+export async function findById(
+    id: string
+): Promise<HydratedDocument<ICompany> | null> {
     return await CompanyModel.findById(id);
 }
 
-export async function findByName(name: string): Promise<
-    | (Document<unknown, {}, ICompany> &
-          ICompany & {
-              _id: Types.ObjectId;
-          })
-    | null
-> {
+export async function findByName(
+    name: string
+): Promise<HydratedDocument<ICompany> | null> {
     return await CompanyModel.findOne({ name });
 }
 
@@ -68,7 +49,7 @@ export async function findByName(name: string): Promise<
 // learn how to do later
 export async function update(
     updateObj: UpdateCompanyReq
-): Promise<ICompany | null> {
+): Promise<HydratedDocument<ICompany> | null> {
     const { name, newName }: UpdateCompanyReq = updateObj;
     const company = await findByName(name);
 
@@ -81,7 +62,9 @@ export async function update(
     }
 }
 
-export async function deleteCompany(id: string): Promise<ICompany | null> {
+export async function deleteCompany(
+    id: string
+): Promise<HydratedDocument<ICompany> | null> {
     return await CompanyModel.findByIdAndDelete(id);
 }
 
@@ -90,38 +73,22 @@ export async function checkExistsByName(name: string): Promise<boolean> {
     return !!company;
 }
 
-export async function create(name: string): Promise<any> {
+export async function create(
+    name: string
+): Promise<HydratedDocument<ICompany> | null> {
     const exists: boolean = await checkExistsByName(name);
 
     if (!exists) {
         let company;
-        // const session: mongoose.mongo.ClientSession = await mongoose.startSession();
-        // session.startTransaction();
 
         try {
-            // Perform operations within the transaction
-            const account: IAccount = await AccountHandler.create(
-                `admin-${name}`,
-                'password',
-                Role.ADMIN
-                // session
-            );
-            company = await CompanyModel.create([
-                { name, admin: account._id, users: [account._id] },
-            ]);
+            company = await CompanyModel.create({ name });
             console.log('COMPANY???? ', company);
-
-            // Commit the transaction if all operations succeed
-            // await session.commitTransaction();
-        } catch (error) {
-            // Rollback the transaction if any operation fails
-            // await session.abortTransaction();
-            throw error;
-        } finally {
-            // End the session
-            // session.endSession();
+            return company;
+        } catch (e) {
+            console.log('Error creating company:', e);
+            return null;
         }
-        return company;
     } else {
         return null;
     }

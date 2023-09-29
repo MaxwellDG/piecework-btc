@@ -1,42 +1,44 @@
-import { MongoClient, ServerApiVersion } from 'mongodb';
-const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_CLUSTER}.t0meamb.mongodb.net/${process.env.MONGO_DB_NAME}?retryWrites=true&w=majority`;
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-    serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-    },
-});
-async function run() {
-    try {
-        // Connect the client to the server	(optional starting in v4.7)
-        await client.connect();
-        // Send a ping to confirm a successful connection
-        await client.db('admin').command({ ping: 1 });
-        console.log(
-            'Pinged your deployment. You successfully connected to MongoDB!'
-        );
-    } finally {
-        // Ensures that the client will close when you finish/error
-        await client.close();
-    }
+import mongoose from 'mongoose';
+declare global {
+    var mongoose: any; // This must be a `var` and not a `let / const`
 }
-run().catch(console.dir);
 
-// import mongoose from "mongoose";
+const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_CLUSTER}.t0meamb.mongodb.net/${process.env.MONGO_DB_NAME}?retryWrites=true&w=majority`;
 
-// const url = "mongodb://localhost:27017/workforbitcoin";
+if (!MONGODB_URI) {
+    throw new Error(
+        'Please define the MONGODB_URI environment variable inside .env.local'
+    );
+}
 
-// export async function connectToDb() {
-//   if (
-//     mongoose.connection &&
-//     mongoose.connection?.readyState === mongoose.ConnectionStates?.connected
-//   ) {
-//     await mongoose.connection?.asPromise();
-//   }
+let cached = global.mongoose;
 
-//   await mongoose.connect(url);
-// }
+if (!cached) {
+    cached = global.mongoose = { conn: null, promise: null };
+}
 
-// export default connectToDb;
+async function dbConnect() {
+    if (cached.conn) {
+        return cached.conn;
+    }
+    if (!cached.promise) {
+        const opts = {
+            bufferCommands: false,
+        };
+        cached.promise = mongoose
+            .connect(MONGODB_URI, opts)
+            .then((mongoose) => {
+                return mongoose;
+            });
+    }
+    try {
+        cached.conn = await cached.promise;
+    } catch (e) {
+        cached.promise = null;
+        throw e;
+    }
+
+    return cached.conn;
+}
+
+export default dbConnect;
