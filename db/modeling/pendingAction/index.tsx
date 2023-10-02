@@ -5,11 +5,11 @@ export enum PendingActionType {
     PAYMENT = 'payment',
 }
 
-export interface IPendingAction extends Document {
+export interface IPendingAction {
     company: ICompany;
     isFailed: boolean;
     type: PendingActionType;
-    targetId: number;
+    targetId: string;
     text: string;
     createdAt: Date;
     updatedAt: Date;
@@ -32,7 +32,7 @@ export const pendingActionSchema = new Schema<IPendingAction>(
         },
         isFailed: { type: Boolean, required: true, default: false },
         type: { type: String, required: true },
-        targetId: { type: Number, required: true },
+        targetId: { type: String, required: true },
     },
     {
         // add createdAt and updatedAt timestamps
@@ -44,14 +44,14 @@ export const PendingActionModel =
     mongoose.models.PendingAction ||
     model<IPendingAction>('PendingAction', pendingActionSchema);
 
-export async function getPendingActions(companyId: number) {
+export async function getPendingActions(companyId: string) {
     const pendingActions: IPendingAction[] = await PendingActionModel.find({
         company: companyId,
     });
     return pendingActions;
 }
 
-export async function updatePendingActionToFailed(id: number) {
+export async function updatePendingActionToFailed(id: string) {
     const pendingAction = await PendingActionModel.findOneAndUpdate(
         { id },
         { isFailed: true }
@@ -69,8 +69,8 @@ export async function deletePendingAction(
 export async function create(
     text: string,
     type: PendingActionType,
-    targetId: number,
-    companyId: number
+    targetId: string,
+    companyId: string
 ): Promise<IPendingAction> {
     // todo create an activity
     const pendingAction: IPendingAction = await PendingActionModel.create({

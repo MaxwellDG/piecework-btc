@@ -31,7 +31,7 @@ export const messageSchema = new Schema<IMessage>(
 export const MessageModel =
     mongoose.models.Message || model<IMessage>('Message', messageSchema);
 
-export async function getMessages(companyId: number) {
+export async function getMessages(companyId: string) {
     const messages: IMessage[] = await MessageModel.find({
         company: companyId,
     });

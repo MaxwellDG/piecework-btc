@@ -40,7 +40,7 @@ export const accountSchema = new Schema<IAccount>(
 );
 
 export const AccountModel =
-    mongoose.models.Account || model<IAccount>('Account', accountSchema);
+    mongoose.models.Account || model<IAccount>('account', accountSchema);
 
 export async function findById(
     id: string

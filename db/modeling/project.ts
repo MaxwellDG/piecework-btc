@@ -1,17 +1,22 @@
-import mongoose, { Schema, Types, model } from 'mongoose';
-import { IAccount } from './account';
+import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
 
-export interface IProject extends Document {
+export interface IProject {
     name: string;
-    accountOwner: IAccount;
+    company: Types.ObjectId;
     createdAt: Date;
     updatedAt: Date;
 }
 
+export default {
+    create,
+    deleteProject,
+    findProjectsByCompanyId,
+};
+
 export const projectSchema = new Schema<IProject>(
     {
         name: { type: String, required: true },
-        accountOwner: { type: mongoose.SchemaTypes.ObjectId, required: true },
+        company: { type: mongoose.SchemaTypes.ObjectId, required: true },
     },
     {
         timestamps: true,
@@ -21,11 +26,20 @@ export const projectSchema = new Schema<IProject>(
 export const ProjectModel =
     mongoose.models.Project || model<IProject>('project', projectSchema);
 
+export async function findProjectsByCompanyId(
+    companyId: string
+): Promise<HydratedDocument<IProject>[]> {
+    return await ProjectModel.find({ company: companyId });
+}
+
 export async function create(
     name: string,
-    accountOwnerId: number
-): Promise<IAccount | null> {
-    // todo get account entity here and link it? or just need the id and it does the job????
+    companyId: string
+): Promise<HydratedDocument<IProject>> {
+    return await ProjectModel.create({ name, companyId });
+}
 
-    return await ProjectModel.create({ name, accountOwnerId }); // todo correct values
+export async function deleteProject(id: string): Promise<boolean> {
+    const res = await ProjectModel.deleteOne({ id });
+    return !!res;
 }

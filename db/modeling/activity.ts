@@ -48,7 +48,7 @@ export const activitySchema = new Schema<IActivity>(
 export const ActivityModel =
     mongoose.models.Activity || model<IActivity>('Activity', activitySchema);
 
-export async function getActivity(companyId: number) {
+export async function getActivity(companyId: string) {
     const messages: IActivity[] = await ActivityModel.find({
         company: companyId,
     });
@@ -63,7 +63,7 @@ export async function create(
     text: string,
     crud: ActivityCRUD,
     type: ActivityType,
-    companyId: number
+    companyId: string
 ): Promise<IActivity> {
     const activity: IActivity = await ActivityModel.create({
         text,

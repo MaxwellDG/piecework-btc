@@ -27,7 +27,7 @@ export async function POST(request: Request) {
             );
 
         if (admin) {
-            return NextResponse.json({ company, admin }, { status: 200 });
+            return NextResponse.json({ company, user: admin }, { status: 200 });
         } else {
             return NextResponse.json(
                 { message: 'Error while creating admin account for company' },
