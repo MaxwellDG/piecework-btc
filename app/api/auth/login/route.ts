@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 
     if (account) {
         const response = NextResponse.json(account, { status: 200 });
-        
+
         // JWT
         const jwt = sign(
             {

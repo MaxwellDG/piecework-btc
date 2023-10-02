@@ -1,5 +1,5 @@
 import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
-import { UpdateTaskReq } from '../../app/(types)/api/requests/tasks';
+import { UpdateTaskReq } from '../../../app/(types)/api/requests/tasks';
 
 export enum TASK_STATUS {
     UNASSIGNED = 'UNASSIGNED',

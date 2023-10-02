@@ -1,5 +1,5 @@
 import mongoose, { HydratedDocument, Schema, model } from 'mongoose';
-import { UpdateCompanyReq } from '../../app/(types)/api/requests/company';
+import { UpdateCompanyReq } from '../../../app/(types)/api/requests/company';
 
 export interface ICompany {
     name: string;

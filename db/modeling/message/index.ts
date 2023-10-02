@@ -1,5 +1,5 @@
 import mongoose, { Schema, Types, model } from 'mongoose';
-import { ICompany } from './company';
+import { ICompany } from '../company';
 
 export interface IMessage extends Document {
     isUser: boolean; // isfrom User or Piecework-BTC

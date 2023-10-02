@@ -1,5 +1,5 @@
 import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
-import { IMessage } from './message';
+import { IMessage } from '../message';
 
 export enum Role {
     ADMIN = 'ADMIN',
