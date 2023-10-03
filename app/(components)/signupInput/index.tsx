@@ -41,7 +41,7 @@ export default function SignupInput() {
             />
             <button
                 type="button"
-                className="btn btn-primary w-full mb-2"
+                className="button w-full mb-2"
                 onClick={handleCreate}
             >
                 Create company account

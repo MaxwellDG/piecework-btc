@@ -10,6 +10,7 @@ export enum TASK_STATUS {
 }
 
 export interface ITask {
+    id: string;
     name: string;
     project: Types.ObjectId;
     company: Types.ObjectId;

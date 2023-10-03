@@ -7,6 +7,7 @@ export enum Role {
 }
 
 export interface IAccount {
+    id: string;
     username: string;
     role: Role;
     password: string;
@@ -40,7 +41,7 @@ export const accountSchema = new Schema<IAccount>(
 );
 
 export const AccountModel =
-    mongoose.models.Account || model<IAccount>('account', accountSchema);
+    mongoose.models.account || model<IAccount>('account', accountSchema);
 
 export async function findById(
     id: string

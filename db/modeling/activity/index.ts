@@ -1,4 +1,4 @@
-import mongoose, { Schema, Types, model } from 'mongoose';
+import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
 import { ICompany } from '../company';
 
 export enum ActivityCRUD {
@@ -14,7 +14,8 @@ export enum ActivityType {
     USERS = 'USERS',
 }
 
-export interface IActivity extends Document {
+export interface IActivity {
+    id: string;
     company: ICompany;
     crud: ActivityCRUD;
     type: ActivityType;
@@ -46,16 +47,21 @@ export const activitySchema = new Schema<IActivity>(
 );
 
 export const ActivityModel =
-    mongoose.models.Activity || model<IActivity>('Activity', activitySchema);
+    mongoose.models.activity || model<IActivity>('activity', activitySchema);
 
-export async function getActivity(companyId: string) {
-    const messages: IActivity[] = await ActivityModel.find({
-        company: companyId,
-    });
+export async function getActivity(
+    companyId: string
+): Promise<HydratedDocument<IActivity>[] | null> {
+    const messages: HydratedDocument<IActivity>[] | null =
+        await ActivityModel.find({
+            company: companyId,
+        });
     return messages;
 }
 
-export async function deleteActivity(id: string): Promise<IActivity | null> {
+export async function deleteActivity(
+    id: string
+): Promise<HydratedDocument<IActivity> | null> {
     return await ActivityModel.findByIdAndDelete(id);
 }
 
@@ -64,12 +70,13 @@ export async function create(
     crud: ActivityCRUD,
     type: ActivityType,
     companyId: string
-): Promise<IActivity> {
-    const activity: IActivity = await ActivityModel.create({
-        text,
-        crud,
-        type,
-        company: companyId,
-    });
+): Promise<HydratedDocument<IActivity> | null> {
+    const activity: Promise<HydratedDocument<IActivity> | null> =
+        await ActivityModel.create({
+            text,
+            crud,
+            type,
+            company: companyId,
+        });
     return activity;
 }

@@ -22,7 +22,7 @@ export default function NavBar() {
 
     return (
         <div
-            className={`absolute top-0 bottom-0 left-12 flex flex-col p-4 rounded-xl gap-x-2 justify-center ${
+            className={`absolute top-0 bottom-0 left-12 flex flex-col p-4 rounded-xl gap-x-2 justify-center h-fit m-auto ${
                 estado ? 'custom-bg-color' : ''
             }`}
             onMouseOver={() => setEstado(true)}

@@ -1,6 +1,7 @@
 import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
 
 export interface IProject {
+    id: string;
     name: string;
     company: Types.ObjectId;
     createdAt: Date;
@@ -24,7 +25,7 @@ export const projectSchema = new Schema<IProject>(
 );
 
 export const ProjectModel =
-    mongoose.models.Project || model<IProject>('project', projectSchema);
+    mongoose.models.project || model<IProject>('project', projectSchema);
 
 export async function findProjectsByCompanyId(
     companyId: string
@@ -36,7 +37,7 @@ export async function create(
     name: string,
     companyId: string
 ): Promise<HydratedDocument<IProject>> {
-    return await ProjectModel.create({ name, companyId });
+    return await ProjectModel.create({ name, company: companyId });
 }
 
 export async function deleteProject(id: string): Promise<boolean> {

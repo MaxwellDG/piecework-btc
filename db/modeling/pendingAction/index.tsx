@@ -1,4 +1,4 @@
-import mongoose, { Schema, Types, model } from 'mongoose';
+import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
 import { ICompany } from '../company';
 
 export enum PendingActionType {
@@ -6,6 +6,7 @@ export enum PendingActionType {
 }
 
 export interface IPendingAction {
+    id: string;
     company: ICompany;
     isFailed: boolean;
     type: PendingActionType;
@@ -41,29 +42,31 @@ export const pendingActionSchema = new Schema<IPendingAction>(
 );
 
 export const PendingActionModel =
-    mongoose.models.PendingAction ||
-    model<IPendingAction>('PendingAction', pendingActionSchema);
+    mongoose.models.pendingAction ||
+    model<IPendingAction>('pendingAction', pendingActionSchema);
 
-export async function getPendingActions(companyId: string) {
-    const pendingActions: IPendingAction[] = await PendingActionModel.find({
-        company: companyId,
-    });
+export async function getPendingActions(
+    companyId: string
+): Promise<HydratedDocument<IPendingAction>[]> {
+    const pendingActions: HydratedDocument<IPendingAction>[] =
+        await PendingActionModel.find({
+            company: companyId,
+        });
     return pendingActions;
 }
 
-export async function updatePendingActionToFailed(id: string) {
-    const pendingAction = await PendingActionModel.findOneAndUpdate(
-        { id },
-        { isFailed: true }
-    );
+export async function updatePendingActionToFailed(
+    id: string
+): Promise<HydratedDocument<IPendingAction> | null> {
+    const pendingAction: HydratedDocument<IPendingAction> | null =
+        await PendingActionModel.findOneAndUpdate({ id }, { isFailed: true });
     return pendingAction;
 }
 
-export async function deletePendingAction(
-    id: string
-): Promise<IPendingAction | null> {
+export async function deletePendingAction(id: string): Promise<boolean> {
     // todo create an activity
-    return await PendingActionModel.findByIdAndDelete(id);
+    const res = await PendingActionModel.findByIdAndDelete(id);
+    return !!res;
 }
 
 export async function create(
@@ -71,13 +74,14 @@ export async function create(
     type: PendingActionType,
     targetId: string,
     companyId: string
-): Promise<IPendingAction> {
+): Promise<HydratedDocument<IPendingAction>> {
     // todo create an activity
-    const pendingAction: IPendingAction = await PendingActionModel.create({
-        text,
-        type,
-        targetId,
-        company: companyId,
-    });
+    const pendingAction: HydratedDocument<IPendingAction> =
+        await PendingActionModel.create({
+            text,
+            type,
+            targetId,
+            company: companyId,
+        });
     return pendingAction;
 }

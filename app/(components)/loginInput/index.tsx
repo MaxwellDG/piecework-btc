@@ -80,15 +80,12 @@ export default function LoginInput() {
             <div className="flex w-full gap-x-1 mb-2">
                 <button
                     type="button"
-                    className="flex flex-1 btn btn-primary"
+                    className="flex flex-1 button"
                     onClick={handleLogin}
                 >
                     Login
                 </button>
-                <Link
-                    href="/auth/signup"
-                    className="flex flex-1 btn btn-primary"
-                >
+                <Link href="/auth/signup" className="flex flex-1 button">
                     <p>Sign up</p>
                 </Link>
             </div>

@@ -2,6 +2,7 @@ import mongoose, { HydratedDocument, Schema, model } from 'mongoose';
 import { UpdateCompanyReq } from '../../../app/(types)/api/requests/company';
 
 export interface ICompany {
+    id: string;
     name: string;
     createdAt: Date;
     updatedAt: Date;
@@ -31,7 +32,7 @@ export const companySchema = new Schema<ICompany>(
 );
 
 export const CompanyModel =
-    mongoose.models.Company || model<ICompany>('Company', companySchema);
+    mongoose.models.company || model<ICompany>('company', companySchema);
 
 export async function findById(
     id: string
