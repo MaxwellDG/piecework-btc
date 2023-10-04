@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache';
 import ModalWrapper from '..';
 import TaskHandler from '../../../../db/modeling/task';
 
@@ -7,12 +8,6 @@ type Props = {
 };
 
 export default function AddTaskModal({ projectId, path }: Props) {
-    function reset(formData: FormData) {
-        formData.set('name', '');
-        formData.set('price', '');
-        formData.set('description', '');
-    }
-
     async function handleSubmit(formData: FormData): Promise<void> {
         'use server';
 
@@ -27,7 +22,11 @@ export default function AddTaskModal({ projectId, path }: Props) {
             projectId
         );
         console.log('New task? ', task);
-        reset(formData);
+        formData.set('name', '');
+        formData.set('price', '');
+        formData.set('description', '');
+
+        revalidatePath(path);
     }
 
     return (

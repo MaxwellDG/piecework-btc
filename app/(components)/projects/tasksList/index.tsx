@@ -10,15 +10,14 @@ type Props = {
 };
 
 export default function TasksList({ projectId }: Props) {
-    const [tasks, setTasks] = React.useState<HydratedDocument<ITask>[]>(
-        [] as HydratedDocument<ITask>[]
-    );
+    const [tasks, setTasks] = React.useState<ITask[]>([] as ITask[]);
     React.useEffect(() => {
         async function getTasks() {
-            const tasks: HydratedDocument<ITask>[] | null = await fetch(
+            const tasks: { tasks: ITask[] } | null = await fetch(
                 `/api/tasks/${projectId}`
             ).then((res) => res.json());
-            setTasks(tasks || []);
+            console.log('retreived tasks: ', tasks);
+            setTasks(tasks?.tasks || []);
         }
         getTasks();
     }, []);
@@ -26,7 +25,7 @@ export default function TasksList({ projectId }: Props) {
     return (
         <div className="flex flex-1 flex-col overflow-y-auto">
             {tasks?.length ? (
-                tasks.map((task) => <Task key={task.id} task={task} />)
+                tasks.map((task) => <Task key={task._id} task={task} />)
             ) : (
                 <div className="flex flex-1 justify-center items-center">
                     <h3>No tasks yet</h3>

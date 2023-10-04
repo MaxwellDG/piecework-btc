@@ -10,11 +10,12 @@ export enum TASK_STATUS {
 }
 
 export interface ITask {
-    id: string;
+    _id: string;
     name: string;
     project: Types.ObjectId;
     company: Types.ObjectId;
     desc: string;
+    price: number;
     status: TASK_STATUS;
     createdAt: Date;
     updatedAt: Date;
@@ -32,6 +33,7 @@ export const taskSchema = new Schema<ITask>(
         project: { type: Schema.Types.ObjectId, required: true },
         company: { type: Schema.Types.ObjectId, required: true },
         desc: { type: String, required: true },
+        price: { type: Number, required: true },
         status: { type: String, enum: TASK_STATUS, required: true },
     },
     {
@@ -49,7 +51,14 @@ export async function create(
     companyId: string,
     projectId: string
 ): Promise<HydratedDocument<ITask>> {
-    return await TaskModel.create({ name, desc, price, projectId, companyId });
+    return await TaskModel.create({
+        name,
+        desc,
+        price,
+        project: projectId,
+        company: companyId,
+        status: TASK_STATUS.UNASSIGNED,
+    });
 }
 
 export async function findByProjectId(
