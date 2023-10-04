@@ -7,7 +7,7 @@ import { fetchWrapper } from '../../../api/_helpers/fetch-wrapper';
 import { motion } from 'framer-motion';
 
 const variants = {
-    expand: { display: 'flex', width: 200, transition: { duration: 0.5 } },
+    expand: { display: 'flex', transition: { duration: 0.5 } },
     contract: { display: 'none', transition: { duration: 0.5 } },
 };
 

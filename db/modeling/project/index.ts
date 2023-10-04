@@ -1,7 +1,7 @@
 import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
 
 export interface IProject {
-    id: string;
+    _id: string;
     name: string;
     company: Types.ObjectId;
     createdAt: Date;

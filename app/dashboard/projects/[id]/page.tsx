@@ -1,29 +1,31 @@
-import { Suspense } from 'react';
-import TasksHandler, { ITask } from '../../../../db/modeling/task';
-import Project from '../project';
-import Loading from '../../loading';
-import { usePathname } from 'next/navigation';
+import React, { Suspense } from 'react';
+import Loading from '../../../(components)/loading';
+import { headers } from 'next/headers';
+import AddTask from '../../../(components)/projects/addTask';
+import TasksList from '../../../(components)/projects/tasksList';
 
-export default async function Project() {
-    const id = usePathname();
+type Props = {
+    searchParams: Record<string, string> | null;
+};
 
-    const tasks: ITask[] = await TasksHandler.findByProjectId(
-        '6515cfa37b8c4ebb9679801d',
-        id
-    ); // todo use jwt
+export default function Tasks({ searchParams }: Props) {
+    const _headers = headers();
+    const path: string = _headers.get('x-invoke-path') as string;
+    const pathSplit: string[] = path.split('/');
+    const projectId: string = pathSplit[pathSplit.length - 1];
 
     return (
-        <div className="w-full h-96 flex">
+        <div className="w-full h-96 flex flex-col">
+            <div className="flex justify-between">
+                <h2 className="text-3xl font-bold mb-2">Tasks</h2>
+                <AddTask
+                    projectId={projectId}
+                    modalOpen={!!searchParams?.modal}
+                    path={path}
+                />
+            </div>
             <Suspense fallback={Loading()}>
-                <div className="flex flex-1 flex-col overflow-y-auto">
-                    {tasks.length ? (
-                        tasks.map((task) => <Task task={task} />)
-                    ) : (
-                        <div className="flex flex-1 justify-center items-center">
-                            <h3>No tasks yet</h3>
-                        </div>
-                    )}
-                </div>
+                <TasksList projectId={projectId} />
             </Suspense>
         </div>
     );

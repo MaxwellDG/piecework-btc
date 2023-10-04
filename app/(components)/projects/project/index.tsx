@@ -7,11 +7,11 @@ type Props = {
 };
 
 export default function Project({ project }: Props) {
-    const { id, name, company, updatedAt, createdAt } = project;
+    const { _id, name, company, updatedAt, createdAt } = project;
 
     return (
         <Link
-            href={`/dashboard/projects/${project.id}`}
+            href={`/dashboard/projects/${_id}`}
             className="w-full p-2 mb-2 flex justify-between border"
         >
             <div>

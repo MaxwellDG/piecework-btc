@@ -29,7 +29,6 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-i18next": "^13.2.2",
-        "react-modal": "^3.16.1",
         "react-scripts": "^5.0.1",
         "react-swipeable": "^7.0.1",
         "sass": "^1.63.6"
@@ -41,7 +40,7 @@
         "@types/mongodb": "^4.0.7",
         "@types/mongoose": "^5.11.97",
         "@types/node": "20.3.2",
-        "@types/react": "18.2.8",
+        "@types/react": "18.2.0",
         "@types/react-modal": "^3.16.0",
         "autoprefixer": "^10.4.14",
         "daisyui": "^3.6.3",

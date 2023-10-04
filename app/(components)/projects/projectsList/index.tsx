@@ -1,19 +1,33 @@
-import { Suspense } from 'react';
-import ProjectsHandler, { IProject } from '../../../../db/modeling/project';
+'use client';
+
+import React, { Suspense } from 'react';
+import { IProject } from '../../../../db/modeling/project';
 import Project from '../project';
 import Loading from '../../loading';
 
-export default async function ProjectsList() {
-    const projects: IProject[] = await ProjectsHandler.findProjectsByCompanyId(
-        '6515cfa37b8c4ebb9679801d'
-    ); // todo use jwt
+export default function ProjectsList() {
+    const [projects, setProjects] = React.useState<IProject[]>(
+        [] as IProject[]
+    );
+
+    React.useEffect(() => {
+        async function getProjects() {
+            const projects: { projects: IProject[] } = await fetch(
+                '/api/projects'
+            ).then((res) => res.json());
+            setProjects(projects.projects);
+        }
+        getProjects();
+    }, []);
 
     return (
         <div className="w-full h-96 flex">
             <Suspense fallback={Loading()}>
                 <div className="flex flex-1 flex-col overflow-y-auto">
                     {projects.length ? (
-                        projects.map((project) => <Project project={project} />)
+                        projects.map((project) => (
+                            <Project key={project._id} project={project} />
+                        ))
                     ) : (
                         <div className="flex flex-1 justify-center items-center">
                             <h3>No projects yet</h3>

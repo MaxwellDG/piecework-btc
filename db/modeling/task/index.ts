@@ -29,8 +29,10 @@ export default {
 export const taskSchema = new Schema<ITask>(
     {
         name: { type: String, required: true },
-        project: { type: mongoose.SchemaTypes.ObjectId, required: true },
+        project: { type: Schema.Types.ObjectId, required: true },
+        company: { type: Schema.Types.ObjectId, required: true },
         desc: { type: String, required: true },
+        status: { type: String, enum: TASK_STATUS, required: true },
     },
     {
         timestamps: true,
@@ -38,14 +40,16 @@ export const taskSchema = new Schema<ITask>(
 );
 
 export const TaskModel =
-    mongoose.models.Task || model<ITask>('task', taskSchema);
+    mongoose.models.task || model<ITask>('task', taskSchema);
 
 export async function create(
     name: string,
+    desc: string,
+    price: number,
     companyId: string,
     projectId: string
 ): Promise<HydratedDocument<ITask>> {
-    return await TaskModel.create({ name, projectId, companyId });
+    return await TaskModel.create({ name, desc, price, projectId, companyId });
 }
 
 export async function findByProjectId(
