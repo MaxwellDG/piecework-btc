@@ -3,8 +3,9 @@
 import React, { Suspense } from 'react';
 import { ICompany } from '../../../../db/modeling/company';
 import Loading from '../../loading';
+import Company from '../company';
 
-export default function ProjectsList() {
+export default function CompaniesList() {
     const [companies, setCompanies] = React.useState<ICompany[]>(
         [] as ICompany[]
     );
@@ -24,8 +25,8 @@ export default function ProjectsList() {
             <Suspense fallback={Loading()}>
                 <div className="flex flex-1 flex-col overflow-y-auto">
                     {companies.length ? (
-                        companies.map((project) => (
-                            <Project key={project._id} project={project} />
+                        companies.map((company) => (
+                            <Company key={company._id} company={company} />
                         ))
                     ) : (
                         <div className="flex flex-1 justify-center items-center">

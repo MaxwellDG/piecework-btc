@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Role } from '../../../../db/modeling/account';
 import { serialize } from 'cookie';
 
+// todo some sort of security for brute force attacks
+// todo general security for sql injection? maybe not necessary if we're not using sql lol check for nosql equivalent
 export async function POST(request: NextRequest) {
     const body = await request.json();
     const { password } = body;

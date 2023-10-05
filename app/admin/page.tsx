@@ -1,8 +1,11 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 const AdminLogin: React.FC = () => {
+    const router = useRouter();
+
     const [password, setPassword] = React.useState('');
 
     async function handleLogin() {
@@ -15,7 +18,7 @@ const AdminLogin: React.FC = () => {
         });
         const data = await res.json();
         if (data) {
-            console.log('Admin login success', data);
+            router.push('/admin/dashboard');
         } else {
             alert('Wrong password');
         }

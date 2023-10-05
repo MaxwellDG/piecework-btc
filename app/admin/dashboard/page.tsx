@@ -1,7 +1,6 @@
-import Add from '../../../public/svgs/add';
-import ProjectsList from '../../(components)/projects/projectsList';
+import CompaniesList from '../../(components)/companies/companiesList';
 
-export default function Projects() {
+export default function Dashboard() {
     return (
         <div className="hero min-h-screen bg-base-200 flex flex-col justify-center">
             <div className="m-auto w-full max-w-3xl">
