@@ -4,6 +4,7 @@ import { HydratedDocument } from 'mongoose';
 import dbConnect from '../../../../db';
 import TasksHandler, { ITask } from '../../../../db/modeling/task';
 import { NextResponse } from 'next/server';
+import { UpdateTaskReq } from '../../../(types)/api/requests/tasks';
 
 export async function GET(
     req: NextApiRequest,
@@ -29,6 +30,7 @@ export async function GET(
     }
 }
 
+// todo update company to show changes for admin
 export async function POST(req: Request) {
     await dbConnect();
 
@@ -50,5 +52,61 @@ export async function POST(req: Request) {
             },
             { status: 200 }
         );
+    }
+}
+
+export async function PUT(req: Request) {
+    await dbConnect();
+
+    const { _id, name, desc, price, status } = await req.json();
+    const { companyId } = { companyId: '6515cfa37b8c4ebb9679801d' }; // todo get this info from JWT
+    const params: UpdateTaskReq = {
+        name,
+        desc,
+        price,
+        status,
+    };
+
+    const task: HydratedDocument<ITask> | null = await TasksHandler.update(
+        _id,
+        companyId,
+        params
+    );
+
+    if (task) {
+        return NextResponse.json(
+            {
+                task,
+            },
+            { status: 200 }
+        );
+    } else {
+        return NextResponse.error('Task not found', { status: 404 });
+    }
+}
+
+export async function DELETE(
+    req: NextApiRequest,
+    { params }: { params: { taskId: string } }
+) {
+    await dbConnect();
+
+    const { companyId } = { companyId: '6515cfa37b8c4ebb9679801d' }; // todo get this info from JWT
+    const taskId = params.taskId;
+
+    const task: HydratedDocument<ITask> | null = await TasksHandler.delete(
+        taskId,
+        companyId
+    );
+
+    if (task) {
+        return NextResponse.json(
+            {
+                task,
+            },
+            { status: 200 }
+        );
+    } else {
+        return NextResponse.error('Task not found', { status: 404 });
     }
 }

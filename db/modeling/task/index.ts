@@ -24,6 +24,7 @@ export interface ITask {
 export default {
     create,
     update,
+    deleteTask,
     findByProjectId,
 };
 
@@ -74,18 +75,33 @@ export async function findById(
     return await TaskModel.findOne({ id });
 }
 
+// todo investigate if this needs security to prevent users from updating other users' tasks
 export async function update(
+    _id: string,
+    companyId: string,
     obj: UpdateTaskReq
 ): Promise<HydratedDocument<ITask> | null> {
-    const { id, desc, status }: UpdateTaskReq = obj;
-    const task: HydratedDocument<ITask> | null = await findById(id);
+    const { desc, status, price, name }: UpdateTaskReq = obj;
+    const task: HydratedDocument<ITask> | null = await findById(_id);
 
     if (task) {
         task.desc = desc ?? task.desc;
         task.status = status ?? task.status;
+        task.price === price ?? task.price;
+        task.name === name ?? task.name;
         await task.save();
         return task;
     } else {
         return null;
+    }
+}
+
+// todo investigate if this needs security to prevent users from updating other users' tasks
+export async function deleteTask(id: string): Promise<boolean> {
+    try {
+        await TaskModel.deleteOne({ _id: id });
+        return true;
+    } catch (e) {
+        return false;
     }
 }

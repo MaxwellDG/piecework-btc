@@ -17,11 +17,11 @@ export async function POST(request: NextRequest) {
     // const account: IAccount | null = await AccountsHandler.findByLogin(
     //     company,
     //     username,
-    //     password
+    //     password,
     // );
     const account = {
         username: 'Test user',
-        password: 'test pass',
+        company: 'Test company',
         role: Role.ADMIN,
     };
 
@@ -48,8 +48,8 @@ export async function POST(request: NextRequest) {
         return response;
     } else {
         return NextResponse.json(
-            { message: 'Unable to find user: ' + username },
-            { status: 404 }
+            { message: 'Incorrect credentials for user: ' + username },
+            { status: 401 }
         );
     }
 }

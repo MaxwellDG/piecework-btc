@@ -11,7 +11,7 @@ export interface IProject {
 export default {
     create,
     deleteProject,
-    findProjectsByCompanyId,
+    findByCompanyId,
 };
 
 export const projectSchema = new Schema<IProject>(
@@ -27,7 +27,7 @@ export const projectSchema = new Schema<IProject>(
 export const ProjectModel =
     mongoose.models.project || model<IProject>('project', projectSchema);
 
-export async function findProjectsByCompanyId(
+export async function findByCompanyId(
     companyId: string
 ): Promise<HydratedDocument<IProject>[]> {
     return await ProjectModel.find({ company: companyId });

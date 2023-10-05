@@ -36,8 +36,6 @@ export default function LoginInput() {
         });
         if (res.ok) {
             const data: IAccount = await res.json();
-            console.log('Show me res: ', res);
-            console.log('Show me data: ', data);
             navLogin();
         } else {
             setError('Invalid login');

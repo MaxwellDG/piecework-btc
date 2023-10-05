@@ -2,6 +2,7 @@ import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
 import { IMessage } from '../message';
 
 export enum Role {
+    SUPER_ADMIN = 'SUPER_ADMIN',
     ADMIN = 'ADMIN',
     USER = 'USER',
 }

@@ -2,10 +2,11 @@ import mongoose, { HydratedDocument, Schema, model } from 'mongoose';
 import { UpdateCompanyReq } from '../../../app/(types)/api/requests/company';
 
 export interface ICompany {
-    id: string;
+    _id: string;
     name: string;
     createdAt: Date;
     updatedAt: Date;
+    updateViewedByAdmin: boolean;
 }
 
 export default {
@@ -25,6 +26,7 @@ export default {
 export const companySchema = new Schema<ICompany>(
     {
         name: { type: String, unique: true, required: true },
+        updateViewedByAdmin: { type: Boolean, default: false },
     },
     {
         timestamps: true,
@@ -84,10 +86,8 @@ export async function create(
 
         try {
             company = await CompanyModel.create({ name });
-            console.log('COMPANY???? ', company);
             return company;
         } catch (e) {
-            console.log('Error creating company:', e);
             return null;
         }
     } else {

@@ -9,7 +9,7 @@ export async function GET() {
     const { companyId } = { companyId: '6515cfa37b8c4ebb9679801d' }; // todo get this info from JWT
 
     const projects: HydratedDocument<IProject>[] =
-        await ProjectsHandler.findProjectsByCompanyId(companyId);
+        await ProjectsHandler.findByCompanyId(companyId);
 
     return NextResponse.json(
         {
@@ -19,6 +19,7 @@ export async function GET() {
     );
 }
 
+// todo update company to show changes for admin
 export async function POST(req: Request) {
     await dbConnect();
 
