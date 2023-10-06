@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import Chevron from '../../../../../public/svgs/chevron';
-import ProjectsListAdmin from '../../../../(components)/projects/projectsList/admin';
 import usePathnameServer from '../../../../(hooks)/usePathnameServer';
+import TasksListAdmin from '../../../../(components)/projects/tasksList/admin';
 
-export default function ProjectsAdmin() {
-    const { id: companyId } = usePathnameServer();
+export default function TasksAdmin() {
+    const { id: projectId } = usePathnameServer();
 
     return (
         <div className="hero min-h-screen bg-base-200 flex flex-col justify-center">
@@ -15,9 +15,9 @@ export default function ProjectsAdmin() {
                     </Link>
                 </div>
                 <div className="flex h-20 items-start">
-                    <h2 className="text-4xl font-bold mb-2">Projects</h2>
+                    <h2 className="text-4xl font-bold mb-2">Tasks</h2>
                 </div>
-                <ProjectsListAdmin companyId={companyId} />
+                <TasksListAdmin projectId={projectId} />
             </div>
         </div>
     );

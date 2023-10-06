@@ -1,23 +1,20 @@
 'use client';
 
-import { HydratedDocument } from 'mongoose';
-import { ITask } from '../../../../db/modeling/task';
+import { ITask } from '../../../../../db/modeling/task';
 import React from 'react';
-import Task from '../task';
-import TaskComponentList from './componentList';
+import TaskComponentList from './../componentList';
 
 type Props = {
     projectId: string;
 };
 
-export default function TasksList({ projectId }: Props) {
+export default function TasksListAdmin({ projectId }: Props) {
     const [tasks, setTasks] = React.useState<ITask[]>([] as ITask[]);
     React.useEffect(() => {
         async function getTasks() {
             const tasks: { tasks: ITask[] } | null = await fetch(
-                `/api/tasks/${projectId}`
+                `/api/admin/tasks/${projectId}`
             ).then((res) => res.json());
-            console.log('retreived tasks: ', tasks);
             setTasks(tasks?.tasks || []);
         }
         getTasks();

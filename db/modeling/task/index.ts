@@ -65,7 +65,7 @@ export async function create(
 export async function findByProjectId(
     companyId: string,
     projectId: string
-): Promise<HydratedDocument<ITask>[] | null> {
+): Promise<HydratedDocument<ITask>[]> {
     return await TaskModel.find({ company: companyId, project: projectId });
 }
 
