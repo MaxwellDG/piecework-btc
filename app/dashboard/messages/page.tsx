@@ -12,7 +12,11 @@ export default async function Page() {
         'use server';
 
         const text = formData.get('input');
-        const message = await MessagesHandler.create(true, text as string);
+        const message = await MessagesHandler.create(
+            true,
+            text as string,
+            '6515cfa37b8c4ebb9679801d'
+        ); // todo get from jwt
         revalidatePath('/dashboard/messages');
     }
 
@@ -22,7 +26,16 @@ export default async function Page() {
                 <h2 className="text-3xl font-bold mb-2">Messages</h2>
                 <div className="custom-border-color flex flex-col bg-white mb-2 p-2 h-96 overflow-y-auto rounded border">
                     {messages?.map((msg: IMessage, i: number) => {
-                        return <Message key={i} message={msg} />;
+                        return (
+                            <Message
+                                key={i}
+                                message={msg}
+                                isFromSelf={msg.isUser}
+                                label={
+                                    msg.isUser ? 'Company' : 'Piecework-BTC '
+                                }
+                            />
+                        );
                     })}
                 </div>
                 <SendMsg handleSend={handleSend} />

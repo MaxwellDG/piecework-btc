@@ -7,7 +7,7 @@ type Props = {
 };
 
 export default function Task({ task }: Props) {
-    const { id, name, project, updatedAt, createdAt, status } = task;
+    const { _id, name, project, updatedAt, createdAt, status } = task;
 
     return (
         <Link

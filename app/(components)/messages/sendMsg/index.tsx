@@ -1,11 +1,10 @@
 import React from 'react';
 
 type Props = {
-    handleSend: ((formData: FormData) => void)
-}
+    handleSend: (formData: FormData) => void;
+};
 
 export default function SendMsg({ handleSend }: Props) {
-
     return (
         <div className="w-full">
             <form action={handleSend} className="flex gap-x-1">
@@ -16,10 +15,7 @@ export default function SendMsg({ handleSend }: Props) {
                     className="input input-bordered flex flex-1"
                     required
                 />
-                <button
-                    type="button"
-                    className="btn btn-primary"
-                >
+                <button type="submit" className="btn btn-primary">
                     Send
                 </button>
             </form>

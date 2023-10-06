@@ -1,18 +1,15 @@
 import React, { Suspense } from 'react';
 import Loading from '../../../(components)/loading';
-import { headers } from 'next/headers';
 import AddTask from '../../../(components)/projects/addTask';
 import TasksList from '../../../(components)/projects/tasksList';
+import usePathnameServer from '../../../(hooks)/usePathnameServer';
 
 type Props = {
     searchParams: Record<string, string> | null;
 };
 
 export default function Tasks({ searchParams }: Props) {
-    const _headers = headers();
-    const path: string = _headers.get('x-invoke-path') as string;
-    const pathSplit: string[] = path.split('/');
-    const projectId: string = pathSplit[pathSplit.length - 1];
+    const { id: projectId, path } = usePathnameServer();
 
     return (
         <div className="w-full h-96 flex flex-col">

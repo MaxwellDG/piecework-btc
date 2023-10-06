@@ -12,12 +12,12 @@ export default function Project({ project }: Props) {
     return (
         <Link
             href={`/dashboard/projects/${_id}`}
-            className="w-full p-2 mb-2 flex justify-between border"
+            className="w-full p-2 mb-2 flex justify-between border items-center"
         >
             <div>
                 <p>{name}</p>
             </div>
-            {Chevron('black', 25)}
+            {Chevron('black', 15)}
         </Link>
     );
 }

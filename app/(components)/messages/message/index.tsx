@@ -2,17 +2,19 @@ import { IMessage } from '../../../../db/modeling/message';
 
 type MessageProps = {
     message: IMessage;
+    isFromSelf: boolean;
+    label: string;
 };
 
-export default function Message({ message }: MessageProps) {
-    const { isUser, text, isRead, createdAt, company }: IMessage = message;
+export default function Message({ message, isFromSelf, label }: MessageProps) {
+    const { text, isRead, createdAt, company }: IMessage = message;
 
     return (
-        <div className={`chat ${isUser ? 'chat-start' : 'chat-end'}`}>
+        <div className={`chat ${isFromSelf ? 'chat-start' : 'chat-end'}`}>
             <div className="chat-header">
-                {`${isUser ? 'company' : 'Piecework-BTC'} `}
+                {label}
                 <time className="text-xs opacity-50">
-                    {createdAt?.toLocaleDateString()}
+                    {createdAt?.toLocaleString()}
                 </time>
             </div>
             <div className="chat-bubble">{text}</div>

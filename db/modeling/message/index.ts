@@ -2,11 +2,11 @@ import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
 import { ICompany } from '../company';
 
 export interface IMessage {
-    id: string;
-    isUser: boolean; // isfrom User or Piecework-BTC
+    _id: string;
+    isUser: boolean; // is from User or Piecework-BTC
     text: string;
     isRead: boolean;
-    company?: ICompany; // todo switch back to mandatory
+    company: ICompany;
     createdAt?: Date;
 }
 
@@ -48,9 +48,11 @@ export async function deleteMessage(id: string): Promise<boolean> {
 
 export async function create(
     isUser: boolean,
-    text: string
+    text: string,
+    companyId: string
 ): Promise<HydratedDocument<IMessage>> {
     const message: HydratedDocument<IMessage> = await MessageModel.create({
+        company: companyId,
         isUser,
         text,
     });

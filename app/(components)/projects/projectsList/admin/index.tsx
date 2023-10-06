@@ -1,11 +1,15 @@
 'use client';
 
-import React from 'react';
-import { IProject } from '../../../../db/modeling/project';
-import Loading from '../../loading';
-import ProjectComponentList from './componentList';
+import React, { Suspense } from 'react';
+import { IProject } from '../../../../../db/modeling/project';
+import Loading from '../../../loading';
+import ProjectComponentList from './../componentList';
 
-export default function ProjectsList() {
+type Props = {
+    companyId: string;
+};
+
+export default function ProjectsListAdmin({ companyId }: Props) {
     const [projects, setProjects] = React.useState<IProject[]>(
         [] as IProject[]
     );
@@ -13,7 +17,7 @@ export default function ProjectsList() {
 
     React.useEffect(() => {
         async function getProjects() {
-            await fetch('/api/projects')
+            await fetch(`/api/admin/projects/${companyId}`)
                 .then((res) => res.json())
                 .then((data: { projects: IProject[] }) =>
                     setProjects(data.projects)
