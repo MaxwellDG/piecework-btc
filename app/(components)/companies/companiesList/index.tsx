@@ -12,10 +12,10 @@ export default function CompaniesList() {
 
     React.useEffect(() => {
         async function getProjects() {
-            const data: { companies: ICompany[] } = await fetch(
-                '/api/admin/companies'
-            ).then((res) => res.json());
-            setCompanies(data.companies);
+            await fetch('/api/admin/companies').then((res) => {
+                console.log('get res? ', res);
+                res.json().then((data) => setCompanies(data.companies));
+            });
         }
         getProjects();
     }, []);

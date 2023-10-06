@@ -13,7 +13,6 @@ export default async function Page() {
 
         const text = formData.get('input');
         const message = await MessagesHandler.create(true, text as string);
-        console.log('New message? ', message);
         revalidatePath('/dashboard/messages');
     }
 
