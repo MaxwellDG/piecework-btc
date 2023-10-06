@@ -4,7 +4,7 @@ import CompaniesHandler, { ICompany } from '../../../../db/modeling/company';
 import { NextResponse } from 'next/server';
 import { Role } from '../../../../db/modeling/account';
 
-export default async function GET(req: Request) {
+export async function GET(req: Request) {
     await dbConnect();
 
     const { role } = { role: Role.SUPER_ADMIN }; // todo get this info from JWT
@@ -14,7 +14,6 @@ export default async function GET(req: Request) {
         const offsetDate: Date = !!offset
             ? new Date(parseInt(offset))
             : new Date(Date.now());
-        console.log('offset date: ', offsetDate);
         const {
             companies,
             newOffset,
@@ -29,6 +28,9 @@ export default async function GET(req: Request) {
             { status: 200 }
         );
     } else {
-        NextResponse.json({message: 'Unauthorized. Incorrect password'}, {status: 401})
+        NextResponse.json(
+            { message: 'Unauthorized. Incorrect password' },
+            { status: 401 }
+        );
     }
 }

@@ -24,6 +24,8 @@ export default {
 // If you're gonna do it like its a company dashboard for web2, should start with creating an organization
 // and THEN create the account(s). If no users present, first one gets 'Admin' role
 
+// todo migrate data without updateViewedByAdmin to docs thats do have it. default false
+
 export const companySchema = new Schema<ICompany>(
     {
         name: { type: String, unique: true, required: true },
@@ -52,7 +54,7 @@ export async function findByName(
 export async function findAllPaginated(
     limit: number,
     offsetUpdatedAt: Date
-): Promise<{ companies: HydratedDocument<ICompany>[], newOffset: Date }> {
+): Promise<{ companies: HydratedDocument<ICompany>[]; newOffset: Date }> {
     const unviewedCompanies: HydratedDocument<ICompany>[] =
         await CompanyModel.find({
             updateViewedByAdmin: false,
@@ -71,9 +73,12 @@ export async function findAllPaginated(
             .sort({ updatedAt: 'desc' });
     }
     const concattedCompanies = [...unviewedCompanies, ...viewedCompanies];
+    const newOffset = concattedCompanies.length
+        ? concattedCompanies[concattedCompanies.length - 1].updatedAt
+        : new Date(Date.now());
     return {
         companies: concattedCompanies,
-        newOffset: concattedCompanies[concattedCompanies.length - 1].updatedAt,
+        newOffset,
     };
 }
 

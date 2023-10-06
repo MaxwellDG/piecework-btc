@@ -9,16 +9,23 @@ export default function CompaniesList() {
     const [companies, setCompanies] = React.useState<ICompany[]>(
         [] as ICompany[]
     );
+    const [offset, setOffset] = React.useState<number>(Date.now());
 
     React.useEffect(() => {
-        async function getProjects() {
-            await fetch('/api/admin/companies').then((res) => {
-                console.log('get res? ', res);
-                res.json().then((data) => setCompanies(data.companies));
-            });
-        }
         getProjects();
     }, []);
+
+    async function getProjects() {
+        await fetch(`/api/admin/companies?offset=${offset}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setCompanies(data.companies);
+                const unixTimestamp = Math.floor(
+                    new Date(data.newOffset).getTime() / 1000
+                );
+                setOffset(unixTimestamp);
+            });
+    }
 
     return (
         <div className="w-full h-96 flex">
