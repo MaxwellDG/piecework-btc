@@ -12,6 +12,7 @@ export interface ICompany {
 export default {
     findById,
     findByName,
+    findAllPaginated,
     create,
     deleteCompany,
     update,
@@ -46,6 +47,34 @@ export async function findByName(
     name: string
 ): Promise<HydratedDocument<ICompany> | null> {
     return await CompanyModel.findOne({ name });
+}
+
+export async function findAllPaginated(
+    limit: number,
+    offsetUpdatedAt: Date
+): Promise<{ companies: HydratedDocument<ICompany>[], newOffset: Date }> {
+    const unviewedCompanies: HydratedDocument<ICompany>[] =
+        await CompanyModel.find({
+            updateViewedByAdmin: false,
+            updatedAt: { $lte: offsetUpdatedAt },
+        })
+            .limit(limit)
+            .sort({ updatedAt: 'desc' });
+    let viewedCompanies: HydratedDocument<ICompany>[] = [];
+    const unviewedCompaniesLength = unviewedCompanies.length;
+    if (unviewedCompaniesLength < 10) {
+        viewedCompanies = await CompanyModel.find({
+            updateViewedByAdmin: true,
+            updatedAt: { $lte: offsetUpdatedAt },
+        })
+            .limit(10 - unviewedCompaniesLength)
+            .sort({ updatedAt: 'desc' });
+    }
+    const concattedCompanies = [...unviewedCompanies, ...viewedCompanies];
+    return {
+        companies: concattedCompanies,
+        newOffset: concattedCompanies[concattedCompanies.length - 1].updatedAt,
+    };
 }
 
 // todo lots of cascading to the users and projects that have this as a foreign key would need to be done here.
