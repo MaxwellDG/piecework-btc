@@ -35,7 +35,7 @@ export default function LoginInput() {
             }),
         });
         if (res.ok) {
-            const data: IAccount = await res.json();
+            await res.json();
             navLogin();
         } else {
             setError('Invalid login');
@@ -44,19 +44,16 @@ export default function LoginInput() {
 
     return (
         <div className="flex flex-col">
-            <div className="flex justify-between mb-8">
+            <div className="flex flex-col sm:flex-row justify-between sm:mb-8">
                 <Hello />
                 <div className="flex flex-col justify-end">
-                    <div className="flex gap-x-1">
-                        <input
-                            type="text"
-                            placeholder="Company"
-                            className="input input-bordered w-1/2 max-w-xs mb-6 pr-1"
-                            value={company}
-                            onChange={(e) => setCompany(e.target.value)}
-                        />
-                        <div className="w-1/2" />
-                    </div>
+                    <input
+                        type="text"
+                        placeholder="Company"
+                        className="input input-bordered w-full max-w-full max-w-xs mb-6 pr-1"
+                        value={company}
+                        onChange={(e) => setCompany(e.target.value)}
+                    />
                     <div className="flex gap-x-1">
                         <input
                             type="text"
