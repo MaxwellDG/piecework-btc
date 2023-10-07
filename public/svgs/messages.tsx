@@ -1,4 +1,8 @@
-export default function Messages(color: string, size: number) {
+export default function Messages(
+    color: string,
+    size: number,
+    className: string = ''
+) {
     return (
         <svg
             width={size}
@@ -6,6 +10,7 @@ export default function Messages(color: string, size: number) {
             viewBox="0 0 16 16"
             xmlns="http://www.w3.org/2000/svg"
             fill={color}
+            className={className}
         >
             <path
                 fillRule="evenodd"

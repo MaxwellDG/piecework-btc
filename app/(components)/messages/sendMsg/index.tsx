@@ -15,7 +15,7 @@ export default function SendMsg({ handleSend }: Props) {
                     className="input input-bordered flex flex-1"
                     required
                 />
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="button">
                     Send
                 </button>
             </form>

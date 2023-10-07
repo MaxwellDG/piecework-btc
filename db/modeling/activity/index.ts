@@ -15,7 +15,7 @@ export enum ActivityType {
 }
 
 export interface IActivity {
-    id: string;
+    _id: string;
     company: ICompany;
     crud: ActivityCRUD;
     type: ActivityType;
@@ -51,7 +51,7 @@ export const ActivityModel =
 
 export async function getActivity(
     companyId: string
-): Promise<HydratedDocument<IActivity>[] | null> {
+): Promise<HydratedDocument<IActivity>[]> {
     const messages: HydratedDocument<IActivity>[] | null =
         await ActivityModel.find({
             company: companyId,
@@ -59,10 +59,9 @@ export async function getActivity(
     return messages;
 }
 
-export async function deleteActivity(
-    id: string
-): Promise<HydratedDocument<IActivity> | null> {
-    return await ActivityModel.findByIdAndDelete(id);
+export async function deleteActivity(id: string): Promise<boolean> {
+    const res = await ActivityModel.findByIdAndDelete(id);
+    return !!res;
 }
 
 export async function create(

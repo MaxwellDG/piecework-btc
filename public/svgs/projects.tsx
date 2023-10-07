@@ -1,4 +1,8 @@
-export default function Projects(color: string, size: number) {
+export default function Projects(
+    color: string,
+    size: number,
+    className: string = ''
+) {
     return (
         <svg
             width={size}
@@ -7,6 +11,7 @@ export default function Projects(color: string, size: number) {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             stroke={color}
+            className={className}
         >
             <path
                 d="M13 3H5V21H19V9M13 3H14L19 8V9M13 3V7C13 8 14 9 15 9H19"

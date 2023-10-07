@@ -33,16 +33,19 @@ $button-shadow-active: $button-shadow-base, $shadow-inset-active;
     justify-content: center;
     outline: none;
     cursor: pointer;
-    padding: 0 20px;
-    border-radius: 5px;
-    border: 1px solid $button-border;
+    padding: 20px;
+    border: 1px solid $button-border 1px solid $button-border 1px solid $button-border 1px solid $button-border;
     box-shadow: $button-shadow-default;
+            box-shadow: $button-shadow-hover;
+    background-image: linear-gradient(to left, $button-gradient);
+
     transition: all 0.2s ease;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 14px;
     font-weight: 600;
     color: $button-text;
     text-shadow: 0 1px #fff;
+    border-radius: 100px;
 
     &::-moz-focus-inner {
         border: 0;
@@ -52,24 +55,24 @@ $button-shadow-active: $button-shadow-base, $shadow-inset-active;
     }
 
     &:hover:not([disabled]) {
-        box-shadow: $button-shadow-hover;
+        box-shadow: $button-shadow-default;
     }
     & > * {
         transform: scale(0.975);
     }
-    &:focus:not(:active) {
-        animation: active 0.9s alternate infinite;
-        outline: none;
-    }
-    &:active:not([disabled]) {
-        box-shadow: $button-shadow-active;
-    }
 
-    & > * {
-        transform: scale(0.95);
+}
+
+.nav-bar-button-fill {
+
+    &:hover {
+        fill: #F5D6A1;
     }
-    &:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
+}
+
+.nav-bar-button-stroke {
+
+    &:hover {
+        stroke: #F5D6A1;
     }
 }

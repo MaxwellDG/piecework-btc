@@ -26,6 +26,7 @@ export default {
     update,
     deleteTask,
     findByProjectId,
+    countTasksOfStatus,
 };
 
 export const taskSchema = new Schema<ITask>(
@@ -73,6 +74,13 @@ export async function findById(
     id: string
 ): Promise<HydratedDocument<ITask> | null> {
     return await TaskModel.findOne({ id });
+}
+
+export async function countTasksOfStatus(
+    companyId: string,
+    status?: TASK_STATUS
+): Promise<number> {
+    return await TaskModel.countDocuments({ company: companyId, status });
 }
 
 // todo investigate if this needs security to prevent users from updating other users' tasks

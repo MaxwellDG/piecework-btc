@@ -23,27 +23,43 @@ export default function NavBar() {
 
     return (
         <div
-            className={`nav-con absolute top-0 bottom-0 left-12 flex flex-col p-4 rounded-xl gap-x-2 justify-center h-fit m-auto`}
+            className={`nav-con absolute top-0 bottom-0 left-12 flex flex-col p-4 gap-x-2 justify-center h-fit m-auto gap-y-20`}
             onMouseOver={() => setEstado(true)}
             onMouseLeave={() => setEstado(false)}
         >
-            <Link href="/dashboard/" className="mb-24 flex cursor-pointer">
-                {Home(getColor(pathname === '/dashboard'), 25)}
+            <Link href="/dashboard/" className="flex cursor-pointer">
+                {Home(
+                    getColor(pathname === '/dashboard'),
+                    25,
+                    pathname !== '/dashboard' ? 'nav-bar-button-fill' : ''
+                )}
             </Link>
-            <Link
-                href="/dashboard/projects"
-                className="mb-24 flex cursor-pointer"
-            >
-                {Projects(getColor(pathname.split('/')[2] === 'projects'), 25)}
+            <Link href="/dashboard/projects" className="flex cursor-pointer">
+                {Projects(
+                    getColor(pathname.split('/')[2] === 'projects'),
+                    25,
+                    pathname.split('/')[2] !== 'projects'
+                        ? 'nav-bar-button-stroke'
+                        : ''
+                )}
             </Link>
-            <Link
-                href="/dashboard/messages"
-                className="mb-24 flex cursor-pointer"
-            >
-                {Messages(getColor(pathname.split('/')[2] === 'messages'), 25)}
+            <Link href="/dashboard/messages" className="flex cursor-pointer">
+                {Messages(
+                    getColor(pathname.split('/')[2] === 'messages'),
+                    25,
+                    pathname.split('/')[2] !== 'messages'
+                        ? 'nav-bar-button-fill'
+                        : ''
+                )}
             </Link>
             <Link href="/dashboard/settings" className="flex cursor-pointer">
-                {Settings(getColor(pathname.split('/')[2] === 'settings'), 25)}
+                {Settings(
+                    getColor(pathname.split('/')[2] === 'settings'),
+                    25,
+                    pathname.split('/')[2] !== 'settings'
+                        ? 'nav-bar-button-fill'
+                        : ''
+                )}
             </Link>
         </div>
     );

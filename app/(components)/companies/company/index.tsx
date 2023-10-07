@@ -14,15 +14,18 @@ export default function Company({ company }: Props) {
     return (
         <div className="w-full p-2 mb-2 flex justify-between border">
             <div className="flex flex-col justify-between">
-                <p>{name}</p>
-                <p>{updatedAt.toLocaleString()}</p>
+                <p className="text-xl font-semibold">{name}</p>
+                <p>
+                    {new Date(updatedAt).toLocaleDateString()}{' '}
+                    {new Date(updatedAt).toLocaleTimeString()}
+                </p>
             </div>
-            <div className="flex gap-y-1 items-center">
+            <div className="flex gap-x-2 items-center">
                 <Link href={`/admin/dashboard/messages/${_id}`}>
-                    {Messages('black', 20)}
+                    <div className="button">{Messages('black', 30)}</div>
                 </Link>
                 <Link href={`/admin/dashboard/projects/${_id}`}>
-                    {Projects('black', 20)}
+                    <div className="button">{Projects('black', 30)}</div>
                 </Link>
             </div>
             {!updateViewedByAdmin ? (
