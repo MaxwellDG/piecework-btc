@@ -17,7 +17,7 @@ export default function NavBar() {
         if (isActive) {
             return estado ? '#F2A900' : '#F5D6A1';
         } else {
-            return estado ? 'black' : 'rgba(0,0,0,0.1)';
+            return estado ? 'rgb(209 213 219)' : 'rgba(0,0,0,0.1)';
         }
     }
 
@@ -31,7 +31,7 @@ export default function NavBar() {
                 {Home(
                     getColor(pathname === '/dashboard'),
                     25,
-                    pathname !== '/dashboard' ? 'nav-bar-button-fill' : ''
+                    pathname !== '/dashboard' ? 'nav-bar-button-stroke' : ''
                 )}
             </Link>
             <Link href="/dashboard/projects" className="flex cursor-pointer">
@@ -48,7 +48,7 @@ export default function NavBar() {
                     getColor(pathname.split('/')[2] === 'messages'),
                     25,
                     pathname.split('/')[2] !== 'messages'
-                        ? 'nav-bar-button-fill'
+                        ? 'nav-bar-button-stroke'
                         : ''
                 )}
             </Link>
@@ -57,7 +57,7 @@ export default function NavBar() {
                     getColor(pathname.split('/')[2] === 'settings'),
                     25,
                     pathname.split('/')[2] !== 'settings'
-                        ? 'nav-bar-button-fill'
+                        ? 'nav-bar-button-stroke'
                         : ''
                 )}
             </Link>

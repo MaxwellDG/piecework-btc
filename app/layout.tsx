@@ -1,9 +1,15 @@
 import './(styles)/globals.css';
 import './(styles)/buttons.scss';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 
-const inter = Inter({ subsets: ['latin'] });
+const myFont = localFont({
+    src: [
+        {
+            path: './(styles)/fonts/TrenchThin-16R0.otf',
+        },
+    ],
+});
 
 export const metadata: Metadata = {
     title: 'Piecework - BTC',
@@ -17,8 +23,8 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" data-theme="wireframe">
-            <body className={inter.className}>{children}</body>
+        <html lang="en" data-theme="wireframe" style={{ fontSize: '20px' }}>
+            <body className={myFont.className}>{children}</body>
         </html>
     );
 }

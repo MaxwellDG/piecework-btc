@@ -34,9 +34,10 @@ $button-shadow-active: $button-shadow-base, $shadow-inset-active;
     outline: none;
     cursor: pointer;
     padding: 20px;
-    border: 1px solid $button-border 1px solid $button-border 1px solid $button-border 1px solid $button-border;
+    border: 1px solid $button-border 1px solid $button-border 1px solid
+        $button-border 1px solid $button-border;
     box-shadow: $button-shadow-default;
-            box-shadow: $button-shadow-hover;
+    box-shadow: $button-shadow-hover;
     background-image: linear-gradient(to left, $button-gradient);
 
     transition: all 0.2s ease;
@@ -60,19 +61,8 @@ $button-shadow-active: $button-shadow-base, $shadow-inset-active;
     & > * {
         transform: scale(0.975);
     }
-
 }
 
-.nav-bar-button-fill {
-
-    &:hover {
-        fill: #F5D6A1;
-    }
-}
-
-.nav-bar-button-stroke {
-
-    &:hover {
-        stroke: #F5D6A1;
-    }
+.nav-bar-button-stroke:hover > * {
+    stroke: #f5d6a1;
 }

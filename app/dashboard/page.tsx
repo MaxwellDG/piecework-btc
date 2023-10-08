@@ -1,6 +1,7 @@
 import Activity from '../(components)/activity';
 import Company from '../(components)/companies/company';
 import PendingAction from '../(components)/pendingAction';
+import dbConnect from '../../db';
 import ActivityHandler, { IActivity } from '../../db/modeling/activity';
 import PendingActionsHandler, {
     IPendingAction,
@@ -8,6 +9,7 @@ import PendingActionsHandler, {
 import TasksHandler, { TASK_STATUS } from '../../db/modeling/task';
 
 export default async function Page() {
+    await dbConnect(); // todo put somewhere else. probably middleware
     const { companyId } = { companyId: '6515cfa37b8c4ebb9679801d' }; // todo get this info from JWT
 
     const activity: IActivity[] = await ActivityHandler.getActivity(companyId);

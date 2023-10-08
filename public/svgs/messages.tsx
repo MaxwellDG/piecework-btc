@@ -7,15 +7,26 @@ export default function Messages(
         <svg
             width={size}
             height={size}
-            viewBox="0 0 16 16"
+            viewBox="0 0 24 24"
+            fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            fill={color}
             className={className}
         >
             <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M1 3.5l.5-.5h13l.5.5v9l-.5.5h-13l-.5-.5v-9zm1 1.035V12h12V4.536L8.31 8.9H7.7L2 4.535zM13.03 4H2.97L8 7.869 13.03 4z"
+                id="vector"
+                d="M17 20.5H7C4 20.5 2 19 2 15.5V8.5C2 5 4 3.5 7 3.5H17C20 3.5 22 5 22 8.5V15.5C22 19 20 20.5 17 20.5Z"
+                stroke={color}
+                strokeWidth="2"
+                strokeMiterlimit="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                id="vector_2"
+                d="M18.7698 7.7688L13.2228 12.0551C12.5025 12.6116 11.4973 12.6116 10.777 12.0551L5.22998 7.7688"
+                stroke={color}
+                strokeWidth="2"
+                strokeLinecap="round"
             />
         </svg>
     );
