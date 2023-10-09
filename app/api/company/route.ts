@@ -7,6 +7,8 @@ import {
 import dbConnect from '../../../db';
 import AccountHandler, { IAccount, Role } from '../../../db/modeling/account';
 import { HydratedDocument } from 'mongoose';
+import { sign } from 'jsonwebtoken';
+import { serialize } from 'cookie';
 
 export async function POST(request: Request) {
     await dbConnect();
@@ -27,6 +29,26 @@ export async function POST(request: Request) {
             );
 
         if (admin) {
+            const response = NextResponse.json(admin, { status: 200 });
+
+            const jwt = sign(
+                {
+                    _id: admin._id,
+                    username: admin.username,
+                    companyId: admin.company,
+                    role: admin.role,
+                },
+                process.env.JWT_SECRET || '',
+                { expiresIn: '12h' }
+            );
+
+            const serializedCookie = serialize('JWT', jwt, {
+                httpOnly: true,
+                path: '/',
+                sameSite: 'strict',
+                secure: true,
+            });
+            response.headers.set('SET-COOKIE', serializedCookie);
             return NextResponse.json({ company, user: admin }, { status: 200 });
         } else {
             return NextResponse.json(

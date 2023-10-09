@@ -1,29 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
-// import connectToDb from "../../../../db";
-import AccountsHandler, {
-    IAccount,
-    Role,
-} from '../../../../db/modeling/account';
+import AccountsHandler, { IAccount } from '../../../../db/modeling/account';
 import { sign } from 'jsonwebtoken';
 import { serialize } from 'cookie';
-
-const MAX_EXPIRY = 60 * 60 * 24;
+import dbConnect from '../../../../db';
 
 export async function POST(request: NextRequest) {
+    await dbConnect();
     const body = await request.json();
     const { username, company, password } = body;
 
-    // await connectToDb();
-    // const account: IAccount | null = await AccountsHandler.findByLogin(
-    //     company,
-    //     username,
-    //     password,
-    // );
-    const account = {
-        username: 'Test user',
-        company: 'Test company',
-        role: Role.ADMIN,
-    };
+    const account: IAccount | null = await AccountsHandler.findByLogin(
+        company,
+        username,
+        password
+    );
+
+    console.log('Account: ', account);
 
     if (account) {
         const response = NextResponse.json(account, { status: 200 });
@@ -31,7 +23,10 @@ export async function POST(request: NextRequest) {
         // JWT
         const jwt = sign(
             {
+                _id: account._id,
                 username: account.username,
+                companyId: account.company,
+                role: account.role,
             },
             process.env.JWT_SECRET || '',
             { expiresIn: '12h' }

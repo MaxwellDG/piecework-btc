@@ -1,5 +1,6 @@
 import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
 import { IMessage } from '../message';
+import { UpdateAccountReq } from '../../../app/(types)/api/requests/accounts';
 
 export enum Role {
     SUPER_ADMIN = 'SUPER_ADMIN',
@@ -8,7 +9,7 @@ export enum Role {
 }
 
 export interface IAccount {
-    id: string;
+    _id: string;
     username: string;
     role: Role;
     password: string;
@@ -29,10 +30,16 @@ export default {
 
 export const accountSchema = new Schema<IAccount>(
     {
-        username: { type: String, unique: true, required: true },
-        password: { type: String, required: true },
-        messages: { type: [String], required: false },
-        role: { type: String, enum: Role, required: true, default: Role.USER },
+        username: { type: String, required: true, unique: false },
+        password: { type: String, required: true, unqiue: false },
+        messages: { type: [String], required: false, unqie: false },
+        role: {
+            type: String,
+            enum: Role,
+            required: true,
+            default: Role.USER,
+            unique: false,
+        },
         company: { type: Schema.Types.ObjectId, required: true },
     },
     {
@@ -40,6 +47,8 @@ export const accountSchema = new Schema<IAccount>(
         timestamps: true,
     }
 );
+
+accountSchema.index({ username: 1, company: 1 }, { unique: true });
 
 export const AccountModel =
     mongoose.models.account || model<IAccount>('account', accountSchema);
@@ -72,13 +81,14 @@ export async function deleteAccount(
 }
 
 export async function update(
-    id: string,
-    username: string
+    obj: UpdateAccountReq
 ): Promise<HydratedDocument<IAccount> | null> {
-    const accountDoc = await findById(id);
+    const { _id, username, password } = obj;
 
+    const accountDoc = await findById(_id);
     if (accountDoc) {
-        accountDoc.username = username;
+        accountDoc.username = username ?? accountDoc.username;
+        accountDoc.password = password ?? accountDoc.password;
         await accountDoc.save();
         return accountDoc;
     } else {

@@ -19,7 +19,7 @@ export default function Logout() {
             onMouseLeave={() => toggleHovering(false)}
         >
             {LogoutSVG(25, isHover ? 'rgb(248 113 113)' : 'rgb(252 165 165)')}
-            <p className={`ml-6 text-red-300 group-hover:text-red-400`}>
+            <p className={`ml-6 text-red-300 group-hover:text-red-400 w-32`}>
                 Logout
             </p>
         </button>

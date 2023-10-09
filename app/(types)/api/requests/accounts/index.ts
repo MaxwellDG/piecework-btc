@@ -9,8 +9,8 @@ export type CreateAccountReq = {
 };
 
 export type UpdateAccountReq = {
-    id: string;
-    address?: string;
+    _id: string;
+    username?: string;
     password?: string;
     role?: Role;
 };
