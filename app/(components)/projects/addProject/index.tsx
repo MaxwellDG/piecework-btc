@@ -3,7 +3,7 @@
 import React from 'react';
 import Add from '../../../../public/svgs/add';
 import Minus from '../../../../public/svgs/minus';
-import { fetchWrapper } from '../../../api/_helpers/fetch-wrapper';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 
 const variants = {
@@ -12,17 +12,20 @@ const variants = {
 };
 
 export default function AddProject() {
+    const router = useRouter();
+
     const [isExpanded, toggleExpanded] = React.useState(false);
     const [input, setInput] = React.useState('');
 
     async function createProject() {
-        console.log('Creating project....');
         try {
-            const res = await fetchWrapper.post('/api/projects', {
-                name: input,
+            const res = await fetch('/api/projects', {
+                method: 'POST',
+                body: JSON.stringify({ name: input }),
             });
-            if (res) {
+            if (res.ok) {
                 console.log('Created project');
+                router.refresh();
             }
         } catch (e) {
             console.log('Error creating project', e);

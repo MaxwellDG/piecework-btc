@@ -12,7 +12,7 @@ type Props = {
 export default async function AddTaskModal({ projectId, path }: Props) {
     await dbConnect();
     const _headers = headers();
-    const companyId = _headers.get('jwt-companyId') as string;
+    const companyId = _headers.get('jwt-company') as string;
 
     async function handleSubmit(formData: FormData): Promise<void> {
         'use server';

@@ -15,7 +15,7 @@ async function extractJWTForNext(
             new TextEncoder().encode(process.env.JWT_SECRET || '')
         );
         const requestHeaders = new Headers(request.headers);
-        requestHeaders.set('jwt-companyId', token.payload.companyId as string);
+        requestHeaders.set('jwt-company', token.payload.companyId as string);
         requestHeaders.set('jwt-_id', token.payload._id as string);
         requestHeaders.set('jwt-username', token.payload.username as string);
         requestHeaders.set('jwt-role', token.payload.role as string);
@@ -36,7 +36,10 @@ export async function middleware(request: NextRequest) {
     // jwt verification and role based authorization
     const cookie = request.cookies.get('JWT');
     // super admin path
-    if (request.nextUrl.pathname.includes('/admin/dashboard')) {
+    if (
+        request.nextUrl.pathname.includes('/admin/dashboard') ||
+        request.nextUrl.pathname.includes('/api/admin')
+    ) {
         if (!cookie) {
             return NextResponse.redirect(new URL('/admin', request.url));
         } else {
@@ -48,7 +51,10 @@ export async function middleware(request: NextRequest) {
             }
         }
         // normal user path
-    } else if (request.nextUrl.pathname.includes('/dashboard')) {
+    } else if (
+        request.nextUrl.pathname.includes('/dashboard') ||
+        request.nextUrl.pathname.includes('/api')
+    ) {
         if (!cookie) {
             return NextResponse.redirect(new URL('/', request.url));
         } else {

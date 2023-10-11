@@ -1,35 +1,17 @@
 'use client';
 
 import React from 'react';
-import { IProject } from '../../../../db/modeling/project';
 import Loading from '../../loading';
+import useSWR from 'swr';
 import ProjectComponentList from './componentList';
+import { fetcher } from '../../../(util)/swr';
 
 export default function ProjectsList() {
-    const [projects, setProjects] = React.useState<IProject[]>(
-        [] as IProject[]
-    );
-    const [initialLoad, setInitialLoad] = React.useState<boolean>(true);
-
-    React.useEffect(() => {
-        async function getProjects() {
-            await fetch('/api/projects')
-                .then((res) => res.json())
-                .then((data: { projects: IProject[] }) =>
-                    setProjects(data.projects)
-                )
-                .finally(() => setInitialLoad(false));
-        }
-        getProjects();
-    }, []);
+    const { data, error, isLoading } = useSWR('/api/projects', fetcher);
 
     return (
         <div className="w-full h-96 flex">
-            {initialLoad ? (
-                Loading()
-            ) : (
-                <ProjectComponentList projects={projects} />
-            )}
+            {isLoading ? Loading() : <ProjectComponentList projects={data} />}
         </div>
     );
 }

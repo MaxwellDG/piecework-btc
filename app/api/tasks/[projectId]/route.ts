@@ -11,7 +11,7 @@ export async function GET(
 ) {
     await dbConnect();
 
-    const companyId = req.headers.get('jwt-companyId') as string;
+    const companyId = req.headers.get('jwt-company') as string;
     const projectId = params.projectId;
 
     const tasks: HydratedDocument<ITask>[] | null =
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
     await dbConnect();
 
     const { name, desc, price, projectId } = await req.json();
-    const companyId = req.headers.get('jwt-companyId') as string;
+    const companyId = req.headers.get('jwt-company') as string;
 
     const project: HydratedDocument<ITask> = await TasksHandler.create(
         name,
@@ -62,7 +62,7 @@ export async function PUT(req: Request) {
     await dbConnect();
 
     const { _id, name, desc, price, status } = await req.json();
-    const companyId = req.headers.get('jwt-companyId') as string;
+    const companyId = req.headers.get('jwt-company') as string;
 
     const params: UpdateTaskReq = {
         name,
@@ -98,7 +98,7 @@ export async function DELETE(
 ) {
     await dbConnect();
 
-    const companyId = req.headers.get('jwt-companyId') as string;
+    const companyId = req.headers.get('jwt-company') as string;
 
     const taskId = params.taskId;
 

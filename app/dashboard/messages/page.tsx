@@ -7,7 +7,7 @@ import { revalidatePath } from 'next/cache';
 
 export default async function Page() {
     const _headers = headers();
-    const companyId = _headers.get('jwt-companyId') as string;
+    const companyId = _headers.get('jwt-company') as string;
 
     const messages = await MessagesHandler.getMessages(companyId);
 

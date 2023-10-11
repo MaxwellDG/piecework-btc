@@ -2,14 +2,14 @@ import { HydratedDocument } from 'mongoose';
 import dbConnect from '../../../db';
 import ProjectsHandler, { IProject } from '../../../db/modeling/project';
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 
-export async function GET() {
+export async function GET(req: Request) {
     await dbConnect();
 
-    const { companyId } = { companyId: '6515cfa37b8c4ebb9679801d' }; // todo get this info from JWT
-
+    const company = req.headers.get('jwt-company') as string;
     const projects: HydratedDocument<IProject>[] =
-        await ProjectsHandler.findByCompanyId(companyId);
+        await ProjectsHandler.findByCompanyId(company);
 
     return NextResponse.json(
         {
@@ -21,14 +21,15 @@ export async function GET() {
 
 // todo update company to show changes for admin
 export async function POST(req: Request) {
+    console.log('hit endpoint');
     await dbConnect();
 
     const { name } = await req.json();
-    const { companyId } = { companyId: '6515cfa37b8c4ebb9679801d' }; // todo get this info from JWT
+    const company = req.headers.get('jwt-company') as string;
 
     const project: HydratedDocument<IProject> = await ProjectsHandler.create(
         name,
-        companyId
+        company
     );
 
     if (project) {
