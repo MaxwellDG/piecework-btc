@@ -5,12 +5,12 @@ import {
     UpdateCompanyReq,
 } from '../../(types)/api/requests/company';
 import dbConnect from '../../../db';
-import AccountHandler, { IAccount, Role } from '../../../db/modeling/account';
+import AccountHandler from '../../../db/modeling/account';
 import { HydratedDocument } from 'mongoose';
-import { sign } from 'jsonwebtoken';
 import { serialize } from 'cookie';
-import { SignJWT, jwtVerify, type JWTPayload } from 'jose';
+import { SignJWT } from 'jose';
 import { JWT_DATA } from '../../(types)/api';
+import { IAccount, Role } from '../../../db/modeling/account/types';
 
 export async function POST(request: Request) {
     await dbConnect();

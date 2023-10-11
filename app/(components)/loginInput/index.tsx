@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import { IAccount } from '../../../db/modeling/account';
 import Link from 'next/link';
 import Hello from '../hello';
 import dynamic from 'next/dynamic';

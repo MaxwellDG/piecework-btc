@@ -1,23 +1,6 @@
 import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
-import { IMessage } from '../message';
 import { UpdateAccountReq } from '../../../app/(types)/api/requests/accounts';
-
-export enum Role {
-    SUPER_ADMIN = 'SUPER_ADMIN',
-    ADMIN = 'ADMIN',
-    USER = 'USER',
-}
-
-export interface IAccount {
-    _id: string;
-    username: string;
-    role: Role;
-    password: string;
-    createdAt?: Date;
-    updatedAt?: Date;
-    company: Types.ObjectId;
-    messages?: IMessage[];
-}
+import { IAccount, Role } from './types';
 
 export default {
     findById,

@@ -1,16 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
-import AccountsHandler, { IAccount } from '../../../db/modeling/account';
+import AccountsHandler from '../../../db/modeling/account';
 import dbConnect from '../../../db';
+import { IAccount } from '../../../db/modeling/account/types';
 
 export async function POST(request: Request) {
     await dbConnect();
 
-    const { username, password, company } = await request.json();
+    const { username, password, company, role } = await request.json();
 
     const account: IAccount | null = await AccountsHandler.create(
-        company,
         username,
-        password
+        password,
+        role,
+        company
     );
 
     return NextResponse.json(account);
@@ -19,9 +21,9 @@ export async function POST(request: Request) {
 export async function PUT(request: Request) {
     await dbConnect();
 
-    const { id, address } = await request.json();
+    const { id, username, password } = await request.json();
 
-    const account: IAccount | null = await AccountsHandler.update(id, address);
+    const account: IAccount | null = await AccountsHandler.update(id, username);
 
     return new Response(
         JSON.stringify({

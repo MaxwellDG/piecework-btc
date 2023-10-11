@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import AccountsHandler, { IAccount } from '../../../../db/modeling/account';
+import AccountsHandler from '../../../../db/modeling/account';
 import { sign } from 'jsonwebtoken';
 import { serialize } from 'cookie';
 import dbConnect from '../../../../db';
-import { SignJWT, jwtVerify, type JWTPayload } from 'jose';
+import { SignJWT } from 'jose';
+import { IAccount } from '../../../../db/modeling/account/types';
 
 export async function POST(request: NextRequest) {
     await dbConnect();
