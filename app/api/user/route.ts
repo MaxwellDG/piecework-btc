@@ -1,7 +1,26 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import AccountsHandler from '../../../db/modeling/account';
 import dbConnect from '../../../db';
 import { IAccount } from '../../../db/modeling/account/types';
+
+export async function GET(request: Request) {
+    const _id = request.headers.get('jwt-_id');
+
+    try {
+        await dbConnect();
+
+        const account: IAccount | null = await AccountsHandler.findById(
+            _id as string
+        );
+
+        return NextResponse.json({ account }, { status: 200 });
+    } catch (e) {
+        return NextResponse.json(
+            { message: 'User does not appear to be logged in' },
+            { status: 401, statusText: 'Unauthorized' }
+        );
+    }
+}
 
 export async function POST(request: Request) {
     await dbConnect();

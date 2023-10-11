@@ -1,9 +1,9 @@
 'use client';
 
 import React, { Suspense } from 'react';
-import { ICompany } from '../../../../db/modeling/company';
 import Loading from '../../loading';
 import Company from '../company';
+import { ICompany } from '../../../../db/modeling/company/types';
 
 export default function CompaniesList() {
     const [companies, setCompanies] = React.useState<ICompany[]>(

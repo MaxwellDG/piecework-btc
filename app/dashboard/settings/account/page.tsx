@@ -1,33 +1,42 @@
+'use client';
+
+import React, { FormEventHandler } from 'react';
 import BackButton from '../../../(components)/buttons/back';
-import { headers } from 'next/headers';
-import AccountsHandler, { AccountModel } from '../../../../db/modeling/account';
-import dbConnect from '../../../../db';
+import { UpdateAccountReq } from '../../../(types)/api/requests/accounts';
+import { update } from '../../../../db/modeling/company';
 
-export default async function AccountSettings() {
-    await dbConnect();
-    const _headers = headers();
-    const _id = _headers.get('jwt-_id') as string;
+export default function AccountSettings() {
+    const [user, setUser] = React.useState({});
 
-    console.log('Got an id? ', _id);
+    const [username, setUsername] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [repeatPassword, setRepeatPassword] = React.useState('');
+    const [passwordError, setPasswordError] = React.useState('');
 
-    const handleUpdateUsername = async (formData: FormData) => {
-        'use server';
+    React.useEffect(() => {
+        const fetchUser = async () => {
+            const res = await fetch('/api/user');
+            const user = await res.json();
+            console.log('user data look for company populated: ', user);
+            setUsername(user);
+        };
+        fetchUser();
+    }, []);
 
-        const username = formData.get('username') as string;
-        const account = await AccountsHandler.update({
-            _id,
-            username,
+    const updateUser = async (payload: UpdateAccountReq) => {
+        await fetch('/api/user', {
+            method: 'PUT',
+            body: JSON.stringify(payload),
         });
     };
 
-    const handleUpdatePassword = async (formData: FormData) => {
-        'use server';
-
-        const password = formData.get('password') as string;
-        const account = await AccountsHandler.update({
-            _id,
-            password,
-        });
+    const updatePassword = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (password.length && password === repeatPassword) {
+            updateUser({ password });
+        } else {
+            setPasswordError('Passwords must match');
+        }
     };
 
     return (
@@ -35,12 +44,27 @@ export default async function AccountSettings() {
             <div className="m-auto w-full max-w-3xl flex justify-center flex-col items-center">
                 <div>
                     <BackButton route="/dashboard/settings" />
-                    <form action={handleUpdateUsername} className="mb-8">
+                    <div className="flex w-full">
+                        <span className="flex">
+                            <p>Company:</p>
+                            <p className="font-bold">{}</p>
+                        </span>
+                        <span className="flex">
+                            <p>Role:</p>
+                            <p className="font-bold">{}</p>
+                        </span>
+                    </div>
+                    <form
+                        onSubmit={() => updateUser({ username })}
+                        className="mb-8"
+                    >
                         <label>
                             Username:
                             <input
                                 type="text"
                                 name="username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
                                 className="input w-full mb-2 input-bordered"
                             />
                         </label>
@@ -48,15 +72,32 @@ export default async function AccountSettings() {
                             Update username
                         </button>
                     </form>
-                    <form action={handleUpdatePassword}>
+                    <form onSubmit={updatePassword}>
                         <label>
-                            Password:
+                            New password:
                             <input
                                 type="password"
                                 name="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 className="input w-full mb-2 input-bordered"
                             />
                         </label>
+                        <label>
+                            Repeat new password:
+                            <input
+                                type="password"
+                                name="repeatPassword"
+                                value={repeatPassword}
+                                onChange={(e) =>
+                                    setRepeatPassword(e.target.value)
+                                }
+                                className="input w-full mb-2 input-bordered"
+                            />
+                        </label>
+                        {passwordError && (
+                            <p className="text-red-500">{passwordError}</p>
+                        )}
                         <button type="submit" className="button w-full">
                             Update password
                         </button>

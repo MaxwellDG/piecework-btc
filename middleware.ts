@@ -8,26 +8,28 @@ import { Role } from './db/modeling/account/types';
 async function extractJWTForNext(
     cookie: RequestCookie,
     request: NextRequest
-): Promise<NextResponse> {
-    const token = await jwtVerify(
-        cookie.value,
-        new TextEncoder().encode(process.env.JWT_SECRET || '')
-    );
-    const requestHeaders = new Headers(request.headers);
-    requestHeaders.set(
-        'jwt-companyId',
-        JSON.stringify(token.payload.companyId)
-    );
-    requestHeaders.set('jwt-_id', JSON.stringify(token.payload._id));
-    requestHeaders.set('jwt-username', JSON.stringify(token.payload.username));
-    requestHeaders.set('jwt-role', JSON.stringify(token.payload.role));
+): Promise<NextResponse | null> {
+    try {
+        const token = await jwtVerify(
+            cookie.value,
+            new TextEncoder().encode(process.env.JWT_SECRET || '')
+        );
+        const requestHeaders = new Headers(request.headers);
+        requestHeaders.set('jwt-companyId', token.payload.companyId as string);
+        requestHeaders.set('jwt-_id', token.payload._id as string);
+        requestHeaders.set('jwt-username', token.payload.username as string);
+        requestHeaders.set('jwt-role', token.payload.role as string);
 
-    const response = NextResponse.next({
-        request: {
-            headers: requestHeaders,
-        },
-    });
-    return response;
+        const response = NextResponse.next({
+            request: {
+                headers: requestHeaders,
+            },
+        });
+        return response;
+    } catch (e) {
+        // todo delete jwt cookie
+        return null;
+    }
 }
 
 export async function middleware(request: NextRequest) {
@@ -39,7 +41,7 @@ export async function middleware(request: NextRequest) {
             return NextResponse.redirect(new URL('/admin', request.url));
         } else {
             const response = await extractJWTForNext(cookie, request);
-            if (response.headers.get('jwt-role') === Role.SUPER_ADMIN) {
+            if (response?.headers?.get('jwt-role') === Role.SUPER_ADMIN) {
                 return response;
             } else {
                 return NextResponse.redirect(new URL('/admin', request.url));
@@ -51,7 +53,11 @@ export async function middleware(request: NextRequest) {
             return NextResponse.redirect(new URL('/', request.url));
         } else {
             const response = await extractJWTForNext(cookie, request);
-            return response;
+            if (response) {
+                return response;
+            } else {
+                return NextResponse.redirect(new URL('/', request.url));
+            }
         }
     } else {
         return NextResponse.next();

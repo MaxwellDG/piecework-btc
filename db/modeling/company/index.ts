@@ -1,14 +1,6 @@
 import mongoose, { HydratedDocument, Schema, model } from 'mongoose';
 import { UpdateCompanyReq } from '../../../app/(types)/api/requests/company';
 
-export interface ICompany {
-    _id: string;
-    name: string;
-    createdAt: Date;
-    updatedAt: Date;
-    updateViewedByAdmin: boolean;
-}
-
 export default {
     findById,
     findByName,

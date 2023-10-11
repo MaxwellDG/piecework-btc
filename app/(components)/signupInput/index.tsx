@@ -11,8 +11,6 @@ const ErrorText = dynamic(() => import('../ui/text/error'), {
 });
 
 export default function SignupInput() {
-    const router = useRouter();
-
     const [organization, setOrganization] = React.useState('');
     const [error, setError] = React.useState('');
     const [showModal, setShowModal] = React.useState(false);
@@ -25,7 +23,6 @@ export default function SignupInput() {
         if (res.ok) {
             const data = await res.json();
             setShowModal(true);
-            console.log('data returned', data);
             setError('');
         } else {
             setError('Company name taken');
@@ -55,10 +52,16 @@ export default function SignupInput() {
             {showModal ? (
                 <ModalWrapper>
                     <p>{`Created company: ${organization}`}</p>
-                    <p>{`Created account: 'admin'`}</p>
-                    <p>{`Password: 'password'`}</p>
+                    <span className="flex">
+                        <p>{`Created username:`}</p>
+                        <p className="font-bold">&nbsp;admin</p>
+                    </span>
+                    <span className="flex">
+                        <p>{`Password:`}</p>
+                        <p className="font-bold">&nbsp;password</p>
+                    </span>
 
-                    <p>
+                    <p className="mb-8">
                         You will now be logged in and directed to the settings
                         screen to set your admin account password
                     </p>

@@ -24,19 +24,17 @@ export default function LoginInput() {
 
     async function handleLogin() {
         setError('');
-        // Check if account already exists
         // todo remove hardcoding of login info
         const res = await fetch(`/api/auth/login`, {
             method: 'POST',
             body: JSON.stringify({
-                company: '',
+                company: 'nnnnbbn',
                 username: 'admin',
                 password: 'password',
             }),
         });
         if (res.ok) {
-            const data = await res.json();
-            console.log('json resp ', data);
+            // const data = await res.json();
             navLogin();
         } else {
             setError('Invalid login');
