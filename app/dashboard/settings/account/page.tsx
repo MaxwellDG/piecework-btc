@@ -1,15 +1,23 @@
 import BackButton from '../../../(components)/buttons/back';
+import { headers } from 'next/headers';
 import AccountsHandler, { AccountModel } from '../../../../db/modeling/account';
+import dbConnect from '../../../../db';
 
 export default async function AccountSettings() {
+    await dbConnect();
+    const _headers = headers();
+    const _id = _headers.get('jwt-_id') as string;
+
+    console.log('Got an id? ', _id);
+
     const handleUpdateUsername = async (formData: FormData) => {
         'use server';
 
         const username = formData.get('username') as string;
         const account = await AccountsHandler.update({
-            _id: 'abc123',
+            _id,
             username,
-        }); // todo get id from jwt
+        });
     };
 
     const handleUpdatePassword = async (formData: FormData) => {
@@ -17,9 +25,9 @@ export default async function AccountSettings() {
 
         const password = formData.get('password') as string;
         const account = await AccountsHandler.update({
-            _id: 'abc123',
+            _id,
             password,
-        }); // todo get id from jwt
+        });
     };
 
     return (

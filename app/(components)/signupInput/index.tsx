@@ -64,7 +64,9 @@ export default function SignupInput() {
                     </p>
 
                     <Link href="/dashboard/settings/account">
-                        <p>Confirm</p>
+                        <div className="button">
+                            <p>Confirm</p>
+                        </div>
                     </Link>
                 </ModalWrapper>
             ) : null}

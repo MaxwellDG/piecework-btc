@@ -3,6 +3,7 @@ import AccountsHandler, { IAccount } from '../../../../db/modeling/account';
 import { sign } from 'jsonwebtoken';
 import { serialize } from 'cookie';
 import dbConnect from '../../../../db';
+import { SignJWT, jwtVerify, type JWTPayload } from 'jose';
 
 export async function POST(request: NextRequest) {
     await dbConnect();
@@ -15,22 +16,24 @@ export async function POST(request: NextRequest) {
         password
     );
 
-    console.log('Account: ', account);
-
     if (account) {
         const response = NextResponse.json(account, { status: 200 });
+        const iat = Math.floor(Date.now() / 1000);
+        const exp = iat + 60 * 60; // one hour
 
-        // JWT
-        const jwt = sign(
-            {
-                _id: account._id,
-                username: account.username,
-                companyId: account.company,
-                role: account.role,
-            },
-            process.env.JWT_SECRET || '',
-            { expiresIn: '12h' }
-        );
+        const jwtPayload = {
+            _id: account._id,
+            username: account.username,
+            companyId: account.company,
+            role: account.role,
+        };
+
+        const jwt = await new SignJWT({ ...jwtPayload })
+            .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
+            .setExpirationTime(exp)
+            .setIssuedAt(iat)
+            .setNotBefore(iat)
+            .sign(new TextEncoder().encode(process.env.JWT_SECRET || ''));
 
         const serializedCookie = serialize('JWT', jwt, {
             httpOnly: true,

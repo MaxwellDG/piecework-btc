@@ -17,7 +17,6 @@ export default function TasksList({ projectId }: Props) {
             const tasks: { tasks: ITask[] } | null = await fetch(
                 `/api/tasks/${projectId}`
             ).then((res) => res.json());
-            console.log('retreived tasks: ', tasks);
             setTasks(tasks?.tasks || []);
         }
         getTasks();

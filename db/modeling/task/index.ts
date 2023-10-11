@@ -104,10 +104,12 @@ export async function update(
     }
 }
 
-// todo investigate if this needs security to prevent users from updating other users' tasks
-export async function deleteTask(id: string): Promise<boolean> {
+export async function deleteTask(
+    id: string,
+    companyId: string
+): Promise<boolean> {
     try {
-        await TaskModel.deleteOne({ _id: id });
+        await TaskModel.deleteOne({ _id: id, company: companyId });
         return true;
     } catch (e) {
         return false;

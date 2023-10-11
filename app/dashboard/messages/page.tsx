@@ -1,22 +1,21 @@
 import Message from '../../(components)/messages/message';
 import SendMsg from '../../(components)/messages/sendMsg';
+import { headers } from 'next/headers';
+import company from '../../../db/modeling/company';
 import MessagesHandler, { IMessage } from '../../../db/modeling/message';
 import { revalidatePath } from 'next/cache';
 
 export default async function Page() {
-    const messages = await MessagesHandler.getMessages(
-        '6515cfa37b8c4ebb9679801d'
-    ); // todo get from jwt
+    const _headers = headers();
+    const companyId = _headers.get('jwt-companyId') as string;
+
+    const messages = await MessagesHandler.getMessages(companyId);
 
     async function handleSend(formData: FormData): Promise<void> {
         'use server';
 
         const text = formData.get('input');
-        const message = await MessagesHandler.create(
-            true,
-            text as string,
-            '6515cfa37b8c4ebb9679801d'
-        ); // todo get from jwt
+        await MessagesHandler.create(true, text as string, companyId);
         revalidatePath('/dashboard/messages');
     }
 

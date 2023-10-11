@@ -9,6 +9,8 @@ import AccountHandler, { IAccount, Role } from '../../../db/modeling/account';
 import { HydratedDocument } from 'mongoose';
 import { sign } from 'jsonwebtoken';
 import { serialize } from 'cookie';
+import { SignJWT, jwtVerify, type JWTPayload } from 'jose';
+import { JWT_DATA } from '../../(types)/api';
 
 export async function POST(request: Request) {
     await dbConnect();
@@ -31,16 +33,22 @@ export async function POST(request: Request) {
         if (admin) {
             const response = NextResponse.json(admin, { status: 200 });
 
-            const jwt = sign(
-                {
-                    _id: admin._id,
-                    username: admin.username,
-                    companyId: admin.company,
-                    role: admin.role,
-                },
-                process.env.JWT_SECRET || '',
-                { expiresIn: '12h' }
-            );
+            const iat = Math.floor(Date.now() / 1000);
+            const exp = iat + 60 * 60; // one hour
+
+            const jwtPayload: JWT_DATA = {
+                _id: admin._id,
+                username: admin.username,
+                companyId: admin.company._id.toString(),
+                role: admin.role,
+            };
+
+            const jwt = await new SignJWT({ ...jwtPayload })
+                .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
+                .setExpirationTime(exp)
+                .setIssuedAt(iat)
+                .setNotBefore(iat)
+                .sign(new TextEncoder().encode(process.env.JWT_SECRET || ''));
 
             const serializedCookie = serialize('JWT', jwt, {
                 httpOnly: true,
@@ -49,7 +57,8 @@ export async function POST(request: Request) {
                 secure: true,
             });
             response.headers.set('SET-COOKIE', serializedCookie);
-            return NextResponse.json({ company, user: admin }, { status: 200 });
+
+            return response;
         } else {
             return NextResponse.json(
                 { message: 'Error while creating admin account for company' },

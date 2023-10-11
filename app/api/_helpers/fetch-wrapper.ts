@@ -10,8 +10,6 @@ enum MethodType {
     DELETE = 'DELETE',
 }
 
-// todo type of jwt token
-
 export const fetchWrapper = {
     get: request(MethodType.GET),
     post: request(MethodType.POST),
@@ -36,7 +34,6 @@ function request(method: MethodType) {
 
 function getUserInfo() {
     const _user = typeof window !== 'undefined' && localStorage.getItem('JWT');
-    console.log("user", _user);
     if (_user) {
         return JSON.parse(_user);
     } else {

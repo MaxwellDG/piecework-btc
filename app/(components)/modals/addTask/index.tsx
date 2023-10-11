@@ -1,13 +1,19 @@
 import { revalidatePath } from 'next/cache';
 import ModalWrapper from '..';
 import TaskHandler from '../../../../db/modeling/task';
+import { headers } from 'next/headers';
+import dbConnect from '../../../../db';
 
 type Props = {
     projectId: string;
     path: string;
 };
 
-export default function AddTaskModal({ projectId, path }: Props) {
+export default async function AddTaskModal({ projectId, path }: Props) {
+    await dbConnect();
+    const _headers = headers();
+    const companyId = _headers.get('jwt-companyId') as string;
+
     async function handleSubmit(formData: FormData): Promise<void> {
         'use server';
 
@@ -18,7 +24,7 @@ export default function AddTaskModal({ projectId, path }: Props) {
             name as string,
             desc as string,
             parseInt(price as string),
-            '6515cfa37b8c4ebb9679801d', // todo get from jwt
+            companyId,
             projectId
         );
         console.log('New task? ', task);

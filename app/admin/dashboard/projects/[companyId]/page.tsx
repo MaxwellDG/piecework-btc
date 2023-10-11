@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Chevron from '../../../../../public/svgs/chevron';
 import ProjectsListAdmin from '../../../../(components)/projects/projectsList/admin';
-import usePathnameServer from '../../../../(hooks)/usePathnameServer';
+import usePathnameServer from '../../../../(hooks)/useServerHeaders';
 
 export default function ProjectsAdmin() {
     const { id: companyId } = usePathnameServer();
