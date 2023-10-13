@@ -37,7 +37,6 @@ export async function create(
     name: string,
     companyId: string
 ): Promise<HydratedDocument<IProject>> {
-    console.log('Creating with: ', name, companyId);
     return await ProjectModel.create({ name, company: companyId });
 }
 

@@ -27,7 +27,6 @@ export default async function AddTaskModal({ projectId, path }: Props) {
             companyId,
             projectId
         );
-        console.log('New task? ', task);
         formData.set('name', '');
         formData.set('price', '');
         formData.set('description', '');

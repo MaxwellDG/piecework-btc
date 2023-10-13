@@ -3,8 +3,8 @@
 import React from 'react';
 import Add from '../../../../public/svgs/add';
 import Minus from '../../../../public/svgs/minus';
-import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { useSWRConfig } from 'swr';
 
 const variants = {
     expand: { display: 'flex', transition: { duration: 0.5 } },
@@ -12,7 +12,7 @@ const variants = {
 };
 
 export default function AddProject() {
-    const router = useRouter();
+    const { mutate } = useSWRConfig();
 
     const [isExpanded, toggleExpanded] = React.useState(false);
     const [input, setInput] = React.useState('');
@@ -24,8 +24,9 @@ export default function AddProject() {
                 body: JSON.stringify({ name: input }),
             });
             if (res.ok) {
-                console.log('Created project');
-                router.refresh();
+                mutate('/api/projects'); // swr revalidate in ProjectsList component
+                setInput('');
+                toggleExpanded(false);
             }
         } catch (e) {
             console.log('Error creating project', e);

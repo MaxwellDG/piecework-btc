@@ -4,10 +4,13 @@ import React from 'react';
 import Loading from '../../loading';
 import useSWR from 'swr';
 import ProjectComponentList from './componentList';
-import { fetcher } from '../../../(util)/swr';
 
 export default function ProjectsList() {
-    const { data, error, isLoading } = useSWR('/api/projects', fetcher);
+    const { data, error, isLoading } = useSWR('/api/projects', async () => {
+        const res = await fetch(`/api/projects`);
+        const data = await res.json();
+        return data?.projects ?? [];
+    });
 
     return (
         <div className="w-full h-96 flex">

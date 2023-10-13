@@ -33,8 +33,9 @@ export default function LoginInput() {
                 password: 'password',
             }),
         });
+
         if (res.ok) {
-            // const data = await res.json();
+            await res.json();
             navLogin();
         } else {
             setError('Invalid login');

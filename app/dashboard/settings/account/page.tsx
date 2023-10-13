@@ -17,7 +17,6 @@ export default function AccountSettings() {
         const fetchUser = async () => {
             const res = await fetch('/api/user');
             const user = await res.json();
-            console.log('user data look for company populated: ', user);
             setUsername(user);
         };
         fetchUser();

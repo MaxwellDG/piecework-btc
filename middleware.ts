@@ -33,6 +33,11 @@ async function extractJWTForNext(
 }
 
 export async function middleware(request: NextRequest) {
+    // login paths
+    if (request.nextUrl.pathname.includes('/api/auth/login')) {
+        return NextResponse.next();
+    }
+
     // jwt verification and role based authorization
     const cookie = request.cookies.get('JWT');
     // super admin path

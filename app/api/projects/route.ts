@@ -2,9 +2,9 @@ import { HydratedDocument } from 'mongoose';
 import dbConnect from '../../../db';
 import ProjectsHandler, { IProject } from '../../../db/modeling/project';
 import { NextResponse } from 'next/server';
-import { revalidatePath } from 'next/cache';
 
 export async function GET(req: Request) {
+    console.log('ping');
     await dbConnect();
 
     const company = req.headers.get('jwt-company') as string;
@@ -21,7 +21,6 @@ export async function GET(req: Request) {
 
 // todo update company to show changes for admin
 export async function POST(req: Request) {
-    console.log('hit endpoint');
     await dbConnect();
 
     const { name } = await req.json();
