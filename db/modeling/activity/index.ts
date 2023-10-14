@@ -12,6 +12,7 @@ export enum ActivityType {
     MESSAGES = 'MESSAGES',
     PROJECTS = 'PROJECTS',
     USERS = 'USERS',
+    TASKS = 'TASKS',
 }
 
 export interface IActivity {
@@ -69,8 +70,8 @@ export async function create(
     crud: ActivityCRUD,
     type: ActivityType,
     companyId: string
-): Promise<HydratedDocument<IActivity> | null> {
-    const activity: Promise<HydratedDocument<IActivity> | null> =
+): Promise<HydratedDocument<IActivity>> {
+    const activity: Promise<HydratedDocument<IActivity>> =
         await ActivityModel.create({
             text,
             crud,

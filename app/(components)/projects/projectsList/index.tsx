@@ -6,8 +6,8 @@ import useSWR from 'swr';
 import ProjectComponentList from './componentList';
 
 export default function ProjectsList() {
-    const { data, error, isLoading } = useSWR('/api/projects', async () => {
-        const res = await fetch(`/api/projects`);
+    const { data, error, isLoading } = useSWR('/api/projects', async (url) => {
+        const res = await fetch(url);
         const data = await res.json();
         return data?.projects ?? [];
     });

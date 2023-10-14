@@ -1,9 +1,12 @@
-import { ObjectId } from 'mongodb';
 import { HydratedDocument } from 'mongoose';
 import dbConnect from '../../../../db';
 import TasksHandler, { ITask } from '../../../../db/modeling/task';
 import { NextResponse } from 'next/server';
 import { UpdateTaskReq } from '../../../(types)/api/requests/tasks';
+import ActivityHandler, {
+    ActivityCRUD,
+    ActivityType,
+} from '../../../../db/modeling/activity';
 
 export async function GET(
     req: Request,
@@ -37,6 +40,7 @@ export async function POST(req: Request) {
 
     const { name, desc, price, projectId } = await req.json();
     const companyId = req.headers.get('jwt-company') as string;
+    const username = req.headers.get('jwt-username') as string;
 
     const project: HydratedDocument<ITask> = await TasksHandler.create(
         name,
@@ -48,6 +52,12 @@ export async function POST(req: Request) {
 
     if (project) {
         // todo update company to show changes for admin
+        ActivityHandler.create(
+            `${username} created task '${name}' for project: ${projectId}`,
+            ActivityCRUD.CREATED,
+            ActivityType.TASKS,
+            companyId
+        );
 
         return NextResponse.json(
             {
