@@ -40,7 +40,7 @@ export default function AccountSettings() {
 
     return (
         <div className="hero min-h-screen bg-base-200 flex flex-col justify-center">
-            <div className="m-auto w-full max-w-3xl flex justify-center flex-col items-center">
+            <div className="m-auto w-full max-w-4xl flex justify-center flex-col items-center">
                 <div>
                     <BackButton route="/dashboard/settings" />
                     <div className="flex w-full">

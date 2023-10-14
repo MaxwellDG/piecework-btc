@@ -14,7 +14,7 @@ export default function Tasks({ searchParams }: Props) {
     return (
         <div className="w-full h-96 flex flex-col">
             <div className="flex justify-between">
-                <h2 className="text-3xl font-bold mb-2">Tasks</h2>
+                <h2 className="text-4xl font-bold mb-2">Tasks</h2>
                 <AddTask
                     projectId={projectId}
                     modalOpen={!!searchParams?.modal}

@@ -35,7 +35,7 @@ export default function AddProject() {
     }
 
     return (
-        <div className="flex">
+        <div className="flex h-[60px]">
             <button
                 type="button"
                 onClick={() => toggleExpanded((prev) => !prev)}

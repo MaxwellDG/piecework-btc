@@ -11,13 +11,13 @@ export default function Task({ task }: Props) {
 
     return (
         <Link
-            href={`/dashboard/projects/${project.id}/${task.id}`}
+            href={`/dashboard/projects/${project.id}/${task._id}`}
             className="w-full p-2 mb-2 flex justify-between border"
         >
             <div>
                 <p>{name}</p>
             </div>
-            {Chevron('black', 25)}
+            {Chevron('black', 15)}
         </Link>
     );
 }
