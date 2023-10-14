@@ -12,6 +12,7 @@ export default {
     create,
     deleteProject,
     findByCompanyId,
+    findById,
 };
 
 export const projectSchema = new Schema<IProject>(
@@ -31,6 +32,13 @@ export async function findByCompanyId(
     companyId: string
 ): Promise<HydratedDocument<IProject>[]> {
     return await ProjectModel.find({ company: companyId });
+}
+
+export async function findById(
+    id: string,
+    companyId: string
+): Promise<HydratedDocument<IProject> | null> {
+    return await ProjectModel.findOne({ _id: id, company: companyId });
 }
 
 export async function create(

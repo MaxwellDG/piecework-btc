@@ -1,12 +1,8 @@
-import ModalWrapper from '..';
-import TaskHandler from '../../../../db/modeling/task';
-import { headers } from 'next/headers';
-import dbConnect from '../../../../db';
-import { redirect } from 'next/navigation';
-import { revalidateTag } from 'next/cache';
+'use client';
 
-// this was a nice little experiment to see if I could do modals and forms entirely server-side
-// didn't work out as smoothly as I'd hoped, but it's still a nice little snippet to refer to
+import { useSWRConfig } from 'swr';
+import ModalWrapper from '..';
+import { useState } from 'react';
 
 type Props = {
     projectId: string;
@@ -14,35 +10,41 @@ type Props = {
 };
 
 export default async function AddTaskModal({ projectId, path }: Props) {
-    await dbConnect();
+    const { mutate } = useSWRConfig();
 
-    const _headers = headers();
-    const companyId = _headers.get('jwt-company') as string;
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState('');
+    const [description, setDescription] = useState('');
 
-    async function handleSubmit(formData: FormData): Promise<void> {
-        'use server';
+    async function handleSubmit(e: React.FormEvent): Promise<void> {
+        e.preventDefault();
+        const res = await fetch('/api/tasks', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name,
+                price,
+                description,
+                projectId,
+            }),
+        });
 
-        const name = formData.get('name');
-        const price = formData.get('price');
-        const desc = formData.get('description');
-        await TaskHandler.create(
-            name as string,
-            desc as string,
-            parseInt(price as string),
-            companyId,
-            projectId
-        );
-        formData.set('name', '');
-        formData.set('price', '');
-        formData.set('description', '');
-
-        revalidateTag('tasks');
-        // redirect(path);
+        if (res.ok) {
+            setName('');
+            setPrice('');
+            setDescription('');
+            mutate(`/api/projects/${projectId}/tasks`);
+            mutate('/api/activity');
+        } else {
+            console.error(await res.text());
+        }
     }
 
     return (
         <ModalWrapper path={path}>
-            <form action={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <div className="flex mb-2">
                     <label htmlFor="name" className="mr-2 w-20">
                         Name:
@@ -50,6 +52,8 @@ export default async function AddTaskModal({ projectId, path }: Props) {
                     <input
                         type="text"
                         name="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                         className="input input-bordered flex flex-1"
                         required
                     />
@@ -61,6 +65,8 @@ export default async function AddTaskModal({ projectId, path }: Props) {
                     <input
                         type="number"
                         name="price"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
                         className="input input-bordered flex flex-1"
                         required
                     />
@@ -71,6 +77,8 @@ export default async function AddTaskModal({ projectId, path }: Props) {
                     </label>
                     <textarea
                         name="description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                         className="input input-bordered flex flex-1"
                         required
                     />

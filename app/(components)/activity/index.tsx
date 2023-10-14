@@ -18,11 +18,11 @@ export default function Activity({ activity }: Props) {
     const iconType = React.useMemo(() => {
         switch (type) {
             case ActivityType.MESSAGES:
-                return Messages('black', 20);
+                return Messages('black', 30);
             case ActivityType.PROJECTS:
-                return Projects('black', 20);
+                return Projects('black', 30);
             case ActivityType.USERS:
-                return User('black', 20);
+                return User('black', 30);
         }
     }, []);
 

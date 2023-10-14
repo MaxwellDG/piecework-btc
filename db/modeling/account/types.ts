@@ -1,4 +1,4 @@
-import { ICompany } from '../company';
+import { ICompany } from '../company/types';
 import { IMessage } from '../message';
 import { Types } from 'mongoose';
 

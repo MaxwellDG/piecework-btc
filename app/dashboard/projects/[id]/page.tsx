@@ -21,9 +21,7 @@ export default function Tasks({ searchParams }: Props) {
                     path={path}
                 />
             </div>
-            <Suspense fallback={Loading()}>
-                <TasksList projectId={projectId} />
-            </Suspense>
+            <TasksList projectId={projectId} />
         </div>
     );
 }

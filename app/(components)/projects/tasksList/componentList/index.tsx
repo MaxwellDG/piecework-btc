@@ -7,9 +7,13 @@ type Props = {
 
 export default function TaskComponentList({ tasks }: Props) {
     return (
-        <div className="flex flex-1 flex-col overflow-y-auto">
+        <div className="flex flex-1 flex-col overflow-y-auto pr-1">
             {tasks?.length ? (
-                tasks.map((task) => <Task key={task._id} task={task} />)
+                <div className="flex flex-col gap-y-2">
+                    {tasks.map((task) => (
+                        <Task key={task._id} task={task} />
+                    ))}
+                </div>
             ) : (
                 <div className="flex flex-1 justify-center items-center">
                     <h3>No tasks yet</h3>

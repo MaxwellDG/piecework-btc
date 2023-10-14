@@ -1,5 +1,6 @@
 import mongoose, { HydratedDocument, Schema, model } from 'mongoose';
 import { UpdateCompanyReq } from '../../../app/(types)/api/requests/company';
+import { ICompany } from './types';
 
 export default {
     findById,

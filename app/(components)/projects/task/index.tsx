@@ -12,7 +12,7 @@ export default function Task({ task }: Props) {
     return (
         <Link
             href={`/dashboard/projects/${project.id}/${task._id}`}
-            className="w-full p-2 mb-2 flex justify-between border"
+            className="w-full p-2 items-center flex justify-between border"
         >
             <div>
                 <p>{name}</p>

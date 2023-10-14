@@ -3,10 +3,11 @@ import dbConnect from '../../../../db';
 import TasksHandler, { ITask } from '../../../../db/modeling/task';
 import { NextResponse } from 'next/server';
 import { UpdateTaskReq } from '../../../(types)/api/requests/tasks';
-import ActivityHandler, {
+import {
     ActivityCRUD,
     ActivityType,
 } from '../../../../db/modeling/activity/types';
+import ActivityHandler from '../../../../db/modeling/activity';
 
 export async function GET(
     req: Request,
@@ -42,7 +43,7 @@ export async function POST(req: Request) {
     const companyId = req.headers.get('jwt-company') as string;
     const username = req.headers.get('jwt-username') as string;
 
-    const project: HydratedDocument<ITask> = await TasksHandler.create(
+    const task: HydratedDocument<ITask> = await TasksHandler.create(
         name,
         desc,
         price,
@@ -50,7 +51,7 @@ export async function POST(req: Request) {
         companyId
     );
 
-    if (project) {
+    if (task) {
         // todo update company to show changes for admin
         ActivityHandler.create(
             `${username} created task '${name}' for project: ${projectId}`,
@@ -61,7 +62,7 @@ export async function POST(req: Request) {
 
         return NextResponse.json(
             {
-                project,
+                task,
             },
             { status: 200 }
         );
@@ -109,7 +110,6 @@ export async function DELETE(
     await dbConnect();
 
     const companyId = req.headers.get('jwt-company') as string;
-
     const taskId = params.taskId;
 
     const bool: boolean = await TasksHandler.deleteTask(taskId, companyId);
