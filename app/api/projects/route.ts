@@ -2,11 +2,12 @@ import { HydratedDocument } from 'mongoose';
 import dbConnect from '../../../db';
 import ProjectsHandler, { IProject } from '../../../db/modeling/project';
 import { NextResponse } from 'next/server';
-import ActivityHandler, {
+import ActivityHandler from '../../../db/modeling/activity';
+import {
     ActivityCRUD,
     ActivityType,
     IActivity,
-} from '../../../db/modeling/activity';
+} from '../../../db/modeling/activity/types';
 
 export async function GET(req: Request) {
     await dbConnect();
@@ -37,7 +38,7 @@ export async function POST(req: Request) {
     );
 
     if (project) {
-        ActivityHandler.create(
+        await ActivityHandler.create(
             `${username} created project ${name}`,
             ActivityCRUD.CREATED,
             ActivityType.PROJECTS,

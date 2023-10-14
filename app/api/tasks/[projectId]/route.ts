@@ -6,7 +6,7 @@ import { UpdateTaskReq } from '../../../(types)/api/requests/tasks';
 import ActivityHandler, {
     ActivityCRUD,
     ActivityType,
-} from '../../../../db/modeling/activity';
+} from '../../../../db/modeling/activity/types';
 
 export async function GET(
     req: Request,
