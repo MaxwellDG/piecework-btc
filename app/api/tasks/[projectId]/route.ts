@@ -1,13 +1,15 @@
 import { HydratedDocument } from 'mongoose';
 import dbConnect from '../../../../db';
-import TasksHandler, { ITask } from '../../../../db/modeling/task';
+import TasksHandler from '../../../../db/modeling/task';
+import { ITask } from '../../../../db/modeling/task/types';
 import { NextResponse } from 'next/server';
 import { UpdateTaskReq } from '../../../(types)/api/requests/tasks';
+import ActivityHandler from '../../../../db/modeling/activity';
+import CompanyHandler from '../../../../db/modeling/company';
 import {
     ActivityCRUD,
     ActivityType,
 } from '../../../../db/modeling/activity/types';
-import ActivityHandler from '../../../../db/modeling/activity';
 
 export async function GET(
     req: Request,
@@ -36,29 +38,36 @@ export async function GET(
     }
 }
 
-export async function POST(req: Request) {
+export async function POST(
+    req: Request,
+    { params }: { params: { projectId: string } }
+) {
     await dbConnect();
 
-    const { name, desc, price, projectId } = await req.json();
+    const { name, description, price } = await req.json();
+    const projectId = params.projectId;
     const companyId = req.headers.get('jwt-company') as string;
     const username = req.headers.get('jwt-username') as string;
 
     const task: HydratedDocument<ITask> = await TasksHandler.create(
         name,
-        desc,
+        description,
         price,
         projectId,
         companyId
     );
 
     if (task) {
-        // todo update company to show changes for admin
-        ActivityHandler.create(
+        // create activity
+        await ActivityHandler.create(
             `${username} created task '${name}' for project: ${projectId}`,
             ActivityCRUD.CREATED,
             ActivityType.TASKS,
             companyId
         );
+
+        // update company to be viewed by admin
+        await CompanyHandler.update(companyId, { updateViewedByAdmin: false });
 
         return NextResponse.json(
             {

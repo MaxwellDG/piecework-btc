@@ -15,6 +15,7 @@ export default function TasksList({ projectId }: Props) {
         async function (url) {
             const res = await fetch(url);
             const data = await res.json();
+            console.log('Got data?', data);
             return data?.tasks ?? [];
         }
     );

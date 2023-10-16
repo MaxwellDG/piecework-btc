@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '../../../../db';
 import { HydratedDocument } from 'mongoose';
-import TasksHandler, { ITask } from '../../../../db/modeling/task';
+import TasksHandler from '../../../../db/modeling/task';
+import { ITask } from '../../../../db/modeling/task/types';
 
 export async function GET(req: Request) {
     await dbConnect();

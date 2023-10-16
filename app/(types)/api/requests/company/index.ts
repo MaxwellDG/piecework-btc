@@ -3,6 +3,6 @@ export type CompanyNameReq = {
 };
 
 export type UpdateCompanyReq = {
-    name: string;
-    newName?: string;
+    name?: string;
+    updateViewedByAdmin?: boolean;
 };

@@ -3,14 +3,16 @@
 import { useSWRConfig } from 'swr';
 import ModalWrapper from '..';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 type Props = {
     projectId: string;
     path: string;
 };
 
-export default async function AddTaskModal({ projectId, path }: Props) {
+export default function AddTaskModal({ projectId, path }: Props) {
     const { mutate } = useSWRConfig();
+    const router = useRouter();
 
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
@@ -18,7 +20,7 @@ export default async function AddTaskModal({ projectId, path }: Props) {
 
     async function handleSubmit(e: React.FormEvent): Promise<void> {
         e.preventDefault();
-        const res = await fetch('/api/tasks', {
+        const res = await fetch(`/api/tasks/${projectId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,6 +37,7 @@ export default async function AddTaskModal({ projectId, path }: Props) {
             setName('');
             setPrice('');
             setDescription('');
+            router.push(path);
             mutate(`/api/projects/${projectId}/tasks`);
             mutate('/api/activity');
         } else {

@@ -78,13 +78,16 @@ export async function findAllPaginated(
 // todo lots of cascading to the users and projects that have this as a foreign key would need to be done here.
 // learn how to do later
 export async function update(
+    _id: string,
     updateObj: UpdateCompanyReq
 ): Promise<HydratedDocument<ICompany> | null> {
-    const { name, newName }: UpdateCompanyReq = updateObj;
-    const company = await findByName(name);
+    const { name, updateViewedByAdmin }: UpdateCompanyReq = updateObj;
+    const company = await findById(_id);
 
     if (company) {
-        company.name = newName ?? company.name;
+        company.name = name ?? company.name;
+        company.updateViewedByAdmin =
+            updateViewedByAdmin ?? company.updateViewedByAdmin;
         await company.save();
         return company;
     } else {
