@@ -10,6 +10,7 @@ import {
     ActivityCRUD,
     ActivityType,
 } from '../../../../db/modeling/activity/types';
+import { IProject } from '../../../../db/modeling/project';
 
 export async function GET(
     req: Request,
@@ -59,8 +60,9 @@ export async function POST(
 
     if (task) {
         // create activity
+        const project: IProject = task.project as IProject;
         await ActivityHandler.create(
-            `${username} created task '${name}' for project: ${projectId}`,
+            `${username} created task '${name}' for project: ${project.name}`,
             ActivityCRUD.CREATED,
             ActivityType.TASKS,
             companyId

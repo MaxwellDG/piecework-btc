@@ -1,4 +1,5 @@
-import { Types } from 'mongoose';
+import { Document, ObjectId, PopulatedDoc, Types } from 'mongoose';
+import { IProject } from '../project';
 
 export enum TASK_STATUS {
     UNASSIGNED = 'UNASSIGNED',
@@ -11,7 +12,7 @@ export enum TASK_STATUS {
 export interface ITask {
     _id: string;
     name: string;
-    project: Types.ObjectId;
+    project: PopulatedDoc<Document<ObjectId> & IProject>;
     company: Types.ObjectId;
     desc: string;
     price: number;

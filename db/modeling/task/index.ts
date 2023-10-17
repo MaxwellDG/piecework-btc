@@ -14,7 +14,11 @@ export default {
 export const taskSchema = new Schema<ITask>(
     {
         name: { type: String, required: true },
-        project: { type: Schema.Types.ObjectId, required: true },
+        project: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: 'project',
+        },
         company: { type: Schema.Types.ObjectId, required: true },
         desc: { type: String, required: true },
         price: { type: Number, required: true },
@@ -35,7 +39,7 @@ export async function create(
     projectId: string,
     companyId: string
 ): Promise<HydratedDocument<ITask>> {
-    return await TaskModel.create({
+    let task: HydratedDocument<ITask> = await TaskModel.create({
         name,
         desc,
         price,
@@ -43,6 +47,8 @@ export async function create(
         company: companyId,
         status: TASK_STATUS.UNASSIGNED,
     });
+    await task.populate('project');
+    return task;
 }
 
 export async function findByProjectId(
@@ -69,14 +75,13 @@ export async function countTasks(
         : await TaskModel.countDocuments({ company: companyId });
 }
 
-// todo investigate if this needs security to prevent users from updating other users' tasks
 export async function update(
     _id: string,
     companyId: string,
     obj: UpdateTaskReq
 ): Promise<HydratedDocument<ITask> | null> {
     const { desc, status, price, name }: UpdateTaskReq = obj;
-    const task: HydratedDocument<ITask> | null = await findById(_id);
+    const task: HydratedDocument<ITask> | null = await findById(_id, companyId);
 
     if (task) {
         task.desc = desc ?? task.desc;

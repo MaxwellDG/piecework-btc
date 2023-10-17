@@ -1,5 +1,4 @@
 import HeroScreenContainer from '../../../../(components)/containers/hero-screen-container';
-import { usePathnameServer } from '../../../../(hooks)/useServerHeaders';
 import ProjectsHandler from '../../../../../db/modeling/project';
 import TasksHandler from '../../../../../db/modeling/task';
 import { headers } from 'next/headers';

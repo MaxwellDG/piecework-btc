@@ -3,9 +3,10 @@ import PendingAction from '../(components)/pendingAction';
 import PendingActionsHandler, {
     IPendingAction,
 } from '../../db/modeling/pendingAction';
-import TasksHandler, { TASK_STATUS } from '../../db/modeling/task';
+import TasksHandler from '../../db/modeling/task';
 import ActivityList from '../(components)/activity/activityList';
 import HeroScreenContainer from '../(components)/containers/hero-screen-container';
+import { TASK_STATUS } from '../../db/modeling/task/types';
 
 export default async function Page() {
     const _headers = headers();
@@ -25,7 +26,7 @@ export default async function Page() {
             <div className="flex flex-col h-96 xl:flex-row">
                 <div className="flex flex-1 flex-col mb-8 xl:mb-0 xl:mr-4">
                     <h3 className="text-lg mb-2 font-semibold">Activity</h3>
-                    <div className="bg-gray-200 flex flex-1 flex-col">
+                    <div className="bg-gray-200 flex flex-1 flex-col overflow-y-auto">
                         <ActivityList />
                     </div>
                 </div>
