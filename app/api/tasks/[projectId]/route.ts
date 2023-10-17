@@ -10,7 +10,7 @@ import {
     ActivityCRUD,
     ActivityType,
 } from '../../../../db/modeling/activity/types';
-import { IProject } from '../../../../db/modeling/project';
+import { IProject } from '../../../../db/modeling/project/types';
 
 export async function GET(
     req: Request,

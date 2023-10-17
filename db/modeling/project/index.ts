@@ -1,12 +1,9 @@
 import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
-
-export interface IProject {
-    _id: string;
-    name: string;
-    company: Types.ObjectId;
-    createdAt: Date;
-    updatedAt: Date;
-}
+import { IProject } from './types';
+import Task from '../../../app/(components)/projects/task';
+import { TaskModel } from '../task';
+import { ActivityModel } from '../activity';
+import { PendingActionModel } from '../pendingAction';
 
 export default {
     create,
@@ -24,6 +21,14 @@ export const projectSchema = new Schema<IProject>(
         timestamps: true,
     }
 );
+
+// on project delete cascade delete tasks, pendingActions and activities
+projectSchema.pre<IProject>('deleteOne', async function (next) {
+    await TaskModel.deleteMany({ project: this._id });
+    await ActivityModel.deleteMany({ project: this._id });
+    await PendingActionModel.deleteMany({ company: this._id });
+    next();
+});
 
 export const ProjectModel =
     mongoose.models.project || model<IProject>('project', projectSchema);
@@ -48,7 +53,10 @@ export async function create(
     return await ProjectModel.create({ name, company: companyId });
 }
 
-export async function deleteProject(id: string): Promise<boolean> {
-    const res = await ProjectModel.deleteOne({ id });
+export async function deleteProject(
+    company: string,
+    id: string
+): Promise<boolean> {
+    const res = await ProjectModel.deleteOne({ company, id });
     return !!res;
 }

@@ -1,4 +1,4 @@
-import { IProject } from '../../../../../db/modeling/project';
+import { IProject } from '../../../../../db/modeling/project/types';
 import Project from '../../project';
 
 type Props = {

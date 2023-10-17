@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { IProject } from '../../../../db/modeling/project';
+import { IProject } from '../../../../db/modeling/project/types';
 import Chevron from '../../../../public/svgs/chevron';
 
 type Props = {

@@ -1,6 +1,7 @@
 import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
 import { UpdateTaskReq } from '../../../app/(types)/api/requests/tasks';
 import { ITask, TASK_STATUS } from './types';
+import { ActivityModel } from '../activity';
 
 export default {
     create,
@@ -28,6 +29,12 @@ export const taskSchema = new Schema<ITask>(
         timestamps: true,
     }
 );
+
+// on task delete cascade delete activities
+taskSchema.pre<ITask>('deleteOne', async function (next) {
+    await ActivityModel.deleteMany({ project: this._id });
+    next();
+});
 
 export const TaskModel =
     mongoose.models.task || model<ITask>('task', taskSchema);

@@ -1,5 +1,5 @@
 import { Document, ObjectId, PopulatedDoc, Types } from 'mongoose';
-import { IProject } from '../project';
+import { IProject } from '../project/types';
 
 export enum TASK_STATUS {
     UNASSIGNED = 'UNASSIGNED',
