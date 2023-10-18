@@ -4,6 +4,8 @@ import { jwtVerify } from 'jose';
 import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { Role } from './db/modeling/account/types';
 
+const API_AUTH_ROUTES = ['/api/company', '/api/auth/login'];
+
 // todo check for expiration
 async function extractJWTForNext(
     cookie: RequestCookie,
@@ -34,43 +36,45 @@ async function extractJWTForNext(
 
 export async function middleware(request: NextRequest) {
     // login paths
-    if (request.nextUrl.pathname.includes('/api/auth/login')) {
+    if (API_AUTH_ROUTES.includes(request.nextUrl.pathname)) {
         return NextResponse.next();
-    }
-
-    // jwt verification and role based authorization
-    const cookie = request.cookies.get('JWT');
-    // super admin path
-    if (
-        request.nextUrl.pathname.includes('/admin/dashboard') ||
-        request.nextUrl.pathname.includes('/api/admin')
-    ) {
-        if (!cookie) {
-            return NextResponse.redirect(new URL('/admin', request.url));
-        } else {
-            const response = await extractJWTForNext(cookie, request);
-            if (response?.headers?.get('jwt-role') === Role.SUPER_ADMIN) {
-                return response;
-            } else {
-                return NextResponse.redirect(new URL('/admin', request.url));
-            }
-        }
-        // normal user path
-    } else if (
-        request.nextUrl.pathname.includes('/dashboard') ||
-        request.nextUrl.pathname.includes('/api')
-    ) {
-        if (!cookie) {
-            return NextResponse.redirect(new URL('/', request.url));
-        } else {
-            const response = await extractJWTForNext(cookie, request);
-            if (response) {
-                return response;
-            } else {
-                return NextResponse.redirect(new URL('/', request.url));
-            }
-        }
     } else {
-        return NextResponse.next();
+        // jwt verification and role based authorization
+        const cookie = request.cookies.get('JWT');
+        // super admin path
+        if (
+            request.nextUrl.pathname.includes('/admin/dashboard') ||
+            request.nextUrl.pathname.includes('/api/admin')
+        ) {
+            if (!cookie) {
+                return NextResponse.redirect(new URL('/admin', request.url));
+            } else {
+                const response = await extractJWTForNext(cookie, request);
+                if (response?.headers?.get('jwt-role') === Role.SUPER_ADMIN) {
+                    return response;
+                } else {
+                    return NextResponse.redirect(
+                        new URL('/admin', request.url)
+                    );
+                }
+            }
+            // normal user path
+        } else if (
+            request.nextUrl.pathname.includes('/dashboard') ||
+            request.nextUrl.pathname.includes('/api')
+        ) {
+            if (!cookie) {
+                return NextResponse.redirect(new URL('/', request.url));
+            } else {
+                const response = await extractJWTForNext(cookie, request);
+                if (response) {
+                    return response;
+                } else {
+                    return NextResponse.redirect(new URL('/', request.url));
+                }
+            }
+        } else {
+            return NextResponse.next();
+        }
     }
 }

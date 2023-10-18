@@ -18,6 +18,11 @@ export const activitySchema = new Schema<IActivity>(
         },
         crud: { type: String, required: true },
         type: { type: String, required: true },
+        refId: {
+            type: mongoose.SchemaTypes.ObjectId,
+            required: false,
+            unique: true,
+        },
     },
     {
         // add createdAt and updatedAt timestamps
@@ -47,7 +52,8 @@ export async function create(
     text: string,
     crud: ActivityCRUD,
     type: ActivityType,
-    companyId: string
+    companyId: string,
+    refId?: string
 ): Promise<HydratedDocument<IActivity>> {
     const activity: Promise<HydratedDocument<IActivity>> =
         await ActivityModel.create({
@@ -55,6 +61,7 @@ export async function create(
             crud,
             type,
             company: companyId,
+            refId,
         });
     return activity;
 }

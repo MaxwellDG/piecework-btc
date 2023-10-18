@@ -33,6 +33,8 @@ export async function POST(req: Request) {
     const company = req.headers.get('jwt-company') as string;
     const username = req.headers.get('jwt-username') as string;
 
+    console.log('company and name', company, name);
+
     const project: HydratedDocument<IProject> = await ProjectsHandler.create(
         name,
         company
@@ -43,7 +45,8 @@ export async function POST(req: Request) {
             `${username} created project ${name}`,
             ActivityCRUD.CREATED,
             ActivityType.PROJECTS,
-            company
+            company,
+            project._id
         );
 
         // update company to be viewed by admin

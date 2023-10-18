@@ -1,7 +1,6 @@
-import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
+import mongoose, { HydratedDocument, Schema, model } from 'mongoose';
 import { UpdateTaskReq } from '../../../app/(types)/api/requests/tasks';
 import { ITask, TASK_STATUS } from './types';
-import { ActivityModel } from '../activity';
 
 export default {
     create,
@@ -30,9 +29,9 @@ export const taskSchema = new Schema<ITask>(
     }
 );
 
-// on task delete cascade delete activities
-taskSchema.pre<ITask>('deleteOne', async function (next) {
-    await ActivityModel.deleteMany({ project: this._id });
+// on task delete cascade
+taskSchema.pre('deleteOne', async function (next) {
+    // todo delete imageUrls from S3
     next();
 });
 
@@ -62,7 +61,6 @@ export async function findByProjectId(
     companyId: string,
     projectId: string
 ): Promise<HydratedDocument<ITask>[]> {
-    console.log('company id: ', companyId, 'project', projectId);
     return await TaskModel.find({ company: companyId, project: projectId });
 }
 

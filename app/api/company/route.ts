@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import CompanyHandler, { ICompany } from '../../../db/modeling/company';
+import CompanyHandler from '../../../db/modeling/company';
 import {
     CompanyNameReq,
     UpdateCompanyReq,
@@ -11,6 +11,7 @@ import { serialize } from 'cookie';
 import { SignJWT } from 'jose';
 import { JWT_DATA } from '../../(types)/api';
 import { IAccount, Role } from '../../../db/modeling/account/types';
+import { ICompany } from '../../../db/modeling/company/types';
 
 export async function POST(request: Request) {
     await dbConnect();
@@ -93,8 +94,12 @@ export async function PATCH(request: Request) {
     await dbConnect();
 
     const obj: UpdateCompanyReq = await request.json();
+    const companyId = request.headers.get('companyId') as string;
 
-    const company: ICompany | null = await CompanyHandler.update(obj);
+    const company: ICompany | null = await CompanyHandler.update(
+        companyId,
+        obj
+    );
 
     if (company) {
         return new Response(
@@ -115,9 +120,10 @@ export async function PATCH(request: Request) {
 export async function DELETE(request: Request) {
     await dbConnect();
 
-    const { id } = await request.json();
+    const companyId = request.headers.get('companyId') as string;
 
-    const company: ICompany | null = await CompanyHandler.deleteCompany(id);
+    const company: ICompany | null =
+        await CompanyHandler.deleteCompany(companyId);
 
     return new Response(
         JSON.stringify({

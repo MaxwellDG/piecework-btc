@@ -1,4 +1,4 @@
-import mongoose, { HydratedDocument, Schema, model } from 'mongoose';
+import mongoose, { HydratedDocument, Query, Schema, model } from 'mongoose';
 import { UpdateCompanyReq } from '../../../app/(types)/api/requests/company';
 import { ICompany } from './types';
 import { ActivityModel } from '../activity';
@@ -27,12 +27,14 @@ export const companySchema = new Schema<ICompany>(
 );
 
 // on company delete cascade delete projects (and tasks), pendingActions, messages, and activities
-companySchema.pre<ICompany>('deleteOne', async function (next) {
-    await ProjectModel.deleteMany({ project: this._id }); // will cascade to delete tasks
-    await ActivityModel.deleteMany({ project: this._id });
-    await PendingActionModel.deleteMany({ company: this._id });
-    await MessageModel.deleteMany({ company: this._id });
-    await AccountModel.deleteMany({ company: this._id });
+companySchema.pre('deleteOne', async function (next) {
+    const query = this as Query<ICompany, ICompany>;
+    const companyId: string = query.getFilter()['_id'];
+    await ProjectModel.deleteMany({ project: companyId }); // cascades to delete tasks
+    await ActivityModel.deleteMany({ project: companyId });
+    await PendingActionModel.deleteMany({ company: companyId });
+    await MessageModel.deleteMany({ company: companyId });
+    await AccountModel.deleteMany({ company: companyId });
     next();
 });
 

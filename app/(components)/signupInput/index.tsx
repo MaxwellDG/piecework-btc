@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import React from 'react';
 import dynamic from 'next/dynamic';
 import ModalWrapper from '../modals';
@@ -16,12 +15,17 @@ export default function SignupInput() {
     const [showModal, setShowModal] = React.useState(false);
 
     async function handleCreate() {
-        const res = await fetch('/api/company', {
-            method: 'POST',
-            body: JSON.stringify({ name: organization }),
-        });
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/company`,
+            {
+                cache: 'no-store',
+                method: 'POST',
+                body: JSON.stringify({ name: organization }),
+            }
+        );
         if (res.ok) {
-            const data = await res.json();
+            // const data = await res.json();
+            // console.log(data);
             setShowModal(true);
             setError('');
         } else {

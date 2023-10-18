@@ -28,7 +28,7 @@ export default function LoginInput() {
         const res = await fetch(`/api/auth/login`, {
             method: 'POST',
             body: JSON.stringify({
-                company: 'nnnnbbn',
+                company: 'nogggggg',
                 username: 'admin',
                 password: 'password',
             }),

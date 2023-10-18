@@ -65,7 +65,8 @@ export async function POST(
             `${username} created task '${name}' for project: ${project.name}`,
             ActivityCRUD.CREATED,
             ActivityType.TASKS,
-            companyId
+            companyId,
+            task._id
         );
 
         // update company to be viewed by admin

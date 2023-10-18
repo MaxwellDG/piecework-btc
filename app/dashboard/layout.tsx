@@ -9,7 +9,7 @@ export default function RootLayout({
         <section>
             <NavBar />
             <div
-                className={`absolute top-0 bottom-0 right-[70px] w-1 h-[435px] bg-gray-200 m-auto`}
+                className={`absolute top-0 bottom-0 right-[64px] w-0.5 h-[435px] bg-btcOrangePale m-auto`}
             />
             {children}
         </section>

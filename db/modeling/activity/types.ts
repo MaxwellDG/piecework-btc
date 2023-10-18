@@ -21,4 +21,5 @@ export interface IActivity {
     type: ActivityType;
     text: string;
     createdAt: Date;
+    refId?: Types.ObjectId;
 }
