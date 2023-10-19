@@ -6,7 +6,6 @@ import mongoose, {
     model,
 } from 'mongoose';
 import { IProject } from './types';
-import Task from '../../../app/(components)/projects/task';
 import { TaskModel } from '../task';
 import { ActivityModel } from '../activity';
 import { PendingActionModel } from '../pendingAction';

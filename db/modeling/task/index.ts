@@ -29,6 +29,8 @@ export const taskSchema = new Schema<ITask>(
     }
 );
 
+// todo indexing set of _id company and project
+
 // on task delete cascade
 taskSchema.pre('deleteOne', async function (next) {
     // todo delete imageUrls from S3
@@ -65,10 +67,11 @@ export async function findByProjectId(
 }
 
 export async function findById(
-    id: string,
-    company: string
+    _id: string,
+    company: string,
+    project: string
 ): Promise<HydratedDocument<ITask> | null> {
-    return await TaskModel.findOne({ id, company });
+    return await TaskModel.findOne({ _id, company, project });
 }
 
 export async function countTasks(

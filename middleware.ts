@@ -4,22 +4,32 @@ import { jwtVerify } from 'jose';
 import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { Role } from './db/modeling/account/types';
 
-const API_AUTH_ROUTES = ['/api/company', '/api/auth/login'];
+const API_AUTH_ROUTES = ['/api/company', '/api/auth/login', '/api/admin/auth'];
 
 // todo check for expiration
 async function extractJWTForNext(
     cookie: RequestCookie,
-    request: NextRequest
+    request: NextRequest,
+    isSuperAdmin: boolean
 ): Promise<NextResponse | null> {
     try {
         const token = await jwtVerify(
             cookie.value,
             new TextEncoder().encode(process.env.JWT_SECRET || '')
         );
+
         const requestHeaders = new Headers(request.headers);
-        requestHeaders.set('jwt-company', token.payload.companyId as string);
-        requestHeaders.set('jwt-_id', token.payload._id as string);
-        requestHeaders.set('jwt-username', token.payload.username as string);
+        if (!isSuperAdmin) {
+            requestHeaders.set(
+                'jwt-company',
+                token.payload.companyId as string
+            );
+            requestHeaders.set('jwt-_id', token.payload._id as string);
+            requestHeaders.set(
+                'jwt-username',
+                token.payload.username as string
+            );
+        }
         requestHeaders.set('jwt-role', token.payload.role as string);
 
         const response = NextResponse.next({
@@ -49,8 +59,12 @@ export async function middleware(request: NextRequest) {
             if (!cookie) {
                 return NextResponse.redirect(new URL('/admin', request.url));
             } else {
-                const response = await extractJWTForNext(cookie, request);
-                if (response?.headers?.get('jwt-role') === Role.SUPER_ADMIN) {
+                const response = await extractJWTForNext(cookie, request, true);
+                const token = await jwtVerify(
+                    cookie.value,
+                    new TextEncoder().encode(process.env.JWT_SECRET || '')
+                );
+                if (token.payload.role === Role.SUPER_ADMIN) {
                     return response;
                 } else {
                     return NextResponse.redirect(
@@ -66,7 +80,11 @@ export async function middleware(request: NextRequest) {
             if (!cookie) {
                 return NextResponse.redirect(new URL('/', request.url));
             } else {
-                const response = await extractJWTForNext(cookie, request);
+                const response = await extractJWTForNext(
+                    cookie,
+                    request,
+                    false
+                );
                 if (response) {
                     return response;
                 } else {

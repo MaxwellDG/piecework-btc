@@ -10,7 +10,7 @@ export default function TaskComponentList({ tasks }: Props) {
         <div className="flex flex-1 flex-col overflow-y-auto pr-1">
             {tasks?.length ? (
                 <div className="flex flex-col gap-y-2">
-                    {tasks.map((task) => (
+                    {tasks.map((task: ITask) => (
                         <Task key={task._id} task={task} />
                     ))}
                 </div>

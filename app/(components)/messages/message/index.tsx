@@ -12,7 +12,7 @@ export default function Message({ message, isFromSelf, label }: MessageProps) {
     return (
         <div className={`chat ${isFromSelf ? 'chat-start' : 'chat-end'}`}>
             <div className="chat-header">
-                {label}
+                {label}&nbsp;
                 <time className="text-xs opacity-50">
                     {createdAt?.toLocaleString()}
                 </time>

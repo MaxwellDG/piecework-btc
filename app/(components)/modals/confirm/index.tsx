@@ -24,7 +24,7 @@ export default function ConfirmModal({
                     e.preventDefault();
                     e.stopPropagation();
                 }}
-                className="absolute top-0 right-0 left-0 bottom-0 m-auto h-fit modal-box rounded p-0 z-10 cursor-default pointer-events-auto"
+                className="absolute top-0 right-0 left-0 bottom-0 m-auto h-fit modal-box rounded p-0 z-10 cursor-default pointer-events-auto border border-[#f0f0f0]"
             >
                 <div className="p-4 bg-white">
                     <div className="mb-4">
