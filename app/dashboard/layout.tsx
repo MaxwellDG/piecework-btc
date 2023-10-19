@@ -1,4 +1,4 @@
-import NavBar from '../(components)/navbar/alt_index';
+import NavBar from '../(components)/navbar';
 
 export default function RootLayout({
     children,
@@ -8,7 +8,9 @@ export default function RootLayout({
     return (
         <section>
             <NavBar />
-            <div className="absolute top-0 bottom-0 right-12 w-1 bg-gray-200 absolute top-0 bottom-0 right-0" />
+            <div
+                className={`absolute top-0 bottom-0 right-[70px] w-1 h-[435px] bg-gray-200 m-auto`}
+            />
             {children}
         </section>
     );

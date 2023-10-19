@@ -14,7 +14,7 @@ export default function Logout() {
         <button
             type="button"
             onClick={handleLogout}
-            className="btn bg-white rounded mb-8 w-1/2 items-center group m-auto"
+            className="btn bg-white rounded mb-8 w-full items-center group m-auto"
             onMouseOver={() => toggleHovering(true)}
             onMouseLeave={() => toggleHovering(false)}
         >

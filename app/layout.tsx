@@ -1,5 +1,6 @@
 import './(styles)/globals.css';
 import './(styles)/buttons.scss';
+import './(styles)/scrollbar.css';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 

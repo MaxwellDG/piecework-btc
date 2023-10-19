@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { IProject } from '../../../../db/modeling/project';
+import { IProject } from '../../../../db/modeling/project/types';
 import Chevron from '../../../../public/svgs/chevron';
 
 type Props = {
@@ -12,7 +12,7 @@ export default function Project({ project }: Props) {
     return (
         <Link
             href={`/dashboard/projects/${_id}`}
-            className="w-full p-2 mb-2 flex justify-between border items-center"
+            className="w-full p-2 flex justify-between border items-center"
         >
             <div>
                 <p>{name}</p>

@@ -1,5 +1,11 @@
 import mongoose, { HydratedDocument, Schema, model } from 'mongoose';
 import { UpdateCompanyReq } from '../../../app/(types)/api/requests/company';
+import { ICompany } from './types';
+import { ActivityModel } from '../activity';
+import { ProjectModel } from '../project';
+import { PendingActionModel } from '../pendingAction';
+import { MessageModel } from '../message';
+import { AccountModel } from '../account';
 
 export default {
     findById,
@@ -10,14 +16,6 @@ export default {
     update,
 };
 
-// todo for now we're using address cause I was trying to be fancy, but that might not work
-// when the website is meant to be accessed by an organization
-
-// If you're gonna do it like its a company dashboard for web2, should start with creating an organization
-// and THEN create the account(s). If no users present, first one gets 'Admin' role
-
-// todo migrate data without updateViewedByAdmin to docs thats do have it. default false
-
 export const companySchema = new Schema<ICompany>(
     {
         name: { type: String, unique: true, required: true },
@@ -27,6 +25,16 @@ export const companySchema = new Schema<ICompany>(
         timestamps: true,
     }
 );
+
+// on company delete cascade delete projects (and tasks), pendingActions, messages, and activities
+companySchema.pre<ICompany>('deleteOne', async function (next) {
+    await ProjectModel.deleteMany({ project: this._id }); // will cascade to delete tasks
+    await ActivityModel.deleteMany({ project: this._id });
+    await PendingActionModel.deleteMany({ company: this._id });
+    await MessageModel.deleteMany({ company: this._id });
+    await AccountModel.deleteMany({ company: this._id });
+    next();
+});
 
 export const CompanyModel =
     mongoose.models.company || model<ICompany>('company', companySchema);
@@ -74,16 +82,17 @@ export async function findAllPaginated(
     };
 }
 
-// todo lots of cascading to the users and projects that have this as a foreign key would need to be done here.
-// learn how to do later
 export async function update(
+    _id: string,
     updateObj: UpdateCompanyReq
 ): Promise<HydratedDocument<ICompany> | null> {
-    const { name, newName }: UpdateCompanyReq = updateObj;
-    const company = await findByName(name);
+    const { name, updateViewedByAdmin }: UpdateCompanyReq = updateObj;
+    const company = await findById(_id);
 
     if (company) {
-        company.name = newName ?? company.name;
+        company.name = name ?? company.name;
+        company.updateViewedByAdmin =
+            updateViewedByAdmin ?? company.updateViewedByAdmin;
         await company.save();
         return company;
     } else {

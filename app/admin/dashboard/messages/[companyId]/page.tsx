@@ -24,9 +24,9 @@ export default async function Page() {
 
     return (
         <div className="hero min-h-screen bg-base-200 flex flex-col justify-center">
-            <div className="m-auto w-full max-w-3xl">
+            <div className="m-auto w-full max-w-4xl">
                 <BackButton route="/admin/dashboard" />
-                <h2 className="text-3xl font-bold mb-2">Messages</h2>
+                <h2 className="text-4xl font-bold mb-2">Messages</h2>
                 <div className="custom-border-color flex flex-col bg-white mb-2 p-2 h-96 overflow-y-auto rounded border">
                     {messages?.map((msg: IMessage, i: number) => {
                         return (

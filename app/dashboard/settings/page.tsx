@@ -1,3 +1,4 @@
+import HeroScreenContainer from '../../(components)/containers/hero-screen-container';
 import Logout from '../../(components)/logout';
 import Card from '../../(components)/settings/card';
 import Company from '../../../public/svgs/company';
@@ -10,9 +11,9 @@ export default function Settings() {
     }
 
     return (
-        <div className="hero min-h-screen bg-base-200 flex flex-col justify-center z-50">
-            <div className="m-auto w-full max-w-3xl">
-                <h2 className="text-3xl font-bold mb-2">Settings</h2>
+        <HeroScreenContainer>
+            <div className="md:w-1/2 m-auto">
+                <h2 className="text-4xl font-bold mb-2 ml-[1/2]">Settings</h2>
                 <div className="flex flex-col">
                     <Card
                         text="Account settings"
@@ -32,6 +33,6 @@ export default function Settings() {
                     <Logout />
                 </div>
             </div>
-        </div>
+        </HeroScreenContainer>
     );
 }

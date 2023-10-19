@@ -7,7 +7,7 @@ export default function TasksAdmin() {
 
     return (
         <div className="hero min-h-screen bg-base-200 flex flex-col justify-center">
-            <div className="m-auto w-full max-w-3xl">
+            <div className="m-auto w-full max-w-4xl">
                 <BackButton route="/admin/dashboard" />
                 <div className="flex h-20 items-start">
                     <h2 className="text-4xl font-bold mb-2">Tasks</h2>

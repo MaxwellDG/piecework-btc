@@ -1,38 +1,25 @@
 import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
 import { UpdateTaskReq } from '../../../app/(types)/api/requests/tasks';
-
-export enum TASK_STATUS {
-    UNASSIGNED = 'UNASSIGNED',
-    ASSIGNED = 'ASSIGNED',
-    PENDING_REVIEW = 'PENDING_REVIEW',
-    PENDING_PAYMENT = 'PENDING_PAYMENT',
-    COMPLETED = 'COMPLETED',
-}
-
-export interface ITask {
-    _id: string;
-    name: string;
-    project: Types.ObjectId;
-    company: Types.ObjectId;
-    desc: string;
-    price: number;
-    status: TASK_STATUS;
-    createdAt: Date;
-    updatedAt: Date;
-}
+import { ITask, TASK_STATUS } from './types';
+import { ActivityModel } from '../activity';
 
 export default {
     create,
     update,
     deleteTask,
+    findById,
     findByProjectId,
-    countTasksOfStatus,
+    countTasks,
 };
 
 export const taskSchema = new Schema<ITask>(
     {
         name: { type: String, required: true },
-        project: { type: Schema.Types.ObjectId, required: true },
+        project: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: 'project',
+        },
         company: { type: Schema.Types.ObjectId, required: true },
         desc: { type: String, required: true },
         price: { type: Number, required: true },
@@ -43,6 +30,12 @@ export const taskSchema = new Schema<ITask>(
     }
 );
 
+// on task delete cascade delete activities
+taskSchema.pre<ITask>('deleteOne', async function (next) {
+    await ActivityModel.deleteMany({ project: this._id });
+    next();
+});
+
 export const TaskModel =
     mongoose.models.task || model<ITask>('task', taskSchema);
 
@@ -50,10 +43,10 @@ export async function create(
     name: string,
     desc: string,
     price: number,
-    companyId: string,
-    projectId: string
+    projectId: string,
+    companyId: string
 ): Promise<HydratedDocument<ITask>> {
-    return await TaskModel.create({
+    let task: HydratedDocument<ITask> = await TaskModel.create({
         name,
         desc,
         price,
@@ -61,36 +54,41 @@ export async function create(
         company: companyId,
         status: TASK_STATUS.UNASSIGNED,
     });
+    await task.populate('project');
+    return task;
 }
 
 export async function findByProjectId(
     companyId: string,
     projectId: string
 ): Promise<HydratedDocument<ITask>[]> {
+    console.log('company id: ', companyId, 'project', projectId);
     return await TaskModel.find({ company: companyId, project: projectId });
 }
 
 export async function findById(
-    id: string
+    id: string,
+    company: string
 ): Promise<HydratedDocument<ITask> | null> {
-    return await TaskModel.findOne({ id });
+    return await TaskModel.findOne({ id, company });
 }
 
-export async function countTasksOfStatus(
+export async function countTasks(
     companyId: string,
     status?: TASK_STATUS
 ): Promise<number> {
-    return await TaskModel.countDocuments({ company: companyId, status });
+    return status
+        ? await TaskModel.countDocuments({ company: companyId, status })
+        : await TaskModel.countDocuments({ company: companyId });
 }
 
-// todo investigate if this needs security to prevent users from updating other users' tasks
 export async function update(
     _id: string,
     companyId: string,
     obj: UpdateTaskReq
 ): Promise<HydratedDocument<ITask> | null> {
     const { desc, status, price, name }: UpdateTaskReq = obj;
-    const task: HydratedDocument<ITask> | null = await findById(_id);
+    const task: HydratedDocument<ITask> | null = await findById(_id, companyId);
 
     if (task) {
         task.desc = desc ?? task.desc;

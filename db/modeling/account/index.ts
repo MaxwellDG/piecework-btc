@@ -6,6 +6,7 @@ export default {
     findById,
     findByUsername,
     findByLogin,
+    findAllByCompany,
     create,
     deleteAccount,
     update,
@@ -31,6 +32,7 @@ export const accountSchema = new Schema<IAccount>(
     }
 );
 
+// set combination of username and company to unique
 accountSchema.index({ username: 1, company: 1 }, { unique: true });
 
 export const AccountModel =
@@ -40,6 +42,15 @@ export async function findById(
     id: string
 ): Promise<HydratedDocument<IAccount> | null> {
     return await AccountModel.findById(id);
+}
+
+export async function findAllByCompany(
+    companyId: string
+): Promise<HydratedDocument<IAccount>[]> {
+    // sort for Role.ADMIN first
+    return await AccountModel.find({ company: companyId }).sort({
+        role: 'desc',
+    });
 }
 
 export async function findByUsername(
@@ -64,14 +75,16 @@ export async function deleteAccount(
 }
 
 export async function update(
+    _id: string,
     obj: UpdateAccountReq
 ): Promise<HydratedDocument<IAccount> | null> {
-    const { _id, username, password } = obj;
+    const { username, password, role } = obj;
 
     const accountDoc = await findById(_id);
     if (accountDoc) {
         accountDoc.username = username ?? accountDoc.username;
         accountDoc.password = password ?? accountDoc.password;
+        accountDoc.role = role ?? accountDoc.role;
         await accountDoc.save();
         return accountDoc;
     } else {
@@ -83,7 +96,7 @@ export async function create(
     username: string,
     password: string,
     role: Role,
-    company: Types.ObjectId
+    company: string
 ): Promise<HydratedDocument<IAccount> | null> {
     let account = null;
     const param = { username, role, password, company };

@@ -3,7 +3,7 @@ import {
     ActivityCRUD,
     ActivityType,
     IActivity,
-} from '../../../db/modeling/activity';
+} from '../../../db/modeling/activity/types';
 import User from '../../../public/svgs/user';
 import Projects from '../../../public/svgs/projects';
 import Messages from '../../../public/svgs/messages';
@@ -18,11 +18,11 @@ export default function Activity({ activity }: Props) {
     const iconType = React.useMemo(() => {
         switch (type) {
             case ActivityType.MESSAGES:
-                return Messages('black', 20);
+                return Messages('black', 30);
             case ActivityType.PROJECTS:
-                return Projects('black', 20);
+                return Projects('black', 30);
             case ActivityType.USERS:
-                return User('black', 20);
+                return User('black', 30);
         }
     }, []);
 
@@ -34,9 +34,14 @@ export default function Activity({ activity }: Props) {
             <div className="w-full">
                 <span className="w-full flex justify-between items-center">
                     <p className="inline">{crud}</p>
-                    <p className="inline text-gray-600 text-xs">
-                        {createdAt.toLocaleString()}
-                    </p>
+                    <span className="flex ">
+                        <p className="inline text-gray-600 text-xs">
+                            {new Date(createdAt).toLocaleDateString()}&nbsp;
+                        </p>
+                        <p className="inline text-gray-600 text-xs">
+                            {new Date(createdAt).toLocaleTimeString()}
+                        </p>
+                    </span>
                 </span>
                 <p>{text}</p>
             </div>

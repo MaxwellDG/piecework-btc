@@ -24,7 +24,8 @@ export default function AddProject() {
                 body: JSON.stringify({ name: input }),
             });
             if (res.ok) {
-                mutate('/api/projects'); // swr revalidate in ProjectsList component
+                mutate('/api/projects');
+                mutate('/api/activity');
                 setInput('');
                 toggleExpanded(false);
             }
@@ -34,7 +35,7 @@ export default function AddProject() {
     }
 
     return (
-        <div className="flex">
+        <div className="flex h-[60px]">
             <button
                 type="button"
                 onClick={() => toggleExpanded((prev) => !prev)}

@@ -1,12 +1,16 @@
 import { HydratedDocument } from 'mongoose';
 import dbConnect from '../../../../db';
-import TasksHandler, { ITask } from '../../../../db/modeling/task';
+import TasksHandler from '../../../../db/modeling/task';
+import { ITask } from '../../../../db/modeling/task/types';
 import { NextResponse } from 'next/server';
 import { UpdateTaskReq } from '../../../(types)/api/requests/tasks';
-import ActivityHandler, {
+import ActivityHandler from '../../../../db/modeling/activity';
+import CompanyHandler from '../../../../db/modeling/company';
+import {
     ActivityCRUD,
     ActivityType,
-} from '../../../../db/modeling/activity';
+} from '../../../../db/modeling/activity/types';
+import { IProject } from '../../../../db/modeling/project/types';
 
 export async function GET(
     req: Request,
@@ -35,33 +39,41 @@ export async function GET(
     }
 }
 
-export async function POST(req: Request) {
+export async function POST(
+    req: Request,
+    { params }: { params: { projectId: string } }
+) {
     await dbConnect();
 
-    const { name, desc, price, projectId } = await req.json();
+    const { name, description, price } = await req.json();
+    const projectId = params.projectId;
     const companyId = req.headers.get('jwt-company') as string;
     const username = req.headers.get('jwt-username') as string;
 
-    const project: HydratedDocument<ITask> = await TasksHandler.create(
+    const task: HydratedDocument<ITask> = await TasksHandler.create(
         name,
-        desc,
+        description,
         price,
         projectId,
         companyId
     );
 
-    if (project) {
-        // todo update company to show changes for admin
-        ActivityHandler.create(
-            `${username} created task '${name}' for project: ${projectId}`,
+    if (task) {
+        // create activity
+        const project: IProject = task.project as IProject;
+        await ActivityHandler.create(
+            `${username} created task '${name}' for project: ${project.name}`,
             ActivityCRUD.CREATED,
             ActivityType.TASKS,
             companyId
         );
 
+        // update company to be viewed by admin
+        await CompanyHandler.update(companyId, { updateViewedByAdmin: false });
+
         return NextResponse.json(
             {
-                project,
+                task,
             },
             { status: 200 }
         );
@@ -109,7 +121,6 @@ export async function DELETE(
     await dbConnect();
 
     const companyId = req.headers.get('jwt-company') as string;
-
     const taskId = params.taskId;
 
     const bool: boolean = await TasksHandler.deleteTask(taskId, companyId);

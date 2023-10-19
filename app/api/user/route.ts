@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import AccountsHandler from '../../../db/modeling/account';
 import dbConnect from '../../../db';
-import { IAccount } from '../../../db/modeling/account/types';
+import { IAccount, Role } from '../../../db/modeling/account/types';
+import { UpdateAccountReq } from '../../(types)/api/requests/accounts';
 
 export async function GET(request: Request) {
     const _id = request.headers.get('jwt-_id');
@@ -25,11 +26,12 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
     await dbConnect();
 
-    const { username, password, company, role } = await request.json();
+    const { username, role } = await request.json();
+    const company = request.headers.get('jwt-company') as string;
 
     const account: IAccount | null = await AccountsHandler.create(
         username,
-        password,
+        'password',
         role,
         company
     );
@@ -40,15 +42,23 @@ export async function POST(request: Request) {
 export async function PUT(request: Request) {
     await dbConnect();
 
-    const { id, username, password } = await request.json();
+    const _id = request.headers.get('jwt-_id') as string;
+    const obj: UpdateAccountReq = await request.json();
 
-    const account: IAccount | null = await AccountsHandler.update(id, username);
+    const account: IAccount | null = await AccountsHandler.update(_id, obj);
 
-    return new Response(
-        JSON.stringify({
-            account,
-        })
-    );
+    if (account) {
+        return new Response(
+            JSON.stringify({
+                account,
+            })
+        );
+    } else {
+        return NextResponse.json(
+            { message: 'Account not found' },
+            { status: 404 }
+        );
+    }
 }
 
 export async function DELETE(request: Request) {
