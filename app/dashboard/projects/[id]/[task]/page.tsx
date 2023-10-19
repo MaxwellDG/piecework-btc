@@ -1,7 +1,7 @@
 import { headers } from 'next/headers';
 import { ITask } from '../../../../../db/modeling/task/types';
 import TasksHandler from '../../../../../db/modeling/task';
-import ProjectsHandler from '../../../../../db/modeling/project';
+import TaskImages from '../../../../(components)/taskImages';
 
 export default async function Page() {
     const _headers = headers();
@@ -19,7 +19,13 @@ export default async function Page() {
     return (
         <div className="flex flex-col">
             <p>{task.desc}</p>
-            <div></div>
+            <TaskImages
+                imageUrls={
+                    task.imageUrls ?? [
+                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
+                    ]
+                }
+            />
         </div>
     );
 }
