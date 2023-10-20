@@ -23,6 +23,17 @@ export default async function Page() {
                 imageUrls={
                     task.imageUrls ?? [
                         'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
+                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
+                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
+                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
+                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
+                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
+                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
+                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
+                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
+                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
+                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
+                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
                     ]
                 }
             />
