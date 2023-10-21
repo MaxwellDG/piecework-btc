@@ -2,6 +2,7 @@ import { headers } from 'next/headers';
 import { ITask } from '../../../../../db/modeling/task/types';
 import TasksHandler from '../../../../../db/modeling/task';
 import TaskImages from '../../../../(components)/taskImages';
+import { getBucketFileUrls } from '../../../../(clients)/google';
 
 export default async function Page() {
     const _headers = headers();
@@ -15,27 +16,15 @@ export default async function Page() {
         company,
         projectId
     )) as ITask;
+    const bucketFileUrls = await getBucketFileUrls('tasks', projectId);
 
     return (
         <div className="flex flex-col">
             <p>{task.desc}</p>
             <TaskImages
-                imageUrls={
-                    task.imageUrls ?? [
-                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
-                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
-                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
-                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
-                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
-                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
-                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
-                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
-                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
-                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
-                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
-                        'https://storage.googleapis.com/bucket-quickstart_piecework-btc/Tasks/9H4hbjeemJGo.png',
-                    ]
-                }
+                projectId={projectId}
+                imageUrls={bucketFileUrls}
+                taskId={task._id}
             />
         </div>
     );

@@ -9,7 +9,7 @@ const nextConfig = {
                 protocol: 'https',
                 hostname: 'storage.googleapis.com',
                 port: '',
-                pathname: '/bucket-quickstart_piecework-btc/Tasks/**',
+                pathname: '/bucket-quickstart_piecework-btc/**',
             },
         ],
     },

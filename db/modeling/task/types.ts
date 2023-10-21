@@ -16,7 +16,7 @@ export interface ITask {
     company: Types.ObjectId;
     desc: string;
     price: number;
-    imageUrls: string[];
+    imageUrls: string[]; // doesn't actually do anything atm cause the file paths are derived from the project
     status: TASK_STATUS;
     createdAt: Date;
     updatedAt: Date;

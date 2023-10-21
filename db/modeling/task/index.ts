@@ -86,10 +86,15 @@ export async function countTasks(
 export async function update(
     _id: string,
     companyId: string,
+    projectId: string,
     obj: UpdateTaskReq
 ): Promise<HydratedDocument<ITask> | null> {
     const { desc, status, price, name }: UpdateTaskReq = obj;
-    const task: HydratedDocument<ITask> | null = await findById(_id, companyId);
+    const task: HydratedDocument<ITask> | null = await findById(
+        _id,
+        companyId,
+        projectId
+    );
 
     if (task) {
         task.desc = desc ?? task.desc;
