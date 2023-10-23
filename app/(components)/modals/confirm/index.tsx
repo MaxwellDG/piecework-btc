@@ -45,16 +45,20 @@ export default function ConfirmModal({
                             type="button"
                             onClick={(e) => buttonFuncs[i](e)}
                             className={`rounded py-1 px-2 ${
-                                i === 0 ? 'bg-[#FFFFFF]' : 'bg-[#161617]'
+                                i === 0 && buttonTexts.length === 2
+                                    ? 'bg-[#FFFFFF]'
+                                    : 'bg-[#161617]'
                             } ${
-                                i === 0
+                                i === 0 && buttonTexts.length === 2
                                     ? 'border border-[#f0f0f0]'
                                     : 'border border-[#161617]'
                             }`}
                         >
                             <p
                                 className={`${
-                                    i === 0 ? 'text-[#161617]' : 'text-white'
+                                    i === 0 && buttonTexts.length === 2
+                                        ? 'text-[#161617]'
+                                        : 'text-white'
                                 }`}
                             >
                                 {buttonText}

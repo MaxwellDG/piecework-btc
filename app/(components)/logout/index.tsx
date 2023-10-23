@@ -2,12 +2,15 @@
 
 import React from 'react';
 import LogoutSVG from '../../../public/svgs/logout';
+import { useRouter } from 'next/navigation';
 
 export default function Logout() {
+    const router = useRouter();
     const [isHover, toggleHovering] = React.useState(false);
 
-    function handleLogout() {
-        console.log('Pressed');
+    async function handleLogout() {
+        await fetch('/api/auth/logout', { method: 'POST' });
+        router.push('/');
     }
 
     return (
