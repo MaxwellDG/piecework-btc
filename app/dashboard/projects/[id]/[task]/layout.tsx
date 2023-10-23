@@ -1,3 +1,4 @@
+import BackButton from '../../../../(components)/buttons/back';
 import HeroScreenContainer from '../../../../(components)/containers/hero-screen-container';
 import Loading from '../../../../(components)/loading';
 import ProjectsHandler from '../../../../../db/modeling/project';
@@ -20,8 +21,9 @@ export default async function Layout({
 
     return (
         <HeroScreenContainer>
+            <BackButton route={`/dashboard/projects/${projectId}`} />
             <h2 className="text-5xl font-bold mb-4">{project?.name}</h2>
-            <h3 className="text-3xl font-semibold mb-8">{task?.name}</h3>
+
             {!task ? (
                 Loading()
             ) : (

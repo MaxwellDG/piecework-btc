@@ -3,6 +3,7 @@ import { ITask } from '../../../../../db/modeling/task/types';
 import TasksHandler from '../../../../../db/modeling/task';
 import TaskImages from '../../../../(components)/taskImages';
 import { getBucketFileUrls } from '../../../../(clients)/google';
+import TaskInformation from '../../../../(components)/taskInformation';
 
 export default async function Page() {
     const _headers = headers();
@@ -16,15 +17,17 @@ export default async function Page() {
         company,
         projectId
     )) as ITask;
-    const bucketFileUrls = await getBucketFileUrls('tasks', projectId);
+    const bucketFileUrls = await getBucketFileUrls(
+        `projects/${projectId}/tasks/${task._id}`
+    );
 
     return (
         <div className="flex flex-col">
-            <p>{task.desc}</p>
+            <TaskInformation _name={task.name} _desc={task.desc} />
             <TaskImages
                 projectId={projectId}
                 imageUrls={bucketFileUrls}
-                taskId={task._id}
+                taskId={task._id.toString()}
             />
         </div>
     );

@@ -44,6 +44,7 @@ export async function create(
     name: string,
     desc: string,
     price: number,
+    imageUrls: string[],
     projectId: string,
     companyId: string
 ): Promise<HydratedDocument<ITask>> {
@@ -51,6 +52,7 @@ export async function create(
         name,
         desc,
         price,
+        imageUrls,
         project: projectId,
         company: companyId,
         status: TASK_STATUS.UNASSIGNED,
@@ -89,7 +91,7 @@ export async function update(
     projectId: string,
     obj: UpdateTaskReq
 ): Promise<HydratedDocument<ITask> | null> {
-    const { desc, status, price, name }: UpdateTaskReq = obj;
+    const { desc, status, price, name, imageUrls }: UpdateTaskReq = obj;
     const task: HydratedDocument<ITask> | null = await findById(
         _id,
         companyId,
@@ -101,6 +103,7 @@ export async function update(
         task.status = status ?? task.status;
         task.price === price ?? task.price;
         task.name === name ?? task.name;
+        task.imageUrls = imageUrls ?? task.imageUrls;
         await task.save();
         return task;
     } else {

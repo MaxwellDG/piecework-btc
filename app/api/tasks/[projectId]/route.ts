@@ -45,7 +45,7 @@ export async function POST(
 ) {
     await dbConnect();
 
-    const { name, description, price } = await req.json();
+    const { name, description, price, imageUrls } = await req.json();
     const projectId = params.projectId;
     const companyId = req.headers.get('jwt-company') as string;
     const username = req.headers.get('jwt-username') as string;
@@ -54,6 +54,7 @@ export async function POST(
         name,
         description,
         price,
+        imageUrls,
         projectId,
         companyId
     );
@@ -81,23 +82,29 @@ export async function POST(
     }
 }
 
-export async function PUT(req: Request) {
+export async function PATCH(
+    req: Request,
+    { params }: { params: { projectId: string } }
+) {
     await dbConnect();
 
-    const { _id, name, desc, price, status } = await req.json();
+    const { projectId } = params;
+    const { _id, name, desc, price, status, imageUrls } = await req.json();
     const companyId = req.headers.get('jwt-company') as string;
 
-    const params: UpdateTaskReq = {
+    const obj: UpdateTaskReq = {
         name,
         desc,
         price,
         status,
+        imageUrls,
     };
 
     const task: HydratedDocument<ITask> | null = await TasksHandler.update(
         _id,
         companyId,
-        params
+        projectId,
+        obj
     );
 
     if (task) {

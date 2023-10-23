@@ -1,8 +1,10 @@
 import { File as GoogleCloudFile } from '@google-cloud/storage';
-import { bucket } from '../../(clients)/google';
+import {
+    bucket,
+    deleteBucketFile,
+    moveBucketFiles,
+} from '../../(clients)/google';
 import { NextResponse } from 'next/server';
-import TasksHandler from '../../../db/modeling/task';
-import dbConnect from '../../../db';
 
 const uploadFile = async (fileName: string, file: File) => {
     const bytes = await file.arrayBuffer();
@@ -26,40 +28,52 @@ const uploadFile = async (fileName: string, file: File) => {
 // todo fancy pipe?
 export async function POST(req: Request, res: Response) {
     const formData = await req.formData();
-    const company = req.headers.get('jwt-company') as string;
     if (formData) {
-        await dbConnect();
         try {
             const file = formData.get('file') as unknown as File;
-            const projectId = formData.get('projectId') as string;
-            const taskId = formData.get('taskId') as string;
-            const folder = formData.get('folder') as string;
-            const fileName = `${folder}/${projectId}/${file.name}`;
-            const res = await uploadFile(fileName, file);
+            const filePath = formData.get('filePath') as string;
+            const res = await uploadFile(filePath, file);
             if (res) {
-                // Add to task
-                // todo this query is repeated in the update and could be written better
-                const task = await TasksHandler.findById(
-                    taskId,
-                    company,
-                    projectId
-                );
-                const imageUrls = task?.imageUrls ?? [];
-                await TasksHandler.update(taskId, company, projectId, {
-                    imageUrls: [...imageUrls, fileName],
-                });
-
-                return NextResponse.json({ fileName });
+                return NextResponse.json({ filePath });
             } else {
                 return new Response('Error while uploading file', {
                     status: 500,
                 });
             }
         } catch (e) {
-            console.log('Errr here', e);
             return new Response('Error while streaming file', { status: 500 });
         }
     } else {
         return new Response('No form data', { status: 422 });
+    }
+}
+
+export async function PUT(req: Request) {
+    const { oldFilePaths, newFilePaths } = await req.json();
+    if (oldFilePaths?.length === newFilePaths?.length) {
+        const response = await moveBucketFiles(oldFilePaths, newFilePaths);
+
+        if (response) {
+            return new Response('Success', { status: 200 });
+        } else {
+            return new Response('Could not find image to move', {
+                status: 404,
+            });
+        }
+    } else {
+        return new Response('Old and new file paths must be the same length', {
+            status: 422,
+        });
+    }
+}
+
+export async function DELETE(req: Request) {
+    const { filePath } = await req.json();
+    const response = await deleteBucketFile(filePath);
+
+    if (response) {
+        return new Response('Success', { status: 200 });
+    } else {
+        return new Response('Could not find image to delete', { status: 404 });
     }
 }

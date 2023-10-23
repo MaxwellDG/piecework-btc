@@ -7,6 +7,8 @@ import { readFile } from '../../(util)/files';
 import Loading from '../loading';
 import ConfirmModal from '../modals/confirm';
 import Delete from '../../../public/svgs/delete';
+import TaskImage from './image';
+import AddFile from '../buttons/addFile';
 
 type Props = {
     imageUrls: string[];
@@ -39,8 +41,8 @@ export default function TaskImages({ imageUrls, projectId, taskId }: Props) {
 
     function toggleConfirm(
         e: React.MouseEvent<HTMLElement>,
-        bool: boolean,
-        imageUrl: string | null
+        imageUrl: string | null,
+        bool: boolean
     ) {
         e.preventDefault();
         e.stopPropagation();
@@ -60,14 +62,22 @@ export default function TaskImages({ imageUrls, projectId, taskId }: Props) {
         _setImageUrls(newImageUrls);
         const fileName = imageUrl.split('/').pop();
 
-        await fetch(`/api/gcs/${fileName}`, {
+        await fetch(`/api/gcs`, {
             method: 'DELETE',
             body: JSON.stringify({
-                projectId,
-                task: taskId,
-                folder: 'tasks',
+                filePath: `projects/${projectId}/tasks/${taskId}/${fileName}`,
             }),
-        }).catch((e) => console.log('err', e));
+        })
+            .then(() => {
+                fetch(`/api/tasks/${projectId}`, {
+                    method: 'PATCH',
+                    body: JSON.stringify({
+                        _id: taskId,
+                        imageUrls: newImageUrls,
+                    }),
+                });
+            })
+            .catch((e) => console.log('err', e));
     };
 
     const submitFile = async (e: React.FormEvent) => {
@@ -75,10 +85,9 @@ export default function TaskImages({ imageUrls, projectId, taskId }: Props) {
         e.preventDefault();
         if (file instanceof File) {
             let formData = new FormData();
+            const filePath = `projects/${projectId}/tasks/${taskId}/${file.name}`;
             formData.append('file', file);
-            formData.append('projectId', projectId);
-            formData.append('folder', 'tasks');
-            formData.append('taskId', taskId);
+            formData.append('filePath', filePath);
 
             await fetch(`/api/gcs`, {
                 method: 'POST',
@@ -86,9 +95,8 @@ export default function TaskImages({ imageUrls, projectId, taskId }: Props) {
             })
                 .then(async (res) => {
                     try {
-                        const data = await res.json();
                         _setImageUrls((prev) => [
-                            `${process.env.NEXT_PUBLIC_GCP_BUCKET_FULL_PATH}/${data.fileName}`,
+                            `${process.env.NEXT_PUBLIC_GCS_BUCKET_FULL_PATH}/${filePath}`,
                             ...prev,
                         ]);
                     } catch (e) {
@@ -108,74 +116,23 @@ export default function TaskImages({ imageUrls, projectId, taskId }: Props) {
         <div className="flex flex-1 flex-col">
             <p>Task Images</p>
             <div className="flex flex-1 flex-row gap-x-2">
-                <form onSubmit={submitFile}>
-                    <label
-                        className={`relative flex justify-center items-center h-32 w-32 ${
-                            file
-                                ? 'border-btcOrange border border-8 rounded'
-                                : 'border-black border border-dashed'
-                        } rounded-xs mb-2 cursor-pointer`}
-                    >
-                        <input
-                            type="file"
-                            accept="image/*"
-                            name="file"
-                            className="hidden"
-                            onChange={(e) => {
-                                if (e.target.files?.length) {
-                                    setLoading(true);
-                                    e.target.files &&
-                                        setFile(e.target.files[0]);
-                                }
-                            }}
-                        />
-                        {loading ? (
-                            Loading()
-                        ) : fileImg ? (
-                            <NextImage
-                                src={fileImg}
-                                fill
-                                alt={`task-image-pending`}
-                            />
-                        ) : (
-                            Add('black', 25)
-                        )}
-                        <div className="absolute h-32 w-32 flex flex-1 z-20 hover:bg-[rgba(255,255,255,0.3)]" />
-                    </label>
-                    <button
-                        type="submit"
-                        className="button"
-                        disabled={!file || loading}
-                    >
-                        Submit file
-                    </button>
-                </form>
+                <AddFile
+                    file={file}
+                    setFile={setFile}
+                    fileImg={fileImg}
+                    loading={loading}
+                    setLoading={setLoading}
+                    submitFile={submitFile}
+                />
                 <div className="flex flex-1 overflow-x-auto gap-x-2">
-                    {_imageUrls.map((imageUrl, index) => {
-                        return (
-                            <div
-                                key={imageUrl}
-                                className="relative h-32 w-32 min-w-[8rem] cursor-pointer group"
-                            >
-                                <a target="_blank" href={imageUrl}>
-                                    <NextImage
-                                        key={imageUrl}
-                                        src={imageUrl}
-                                        fill
-                                        alt={`task image ${index}`}
-                                    />
-                                </a>
-                                <div
-                                    onClick={(e) =>
-                                        toggleConfirm(e, true, imageUrl)
-                                    }
-                                    className="hidden absolute top-1 right-1 z-20 bg-gray-200 rounded p-1 group-hover:flex"
-                                >
-                                    {Delete('black', 20)}
-                                </div>
-                            </div>
-                        );
-                    })}
+                    {_imageUrls.map((imageUrl, index) => (
+                        <TaskImage
+                            key={imageUrl}
+                            imageUrl={imageUrl}
+                            index={index}
+                            deleteFunc={toggleConfirm}
+                        />
+                    ))}
                 </div>
             </div>
             {/* Modals */}
@@ -184,11 +141,11 @@ export default function TaskImages({ imageUrls, projectId, taskId }: Props) {
                     header="Confirm delete"
                     content="Are you sure you want to delete this image?"
                     buttonFuncs={[
-                        (e) => toggleConfirm(e, false, null),
+                        (e) => toggleConfirm(e, null, false),
                         (e) => removeFile(e, focusedImage.current as string),
                     ]}
                     buttonTexts={['Cancel', 'Delete']}
-                    closeModal={(e) => toggleConfirm(e, false, null)}
+                    closeModal={(e) => toggleConfirm(e, null, false)}
                 />
             )}
         </div>
