@@ -16,14 +16,11 @@ export default async function Layout({
     const pathSplit: string[] = path.split('/');
     const taskId: string = pathSplit[pathSplit.length - 1];
     const projectId: string = pathSplit[pathSplit.length - 2];
-    const project = await ProjectsHandler.findById(projectId, company);
     const task = await TasksHandler.findById(taskId, company, projectId);
 
     return (
         <HeroScreenContainer>
             <BackButton route={`/dashboard/projects/${projectId}`} />
-            <h2 className="text-5xl font-bold mb-4">{project?.name}</h2>
-
             {!task ? (
                 Loading()
             ) : (

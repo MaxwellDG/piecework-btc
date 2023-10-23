@@ -140,8 +140,6 @@ export default function AddTaskModal({ projectId, path }: Props) {
         setImageUrls(newImageUrls);
         const fileName = imageUrl.split('/').pop();
 
-        console.log('trying to dlete: ', fileName);
-
         await fetch(`/api/gcs`, {
             method: 'DELETE',
             body: JSON.stringify({

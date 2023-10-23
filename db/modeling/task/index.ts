@@ -101,8 +101,8 @@ export async function update(
     if (task) {
         task.desc = desc ?? task.desc;
         task.status = status ?? task.status;
-        task.price === price ?? task.price;
-        task.name === name ?? task.name;
+        task.price = price ?? task.price;
+        task.name = name ?? task.name;
         task.imageUrls = imageUrls ?? task.imageUrls;
         await task.save();
         return task;

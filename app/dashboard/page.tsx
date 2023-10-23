@@ -16,7 +16,7 @@ export default async function Page() {
         await PendingActionsHandler.getPendingActions(companyId);
     const tasksCompleted: number = await TasksHandler.countTasks(
         companyId,
-        TASK_STATUS.COMPLETED
+        TASK_STATUS.ARCHIVED
     );
     const tasksCreated: number = await TasksHandler.countTasks(companyId);
 

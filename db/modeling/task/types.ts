@@ -6,7 +6,7 @@ export enum TASK_STATUS {
     ASSIGNED = 'ASSIGNED',
     PENDING_REVIEW = 'PENDING_REVIEW',
     PENDING_PAYMENT = 'PENDING_PAYMENT',
-    COMPLETED = 'COMPLETED',
+    ARCHIVED = 'ARCHIVED',
 }
 
 export interface ITask {
