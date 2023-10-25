@@ -80,7 +80,7 @@ export async function update(
 ): Promise<HydratedDocument<IAccount> | null> {
     const { username, password, role } = obj;
 
-    const accountDoc = await findById(_id);
+    const accountDoc: HydratedDocument<IAccount> | null = await findById(_id);
     if (accountDoc) {
         accountDoc.username = username ?? accountDoc.username;
         accountDoc.password = password ?? accountDoc.password;

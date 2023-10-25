@@ -1,6 +1,11 @@
-import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
-import { IProject } from './types';
-import Task from '../../../app/(components)/projects/task';
+import mongoose, {
+    HydratedDocument,
+    Query,
+    Schema,
+    Types,
+    model,
+} from 'mongoose';
+import { IProject, UpdateProjectReq } from './types';
 import { TaskModel } from '../task';
 import { ActivityModel } from '../activity';
 import { PendingActionModel } from '../pendingAction';
@@ -10,6 +15,7 @@ export default {
     deleteProject,
     findByCompanyId,
     findById,
+    update,
 };
 
 export const projectSchema = new Schema<IProject>(
@@ -23,10 +29,12 @@ export const projectSchema = new Schema<IProject>(
 );
 
 // on project delete cascade delete tasks, pendingActions and activities
-projectSchema.pre<IProject>('deleteOne', async function (next) {
-    await TaskModel.deleteMany({ project: this._id });
-    await ActivityModel.deleteMany({ project: this._id });
-    await PendingActionModel.deleteMany({ company: this._id });
+projectSchema.pre('deleteOne', async function (next) {
+    const query = this as Query<IProject, IProject>;
+    const projectId: string = query.getFilter()['_id'];
+    await TaskModel.deleteMany({ project: projectId });
+    await ActivityModel.deleteMany({ project: projectId });
+    await PendingActionModel.deleteMany({ company: projectId });
     next();
 });
 
@@ -53,10 +61,30 @@ export async function create(
     return await ProjectModel.create({ name, company: companyId });
 }
 
+export async function update(
+    _id: string,
+    companyId: string,
+    obj: UpdateProjectReq
+) {
+    const { name } = obj;
+
+    const projectDoc: HydratedDocument<IProject> | null = await findById(
+        _id,
+        companyId
+    );
+    if (projectDoc) {
+        projectDoc.name = name ?? projectDoc.name;
+        await projectDoc.save();
+        return projectDoc;
+    } else {
+        return null;
+    }
+}
+
 export async function deleteProject(
     company: string,
-    id: string
+    _id: string
 ): Promise<boolean> {
-    const res = await ProjectModel.deleteOne({ company, id });
+    const res = await ProjectModel.deleteOne({ company, _id });
     return !!res;
 }

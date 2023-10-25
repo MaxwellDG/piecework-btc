@@ -43,7 +43,8 @@ export async function POST(req: Request) {
             `${username} created project ${name}`,
             ActivityCRUD.CREATED,
             ActivityType.PROJECTS,
-            company
+            company,
+            project._id
         );
 
         // update company to be viewed by admin
@@ -54,6 +55,48 @@ export async function POST(req: Request) {
                 project,
             },
             { status: 200 }
+        );
+    } else {
+        return NextResponse.json(
+            {
+                message: 'Error while creating project',
+            },
+            { status: 400 }
+        );
+    }
+}
+
+export async function PATCH(req: Request) {
+    await dbConnect();
+
+    const { _id, name } = await req.json();
+    const company = req.headers.get('jwt-company') as string;
+    const username = req.headers.get('jwt-username') as string;
+
+    const project: HydratedDocument<IProject> | null =
+        await ProjectsHandler.update(_id, company, { name });
+
+    if (project) {
+        await ActivityHandler.create(
+            `${username} changed project ${name} to: ${project.name}`,
+            ActivityCRUD.UPDATED,
+            ActivityType.PROJECTS,
+            company,
+            project._id
+        );
+
+        return NextResponse.json(
+            {
+                project,
+            },
+            { status: 200 }
+        );
+    } else {
+        return NextResponse.json(
+            {
+                message: 'Error while updating project',
+            },
+            { status: 400 }
         );
     }
 }

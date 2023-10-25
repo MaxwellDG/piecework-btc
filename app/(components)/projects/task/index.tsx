@@ -7,11 +7,12 @@ type Props = {
 };
 
 export default function Task({ task }: Props) {
-    const { _id, name, project, updatedAt, createdAt, status } = task;
+    const { _id, name, desc, price, project, updatedAt, createdAt, status } =
+        task;
 
     return (
         <Link
-            href={`/dashboard/projects/${project._id}/${task._id}`}
+            href={`/dashboard/projects/${project}/${task._id}`}
             className="w-full p-2 items-center flex justify-between border"
         >
             <div>

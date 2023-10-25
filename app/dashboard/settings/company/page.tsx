@@ -88,32 +88,46 @@ export default function Page() {
 
             <div className="flex flex-col">
                 <h2 className="font-semibold text-xl">Accounts</h2>
-                {isLoading && Loading()}
-                {error && <div>Error: {error.message}</div>}
-                <div className="flex gap-x-2">
-                    <div className="flex flex-col flex-1">
-                        <h3>Admins</h3>
-                        <div className="flex flex-col gap-y-2 bg-gray-200 overflow-y-auto h-32 p-2">
-                            {data?.admins.map((user: IAccount) => (
-                                <div key={user._id}>
-                                    <p>{user.username}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                    <div className="flex flex-col flex-1">
-                        <div className="flex flex-col">
-                            <h3>Users</h3>
+                {error ? (
+                    <div>Error: {error.message}</div>
+                ) : (
+                    <div className="flex gap-x-2">
+                        <div className="flex flex-col flex-1">
+                            <h3>Admins</h3>
                             <div className="flex flex-col gap-y-2 bg-gray-200 overflow-y-auto h-32 p-2">
-                                {data?.users.map((user: IAccount) => (
-                                    <div key={user._id}>
-                                        <p>{user.username}</p>
+                                {isLoading ? (
+                                    <div className="flex flex-1 justify-center items-center">
+                                        {Loading()}
                                     </div>
-                                ))}
+                                ) : (
+                                    data?.admins.map((user: IAccount) => (
+                                        <div key={user._id}>
+                                            <p>{user.username}</p>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+                        </div>
+                        <div className="flex flex-col flex-1">
+                            <div className="flex flex-col">
+                                <h3>Users</h3>
+                                <div className="flex flex-col gap-y-2 bg-gray-200 overflow-y-auto h-32 p-2">
+                                    {isLoading ? (
+                                        <div className="flex flex-1 justify-center items-center">
+                                            {Loading()}
+                                        </div>
+                                    ) : (
+                                        data?.users.map((user: IAccount) => (
+                                            <div key={user._id}>
+                                                <p>{user.username}</p>
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                )}
             </div>
 
             {showModal && (

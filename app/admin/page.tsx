@@ -16,8 +16,10 @@ const AdminLogin: React.FC = () => {
             },
             body: JSON.stringify({ password }),
         });
-        const data = await res.json();
-        if (data) {
+        if (res.ok) {
+            console.log('we okay?');
+            // const data = await res.json();
+            console.log('we get data?');
             router.push('/admin/dashboard');
         } else {
             alert('Wrong password');

@@ -4,12 +4,15 @@ import React from 'react';
 import BackButton from '../../../(components)/buttons/back';
 import { UpdateAccountReq } from '../../../(types)/api/requests/accounts';
 import HeroScreenContainer from '../../../(components)/containers/hero-screen-container';
+import useToasts from '../../../(hooks)/useToasts';
+import { TOAST_TYPE } from '../../../(types)/api';
 
 export default function AccountSettings() {
-    const [user, setUser] = React.useState({});
+    const { createToast } = useToasts();
 
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [role, setRole] = React.useState('');
     const [repeatPassword, setRepeatPassword] = React.useState('');
     const [passwordError, setPasswordError] = React.useState('');
 
@@ -17,16 +20,26 @@ export default function AccountSettings() {
         const fetchUser = async () => {
             const res = await fetch('/api/user');
             const user = await res.json();
-            setUsername(user);
+            setUsername(user?.account?.username);
+            setRole(user?.account?.role);
         };
         fetchUser();
     }, []);
 
     const updateUser = async (payload: UpdateAccountReq) => {
         await fetch('/api/user', {
-            method: 'PUT',
+            method: 'PATCH',
             body: JSON.stringify(payload),
-        });
+        })
+            .then(() =>
+                createToast('Account information updated', TOAST_TYPE.SUCCESS)
+            )
+            .catch((e) =>
+                createToast(
+                    'Error while updating account information',
+                    TOAST_TYPE.ERROR
+                )
+            );
     };
 
     const updatePassword = (e: React.FormEvent) => {
@@ -42,14 +55,10 @@ export default function AccountSettings() {
         <HeroScreenContainer>
             <div>
                 <BackButton route="/dashboard/settings" />
-                <div className="flex w-full">
-                    <span className="flex">
-                        <p>Company:</p>
-                        <p className="font-bold">{}</p>
-                    </span>
-                    <span className="flex">
-                        <p>Role:</p>
-                        <p className="font-bold">{}</p>
+                <div className="flex w-full mb-8">
+                    <span className="flex flex-1">
+                        <p>Role:&nbsp;</p>
+                        <p className="font-bold">{role}</p>
                     </span>
                 </div>
                 <form

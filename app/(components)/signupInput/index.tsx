@@ -1,33 +1,42 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import React from 'react';
 import dynamic from 'next/dynamic';
-import ModalWrapper from '../modals';
-import Link from 'next/link';
+import ConfirmModal from '../modals/confirm';
+import { useRouter } from 'next/navigation';
 
 const ErrorText = dynamic(() => import('../ui/text/error'), {
     ssr: false,
 });
 
 export default function SignupInput() {
+    const router = useRouter();
+
     const [organization, setOrganization] = React.useState('');
     const [error, setError] = React.useState('');
     const [showModal, setShowModal] = React.useState(false);
 
     async function handleCreate() {
-        const res = await fetch('/api/company', {
-            method: 'POST',
-            body: JSON.stringify({ name: organization }),
-        });
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/company`,
+            {
+                cache: 'no-store',
+                method: 'POST',
+                body: JSON.stringify({ name: organization }),
+            }
+        );
         if (res.ok) {
-            const data = await res.json();
+            setOrganization('');
             setShowModal(true);
             setError('');
         } else {
             setError('Company name taken');
         }
     }
+
+    const navToDashboard = () => {
+        router.push('/dashboard/settings/account');
+    };
 
     return (
         <div className="flex flex-col">
@@ -50,28 +59,13 @@ export default function SignupInput() {
 
             {/* Modals */}
             {showModal ? (
-                <ModalWrapper>
-                    <p>{`Created company: ${organization}`}</p>
-                    <span className="flex">
-                        <p>{`Created username:`}</p>
-                        <p className="font-bold">&nbsp;admin</p>
-                    </span>
-                    <span className="flex">
-                        <p>{`Password:`}</p>
-                        <p className="font-bold">&nbsp;password</p>
-                    </span>
-
-                    <p className="mb-8">
-                        You will now be logged in and directed to the settings
-                        screen to set your admin account password
-                    </p>
-
-                    <Link href="/dashboard/settings/account">
-                        <div className="button">
-                            <p>Confirm</p>
-                        </div>
-                    </Link>
-                </ModalWrapper>
+                <ConfirmModal
+                    header="Company created"
+                    closeModal={() => setShowModal(false)}
+                    content="You will now be logged in and directed to the settings screen to set your admin account's password"
+                    buttonTexts={['Go to dashboard']}
+                    buttonFuncs={[navToDashboard]}
+                />
             ) : null}
         </div>
     );

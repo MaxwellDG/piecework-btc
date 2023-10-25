@@ -1,4 +1,4 @@
-import usePathnameServer from '../../../../(hooks)/useServerHeaders';
+import { usePathnameServer } from '../../../../(hooks)/useServerHeaders';
 import TasksListAdmin from '../../../../(components)/projects/tasksList/admin';
 import BackButton from '../../../../(components)/buttons/back';
 

@@ -5,10 +5,20 @@ import React from 'react';
 import Link from 'next/link';
 import Hello from '../hello';
 import dynamic from 'next/dynamic';
+import HoverInfo from '../hoverInfo';
+import Question from '../../../public/svgs/question';
 
 const ErrorText = dynamic(() => import('../ui/text/error'), {
     ssr: false,
 });
+
+// used for easy login during development
+// ensure that 'testing' company exists in db. If not, refer to README.md section on seeding db
+const developmentPayload = {
+    company: 'testing',
+    username: 'admin',
+    password: 'password',
+};
 
 export default function LoginInput() {
     const router = useRouter();
@@ -17,6 +27,7 @@ export default function LoginInput() {
     const [password, setPassword] = React.useState('');
     const [company, setCompany] = React.useState('');
     const [error, setError] = React.useState('');
+    const [isHover, toggleHover] = React.useState(false);
 
     function navLogin() {
         router.push('/dashboard');
@@ -24,14 +35,19 @@ export default function LoginInput() {
 
     async function handleLogin() {
         setError('');
-        // todo remove hardcoding of login info
+
+        const payload =
+            process.env.NODE_ENV === 'development'
+                ? developmentPayload
+                : {
+                      username,
+                      password,
+                      company,
+                  };
+
         const res = await fetch(`/api/auth/login`, {
             method: 'POST',
-            body: JSON.stringify({
-                company: 'nnnnbbn',
-                username: 'admin',
-                password: 'password',
-            }),
+            body: JSON.stringify(payload),
         });
 
         if (res.ok) {
@@ -46,14 +62,39 @@ export default function LoginInput() {
         <div className="flex flex-col">
             <div className="flex flex-col sm:flex-row justify-between sm:mb-8">
                 <Hello />
-                <div className="flex flex-col justify-end">
-                    <input
-                        type="text"
-                        placeholder="Company"
-                        className="input input-bordered w-full max-w-full max-w-xs mb-6 pr-1"
-                        value={company}
-                        onChange={(e) => setCompany(e.target.value)}
-                    />
+                <div className="flex flex-col justify-end relative">
+                    {isHover && (
+                        <div className="absolute -top-8 right-0 w-full">
+                            <div className="flex border border-toastBlue bg-white px-2 rounded">
+                                <p>
+                                    If you have recently made an account, it
+                                    might be useful to know that all default
+                                    passwords are 'password'. Newly created
+                                    companies all have an account with username
+                                    'admin'. These can be changed on the
+                                    'Account Settings' page.
+                                </p>
+                            </div>
+                        </div>
+                    )}
+                    <div className="flex relative">
+                        <input
+                            type="text"
+                            placeholder="Company"
+                            className="input input-bordered w-full max-w-full mb-6 pr-1"
+                            value={company}
+                            onChange={(e) => setCompany(e.target.value)}
+                        />
+                        {error && (
+                            <div
+                                className="ml-2 cursor-pointer"
+                                onMouseOver={() => toggleHover(true)}
+                                onMouseOut={() => toggleHover(false)}
+                            >
+                                {Question('grey', 20)}
+                            </div>
+                        )}
+                    </div>
                     <div className="flex gap-x-1">
                         <input
                             type="text"

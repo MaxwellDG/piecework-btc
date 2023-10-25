@@ -1,7 +1,6 @@
-import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
+import mongoose, { HydratedDocument, Schema, model } from 'mongoose';
 import { UpdateTaskReq } from '../../../app/(types)/api/requests/tasks';
 import { ITask, TASK_STATUS } from './types';
-import { ActivityModel } from '../activity';
 
 export default {
     create,
@@ -30,9 +29,11 @@ export const taskSchema = new Schema<ITask>(
     }
 );
 
-// on task delete cascade delete activities
-taskSchema.pre<ITask>('deleteOne', async function (next) {
-    await ActivityModel.deleteMany({ project: this._id });
+// todo indexing set of _id company and project
+
+// on task delete cascade
+taskSchema.pre('deleteOne', async function (next) {
+    // todo delete imageUrls from S3
     next();
 });
 
@@ -43,6 +44,7 @@ export async function create(
     name: string,
     desc: string,
     price: number,
+    imageUrls: string[],
     projectId: string,
     companyId: string
 ): Promise<HydratedDocument<ITask>> {
@@ -50,6 +52,7 @@ export async function create(
         name,
         desc,
         price,
+        imageUrls,
         project: projectId,
         company: companyId,
         status: TASK_STATUS.UNASSIGNED,
@@ -62,15 +65,15 @@ export async function findByProjectId(
     companyId: string,
     projectId: string
 ): Promise<HydratedDocument<ITask>[]> {
-    console.log('company id: ', companyId, 'project', projectId);
     return await TaskModel.find({ company: companyId, project: projectId });
 }
 
 export async function findById(
-    id: string,
-    company: string
+    _id: string,
+    company: string,
+    project: string
 ): Promise<HydratedDocument<ITask> | null> {
-    return await TaskModel.findOne({ id, company });
+    return await TaskModel.findOne({ _id, company, project });
 }
 
 export async function countTasks(
@@ -85,16 +88,22 @@ export async function countTasks(
 export async function update(
     _id: string,
     companyId: string,
+    projectId: string,
     obj: UpdateTaskReq
 ): Promise<HydratedDocument<ITask> | null> {
-    const { desc, status, price, name }: UpdateTaskReq = obj;
-    const task: HydratedDocument<ITask> | null = await findById(_id, companyId);
+    const { desc, status, price, name, imageUrls }: UpdateTaskReq = obj;
+    const task: HydratedDocument<ITask> | null = await findById(
+        _id,
+        companyId,
+        projectId
+    );
 
     if (task) {
         task.desc = desc ?? task.desc;
         task.status = status ?? task.status;
-        task.price === price ?? task.price;
-        task.name === name ?? task.name;
+        task.price = price ?? task.price;
+        task.name = name ?? task.name;
+        task.imageUrls = imageUrls ?? task.imageUrls;
         await task.save();
         return task;
     } else {

@@ -2,8 +2,8 @@ import Message from '../../../../(components)/messages/message';
 import SendMsg from '../../../../(components)/messages/sendMsg';
 import MessagesHandler, { IMessage } from '../../../../../db/modeling/message';
 import { revalidatePath } from 'next/cache';
-import usePathnameServer from '../../../../(hooks)/useServerHeaders';
 import BackButton from '../../../../(components)/buttons/back';
+import { usePathnameServer } from '../../../../(hooks)/useServerHeaders';
 
 export default async function Page() {
     const { id: companyId } = usePathnameServer();

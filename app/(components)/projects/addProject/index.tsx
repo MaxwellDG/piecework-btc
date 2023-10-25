@@ -5,6 +5,8 @@ import Add from '../../../../public/svgs/add';
 import Minus from '../../../../public/svgs/minus';
 import { motion } from 'framer-motion';
 import { useSWRConfig } from 'swr';
+import useToasts from '../../../(hooks)/useToasts';
+import { TOAST_TYPE } from '../../../(types)/api';
 
 const variants = {
     expand: { display: 'flex', transition: { duration: 0.5 } },
@@ -13,6 +15,7 @@ const variants = {
 
 export default function AddProject() {
     const { mutate } = useSWRConfig();
+    const { createToast } = useToasts();
 
     const [isExpanded, toggleExpanded] = React.useState(false);
     const [input, setInput] = React.useState('');
@@ -24,6 +27,7 @@ export default function AddProject() {
                 body: JSON.stringify({ name: input }),
             });
             if (res.ok) {
+                createToast('Project created', TOAST_TYPE.SUCCESS);
                 mutate('/api/projects');
                 mutate('/api/activity');
                 setInput('');

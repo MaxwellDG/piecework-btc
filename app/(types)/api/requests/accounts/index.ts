@@ -1,5 +1,3 @@
-// todo note to self. This could all be done better with generics
-
 import { Role } from '../../../../../db/modeling/account/types';
 
 export type CreateAccountReq = {

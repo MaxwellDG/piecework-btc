@@ -7,3 +7,7 @@ export interface IProject {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export interface UpdateProjectReq {
+    name?: string;
+}
