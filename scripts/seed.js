@@ -1,8 +1,6 @@
 require('dotenv').config();
 const MongoClient = require('mongodb').MongoClient;
 
-// require the necessary libraries
-
 const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_CLUSTER}.t0meamb.mongodb.net/${process.env.MONGO_DB_NAME}?retryWrites=true&w=majority`;
 
 if (!MONGODB_URI) {
@@ -11,7 +9,7 @@ if (!MONGODB_URI) {
     );
 }
 
-console.log('this exist? ', process.env.MONGO_USER);
+const COMPANY_TESTING_NAME = 'testing';
 
 async function seedDB() {
     const client = new MongoClient(MONGODB_URI);
@@ -31,29 +29,36 @@ async function seedDB() {
         // collection.drop();
 
         const testCompany = {
-            company: 'testing',
+            name: COMPANY_TESTING_NAME, // is unique
+            updateViewedByAdmin: false,
         };
 
-        await companiesCollection.updateOne(
-            { company: 'testing' },
+        let companyId;
+        const company = await companiesCollection.updateOne(
+            { name: COMPANY_TESTING_NAME },
             { $set: testCompany },
             {
                 upsert: true, // option to add if doesn't exist
             }
         );
 
-        const company = await companiesCollection.findOne({
-            company: 'testing',
-        });
+        if (company?.upsertedId) {
+            companyId = company.upsertedId._id;
+        } else {
+            const company = await companiesCollection.findOne({
+                name: COMPANY_TESTING_NAME,
+            });
+            companyId = company._id;
+        }
 
         const adminAccount = {
             username: 'admin',
             password: 'password',
-            company: company._id,
+            company: companyId,
         };
 
         await accountsCollection.updateOne(
-            { username: 'admin', company: company._id },
+            { username: 'admin', company: companyId },
             { $set: adminAccount },
             { upsert: true } // option to add if doesn't exist
         );

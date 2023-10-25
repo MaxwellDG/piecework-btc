@@ -42,6 +42,8 @@ export default function LoginInput() {
                       company,
                   };
 
+        console.log("payload we're using: ", payload);
+
         const res = await fetch(`/api/auth/login`, {
             method: 'POST',
             body: JSON.stringify(payload),
