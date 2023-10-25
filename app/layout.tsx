@@ -3,6 +3,8 @@ import './(styles)/buttons.scss';
 import './(styles)/scrollbar.css';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { GlobalContextProvider } from './(context)';
+import Toasts from './(components)/toasts';
 
 const myFont = localFont({
     src: [
@@ -25,7 +27,14 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" data-theme="wireframe" style={{ fontSize: '20px' }}>
-            <body className={myFont.className}>{children}</body>
+            <body className={`${myFont.className} relative`}>
+                <GlobalContextProvider>
+                    <>
+                        {children}
+                        <Toasts />
+                    </>
+                </GlobalContextProvider>
+            </body>
         </html>
     );
 }

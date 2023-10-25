@@ -30,7 +30,7 @@ export default function LoginInput() {
             body: JSON.stringify({
                 company: 'nogggggg',
                 username: 'admin',
-                password: 'password',
+                password: 'password123',
             }),
         });
 

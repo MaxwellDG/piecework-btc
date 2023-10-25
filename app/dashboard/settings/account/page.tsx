@@ -4,8 +4,12 @@ import React from 'react';
 import BackButton from '../../../(components)/buttons/back';
 import { UpdateAccountReq } from '../../../(types)/api/requests/accounts';
 import HeroScreenContainer from '../../../(components)/containers/hero-screen-container';
+import useToasts from '../../../(hooks)/useToasts';
+import { TOAST_TYPE } from '../../../(types)/api';
 
 export default function AccountSettings() {
+    const { createToast } = useToasts();
+
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [role, setRole] = React.useState('');
@@ -24,9 +28,13 @@ export default function AccountSettings() {
 
     const updateUser = async (payload: UpdateAccountReq) => {
         await fetch('/api/user', {
-            method: 'PUT',
+            method: 'PATCH',
             body: JSON.stringify(payload),
-        });
+        })
+            .then(() => {
+                createToast('Password updated', TOAST_TYPE.SUCCESS);
+            })
+            .catch((e) => {});
     };
 
     const updatePassword = (e: React.FormEvent) => {

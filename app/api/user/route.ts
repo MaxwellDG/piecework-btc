@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     return NextResponse.json(account);
 }
 
-export async function PUT(request: Request) {
+export async function PATCH(request: Request) {
     await dbConnect();
 
     const _id = request.headers.get('jwt-_id') as string;
