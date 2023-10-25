@@ -15,8 +15,6 @@ export async function POST(request: NextRequest) {
     const company: ICompany | null =
         await CompanyHandler.findByName(company_name);
 
-    console.log('found company? ', company, company_name);
-
     if (company) {
         const account: IAccount | null = await AccountsHandler.findByLogin(
             company._id.toString(),

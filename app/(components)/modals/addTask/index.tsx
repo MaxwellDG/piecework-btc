@@ -8,6 +8,8 @@ import { useRouter } from 'next/navigation';
 import TaskImage from '../../taskImages/image';
 import { readFile } from '../../../(util)/files';
 import AddFile from '../../buttons/addFile';
+import useToasts from '../../../(hooks)/useToasts';
+import { TOAST_TYPE } from '../../../(types)/api';
 
 type Props = {
     projectId: string;
@@ -16,6 +18,7 @@ type Props = {
 
 export default function AddTaskModal({ projectId, path }: Props) {
     const { mutate } = useSWRConfig();
+    const { createToast } = useToasts();
     const router = useRouter();
 
     const [name, setName] = useState('');
@@ -90,6 +93,7 @@ export default function AddTaskModal({ projectId, path }: Props) {
                     router.push(path);
                     mutate(`/api/projects/${projectId}/tasks`);
                     mutate('/api/activity');
+                    createToast('Task created', TOAST_TYPE.SUCCESS);
                 } else {
                     console.error(await res2.text());
                 }
