@@ -15,7 +15,7 @@ const ErrorText = dynamic(() => import('../ui/text/error'), {
 // used for easy login during development
 // ensure that 'testing' company exists in db. If not, refer to README.md section on seeding db
 const developmentPayload = {
-    company: 'testinggg',
+    company: 'testing',
     username: 'admin',
     password: 'password',
 };
@@ -64,7 +64,7 @@ export default function LoginInput() {
                 <Hello />
                 <div className="flex flex-col justify-end relative">
                     {isHover && (
-                        <div className="absolute -top-7 right-0 w-full">
+                        <div className="absolute -top-8 right-0 w-full">
                             <div className="flex border border-toastBlue bg-white px-2 rounded">
                                 <p>
                                     If you have recently made an account, it

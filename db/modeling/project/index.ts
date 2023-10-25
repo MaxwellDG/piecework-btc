@@ -5,7 +5,7 @@ import mongoose, {
     Types,
     model,
 } from 'mongoose';
-import { IProject } from './types';
+import { IProject, UpdateProjectReq } from './types';
 import { TaskModel } from '../task';
 import { ActivityModel } from '../activity';
 import { PendingActionModel } from '../pendingAction';
@@ -15,6 +15,7 @@ export default {
     deleteProject,
     findByCompanyId,
     findById,
+    update,
 };
 
 export const projectSchema = new Schema<IProject>(
@@ -58,6 +59,26 @@ export async function create(
     companyId: string
 ): Promise<HydratedDocument<IProject>> {
     return await ProjectModel.create({ name, company: companyId });
+}
+
+export async function update(
+    _id: string,
+    companyId: string,
+    obj: UpdateProjectReq
+) {
+    const { name } = obj;
+
+    const projectDoc: HydratedDocument<IProject> | null = await findById(
+        _id,
+        companyId
+    );
+    if (projectDoc) {
+        projectDoc.name = name ?? projectDoc.name;
+        await projectDoc.save();
+        return projectDoc;
+    } else {
+        return null;
+    }
 }
 
 export async function deleteProject(

@@ -21,7 +21,7 @@ export const activitySchema = new Schema<IActivity>(
         refId: {
             type: mongoose.SchemaTypes.ObjectId,
             required: false,
-            unique: true,
+            unique: false,
         },
     },
     {

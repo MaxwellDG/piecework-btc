@@ -1,6 +1,6 @@
 type Props = {
     header: string;
-    content: string;
+    content: string | React.ReactNode;
     buttonFuncs: ((e: React.MouseEvent<HTMLElement>) => void)[];
     buttonTexts: string[];
     closeModal: (e: React.MouseEvent<HTMLElement>) => void;
@@ -27,10 +27,12 @@ export default function ConfirmModal({
                 className="absolute top-0 right-0 left-0 bottom-0 m-auto h-fit modal-box rounded p-0 z-10 cursor-default pointer-events-auto border border-[#f0f0f0]"
             >
                 <div className="p-4 bg-white">
-                    <div className="mb-4">
-                        <h2 className="font-semibold text-2xl">{header}</h2>
-                    </div>
-                    <p className="mb-4">{content}</p>
+                    <h2 className="font-semibold text-2xl mb-4">{header}</h2>
+                    {typeof content === 'string' ? (
+                        <p className="mb-4">{content}</p>
+                    ) : (
+                        content
+                    )}
                 </div>
                 <div
                     className={`flex w-full bg-[#fbfbfa] p-4 border-t border-[#f0f0f0] ${

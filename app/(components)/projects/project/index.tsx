@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { useState } from 'react';
 import { IProject } from '../../../../db/modeling/project/types';
@@ -5,6 +7,9 @@ import Chevron from '../../../../public/svgs/chevron';
 import Delete from '../../../../public/svgs/delete';
 import Edit from '../../../../public/svgs/edit';
 import ConfirmModal from '../../modals/confirm';
+import useToasts from '../../../(hooks)/useToasts';
+import { TOAST_TYPE } from '../../../(types)/api';
+import { useSWRConfig } from 'swr';
 
 type Props = {
     project: IProject;
@@ -12,6 +17,10 @@ type Props = {
 
 export default function Project({ project }: Props) {
     const { _id, name, company, updatedAt, createdAt } = project;
+    const { createToast } = useToasts();
+    const { mutate } = useSWRConfig();
+
+    const [_name, _setName] = useState(name);
     const [showConfirmModal, toggleConfirmModal] = useState(false);
     const [showEditModal, toggleEditModal] = useState(false);
 
@@ -24,7 +33,25 @@ export default function Project({ project }: Props) {
         });
 
         if (res.ok) {
+            createToast('Project deleted', TOAST_TYPE.INFO);
             toggleConfirmModal(false);
+        } else {
+            console.error(await res.text());
+        }
+    }
+
+    async function editProject(e: React.MouseEvent<HTMLElement>) {
+        e.preventDefault();
+        e.stopPropagation();
+        const res = await fetch(`/api/projects`, {
+            method: 'PATCH',
+            body: JSON.stringify({ name: _name, _id }),
+        });
+
+        if (res.ok) {
+            mutate(`/api/projects`);
+            createToast('Project updated', TOAST_TYPE.INFO);
+            toggleEditModal(false);
         } else {
             console.error(await res.text());
         }
@@ -76,7 +103,22 @@ export default function Project({ project }: Props) {
                     buttonTexts={['Cancel', 'Delete']}
                 />
             )}
-            {showEditModal && <ModalWrapper></ModalWrapper>}
+            {showEditModal && (
+                <ConfirmModal
+                    closeModal={(e) => toggleEdit(e, false)}
+                    header="Edit project"
+                    content={
+                        <input
+                            className="input input-bordered"
+                            type="text"
+                            value={_name}
+                            onChange={(e) => _setName(e.target.value)}
+                        />
+                    }
+                    buttonFuncs={[(e) => toggleEdit(e, false), editProject]}
+                    buttonTexts={['Cancel', 'Submit']}
+                />
+            )}
         </Link>
     );
 }

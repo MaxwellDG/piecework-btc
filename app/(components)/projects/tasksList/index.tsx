@@ -21,7 +21,7 @@ export default function TasksList({ projectId }: Props) {
     );
 
     return (
-        <div className="flex flex-1 flex-col overflow-y-auto">
+        <div className="w-full h-96 flex">
             {isLoading ? Loading() : <TaskComponentList tasks={data} />}
         </div>
     );

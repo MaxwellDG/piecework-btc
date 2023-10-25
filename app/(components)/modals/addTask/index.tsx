@@ -10,6 +10,7 @@ import { readFile } from '../../../(util)/files';
 import AddFile from '../../buttons/addFile';
 import useToasts from '../../../(hooks)/useToasts';
 import { TOAST_TYPE } from '../../../(types)/api';
+import ConfirmModal from '../confirm';
 
 type Props = {
     projectId: string;
@@ -154,8 +155,9 @@ export default function AddTaskModal({ projectId, path }: Props) {
 
     return (
         <ModalWrapper path={path}>
+            <h2 className="font-semibold text-2xl m-2 mb-4">Add task</h2>
             <form onSubmit={handleSubmit}>
-                <div className="flex mb-2">
+                <div className="flex m-2">
                     <label htmlFor="name" className="mr-2 w-20">
                         Name:
                     </label>
@@ -168,7 +170,7 @@ export default function AddTaskModal({ projectId, path }: Props) {
                         required
                     />
                 </div>
-                <div className="flex mb-2">
+                <div className="flex m-2">
                     <label htmlFor="price" className="mr-2 w-20">
                         Price:
                     </label>
@@ -181,7 +183,7 @@ export default function AddTaskModal({ projectId, path }: Props) {
                         required
                     />
                 </div>
-                <div className="flex items-start mb-2">
+                <div className="flex items-start m-2">
                     <label htmlFor="description" className="mr-2 w-20">
                         Description:
                     </label>
@@ -193,7 +195,7 @@ export default function AddTaskModal({ projectId, path }: Props) {
                         required
                     />
                 </div>
-                <div className="mb-8">
+                <div className="m-2 mb-8">
                     <h2>Files</h2>
                     <div className="flex gap-x-2">
                         <AddFile
@@ -214,9 +216,14 @@ export default function AddTaskModal({ projectId, path }: Props) {
                         ))}
                     </div>
                 </div>
-                <button type="submit" className="button w-full">
-                    Submit
-                </button>
+                <div className="flex w-full bg-[#fbfbfa] p-4 border-t border-[#f0f0f0] justify-end">
+                    <button
+                        type="submit"
+                        className="rounded py-1 px-2 bg-[#161617] border border-[#161617] text-white"
+                    >
+                        Submit
+                    </button>
+                </div>
             </form>
         </ModalWrapper>
     );
