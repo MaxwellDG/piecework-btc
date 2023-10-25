@@ -31,10 +31,15 @@ export default function AccountSettings() {
             method: 'PATCH',
             body: JSON.stringify(payload),
         })
-            .then(() => {
-                createToast('Password updated', TOAST_TYPE.SUCCESS);
-            })
-            .catch((e) => {});
+            .then(() =>
+                createToast('Account information updated', TOAST_TYPE.SUCCESS)
+            )
+            .catch((e) =>
+                createToast(
+                    'Error while updating account information',
+                    TOAST_TYPE.ERROR
+                )
+            );
     };
 
     const updatePassword = (e: React.FormEvent) => {

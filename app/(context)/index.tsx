@@ -24,13 +24,7 @@ export const GlobalContextProvider = ({
 }: {
     children: React.ReactNode;
 }) => {
-    const [toasts, setToasts] = useState<Toast[]>([
-        {
-            id: 1,
-            text: 'this is a test toast see whats up',
-            type: TOAST_TYPE.ERROR,
-        },
-    ]);
+    const [toasts, setToasts] = useState<Toast[]>([]);
 
     return (
         <GlobalContext.Provider value={{ toasts, setToasts }}>

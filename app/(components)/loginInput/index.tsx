@@ -10,6 +10,14 @@ const ErrorText = dynamic(() => import('../ui/text/error'), {
     ssr: false,
 });
 
+// used for easy login during development
+// ensure that 'testing' company exists in db
+const developmentPayload = {
+    company: 'testing',
+    username: 'admin',
+    password: 'password',
+};
+
 export default function LoginInput() {
     const router = useRouter();
 
@@ -24,14 +32,19 @@ export default function LoginInput() {
 
     async function handleLogin() {
         setError('');
-        // todo remove hardcoding of login info
+
+        const payload =
+            process.env.NODE_ENV === 'development'
+                ? developmentPayload
+                : {
+                      username,
+                      password,
+                      company,
+                  };
+
         const res = await fetch(`/api/auth/login`, {
             method: 'POST',
-            body: JSON.stringify({
-                company: 'nogggggg',
-                username: 'admin',
-                password: 'password123',
-            }),
+            body: JSON.stringify(payload),
         });
 
         if (res.ok) {
