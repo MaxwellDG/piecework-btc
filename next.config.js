@@ -1,3 +1,5 @@
+// require('dotenv').config();
+
 /** @type {import('next').NextConfig} */
 /** @type {import('next').NextConfig} */
 
@@ -29,13 +31,13 @@ const nextConfig = {
     async headers() {
         return [
             {
-                // matching all API routes
+                // matching all API routes for CORS
                 source: '/api/:path*',
                 headers: [
                     { key: 'Access-Control-Allow-Credentials', value: 'true' },
                     {
                         key: 'Access-Control-Allow-Origin',
-                        value: 'https://localhost:3000',
+                        value: process.env.NEXT_PUBLIC_BASE_URL,
                     }, // replace this your actual origin
                     {
                         key: 'Access-Control-Allow-Methods',
