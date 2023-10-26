@@ -1,12 +1,10 @@
 import Message from '../../(components)/messages/message';
 import SendMsg from '../../(components)/messages/sendMsg';
 import { headers } from 'next/headers';
-import company from '../../../db/modeling/company';
 import MessagesHandler, { IMessage } from '../../../db/modeling/message';
 import { revalidatePath } from 'next/cache';
 import HeroScreenContainer from '../../(components)/containers/hero-screen-container';
 import Question from '../../../public/svgs/question';
-import ConfirmModal from '../../(components)/modals/confirm';
 import ConfirmModalServer from '../../(components)/modals/confirm/server';
 import Link from 'next/link';
 
@@ -54,7 +52,7 @@ export default async function Page({ searchParams }: Props) {
             {/* Modals */}
             {showModal && (
                 <ConfirmModalServer
-                    header="Information"
+                    header="Info"
                     content="Communicate directly with the Piecework-BTC team here. Expect a response within 24 hours."
                     path={'/dashboard/messages'}
                 />

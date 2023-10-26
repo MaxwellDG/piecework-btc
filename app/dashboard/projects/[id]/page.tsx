@@ -6,6 +6,7 @@ import { usePathnameServer } from '../../../(hooks)/useServerHeaders';
 import { headers } from 'next/headers';
 import ProjectsHandler from '../../../../db/modeling/project';
 import BackButton from '../../../(components)/buttons/back';
+import HeroScreenContainer from '../../../(components)/containers/hero-screen-container';
 
 type Props = {
     searchParams: Record<string, string> | null;
@@ -19,7 +20,7 @@ export default async function Tasks({ searchParams }: Props) {
     const project = await ProjectsHandler.findById(id, company);
 
     return (
-        <div className="w-full h-96 flex flex-col">
+        <HeroScreenContainer>
             <BackButton route="/dashboard/projects" />
             <h2 className="text-4xl font-bold mb-8">{project?.name}</h2>
             <div className="flex justify-between">
@@ -31,6 +32,6 @@ export default async function Tasks({ searchParams }: Props) {
                 />
             </div>
             <TasksList projectId={projectId} />
-        </div>
+        </HeroScreenContainer>
     );
 }
