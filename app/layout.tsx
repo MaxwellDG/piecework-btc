@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { GlobalContextProvider } from './(context)';
 import Toasts from './(components)/toasts';
+import { Analytics } from '@vercel/analytics/react';
 
 const myFont = localFont({
     src: [
@@ -34,9 +35,11 @@ export default function RootLayout({
                 <GlobalContextProvider>
                     <>
                         {children}
+
                         <Toasts />
                     </>
                 </GlobalContextProvider>
+                <Analytics />
             </body>
         </html>
     );
