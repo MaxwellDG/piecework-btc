@@ -33,6 +33,7 @@ export default function Project({ project }: Props) {
         });
 
         if (res.ok) {
+            mutate(`/api/projects`);
             createToast('Project deleted', TOAST_TYPE.INFO);
             toggleConfirmModal(false);
         } else {
