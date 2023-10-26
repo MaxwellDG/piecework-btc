@@ -27,7 +27,10 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" data-theme="wireframe" style={{ fontSize: '20px' }}>
-            <body className={`${myFont.className} relative`}>
+            <body
+                className={`${myFont.className} relative`}
+                style={{ color: 'black' }}
+            >
                 <GlobalContextProvider>
                     <>
                         {children}
