@@ -1,3 +1,5 @@
+'use client';
+
 type Props = {
     header: string;
     content: string | React.ReactNode;

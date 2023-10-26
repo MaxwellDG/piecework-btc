@@ -11,6 +11,8 @@ export default {
     countTasks,
 };
 
+// todo migrate property 'maxTasks' alottment. Increase this value on task completions
+
 export const taskSchema = new Schema<ITask>(
     {
         name: { type: String, required: true },

@@ -92,7 +92,7 @@ export default function AddTaskModal({ projectId, path }: Props) {
                     setDescription('');
                     setImageUrls([]);
                     router.push(path);
-                    mutate(`/api/projects/${projectId}/tasks`);
+                    mutate('/api/tasks/' + projectId);
                     mutate('/api/activity');
                     createToast('Task created', TOAST_TYPE.SUCCESS);
                 } else {
