@@ -4,7 +4,7 @@ import useSWR from 'swr';
 import React from 'react';
 import Loading from '../../../(components)/loading';
 import ModalWrapper from '../../../(components)/modals';
-import { IAccount, Role } from '../../../../db/modeling/account/types';
+import { IAccount, Role } from '../../../../db/models/account/types';
 
 export default function Page() {
     const { data, error, isLoading, mutate } = useSWR(

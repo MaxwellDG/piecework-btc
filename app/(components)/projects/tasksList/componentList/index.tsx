@@ -1,4 +1,4 @@
-import { ITask } from '../../../../../db/modeling/task/types';
+import { ITask } from '../../../../../db/models/task/types';
 import Task from '../../task';
 
 type Props = {

@@ -4,7 +4,7 @@ import AddTask from '../../../(components)/projects/addTask';
 import TasksList from '../../../(components)/projects/tasksList';
 import { usePathnameServer } from '../../../(hooks)/useServerHeaders';
 import { headers } from 'next/headers';
-import ProjectsHandler from '../../../../db/modeling/project';
+import ProjectsHandler from '../../../../db/models/project';
 import BackButton from '../../../(components)/buttons/back';
 import HeroScreenContainer from '../../../(components)/containers/hero-screen-container';
 

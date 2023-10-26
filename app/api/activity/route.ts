@@ -1,5 +1,5 @@
 import dbConnect from '../../../db';
-import ActivityHandler from '../../../db/modeling/activity';
+import ActivityHandler from '../../../db/models/activity';
 import { NextResponse } from 'next/server';
 
 export async function GET(req: Request) {

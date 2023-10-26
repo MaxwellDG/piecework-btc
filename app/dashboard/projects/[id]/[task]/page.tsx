@@ -1,6 +1,6 @@
 import { headers } from 'next/headers';
-import { ITask, TASK_STATUS } from '../../../../../db/modeling/task/types';
-import TasksHandler from '../../../../../db/modeling/task';
+import { ITask, TASK_STATUS } from '../../../../../db/models/task/types';
+import TasksHandler from '../../../../../db/models/task';
 import TaskImages from '../../../../(components)/taskImages';
 import { getBucketFileUrls } from '../../../../(clients)/google';
 import TaskInformation from '../../../../(components)/taskInformation';

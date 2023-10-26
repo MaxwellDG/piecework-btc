@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { jwtVerify } from 'jose';
 import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
-import { Role } from './db/modeling/account/types';
+import { Role } from './db/models/account/types';
 
 const API_AUTH_ROUTES = ['/api/company', '/api/auth/login', '/api/admin/auth'];
 

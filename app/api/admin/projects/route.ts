@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '../../../../db';
-import ProjectsHandler from '../../../../db/modeling/project';
-import { IProject } from '../../../../db/modeling/project/types';
+import ProjectsHandler from '../../../../db/models/project';
+import { IProject } from '../../../../db/models/project/types';
 import { HydratedDocument } from 'mongoose';
 
 export async function GET(req: Request) {

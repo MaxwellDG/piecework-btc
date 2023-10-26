@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '../../../../db';
-import ProjectsHandler from '../.././../../db/modeling/project';
-import ActivityHandler from '../../../../db/modeling/activity';
+import ProjectsHandler from '../.././../../db/models/project';
+import ActivityHandler from '../../../../db/models/activity';
 import {
     ActivityCRUD,
     ActivityType,
-} from '../../../../db/modeling/activity/types';
+} from '../../../../db/models/activity/types';
 
 export async function DELETE(
     req: Request,

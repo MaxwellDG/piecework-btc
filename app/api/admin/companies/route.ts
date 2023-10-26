@@ -1,8 +1,8 @@
 import { HydratedDocument } from 'mongoose';
 import dbConnect from '../../../../db';
-import CompaniesHandler from '../../../../db/modeling/company';
+import CompaniesHandler from '../../../../db/models/company';
 import { NextResponse } from 'next/server';
-import { ICompany } from '../../../../db/modeling/company/types';
+import { ICompany } from '../../../../db/models/company/types';
 
 export async function GET(req: Request) {
     await dbConnect();

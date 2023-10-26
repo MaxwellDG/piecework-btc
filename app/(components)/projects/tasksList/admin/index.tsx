@@ -1,6 +1,6 @@
 'use client';
 
-import { ITask } from '../../../../../db/modeling/task/types';
+import { ITask } from '../../../../../db/models/task/types';
 import React from 'react';
 import TaskComponentList from './../componentList';
 

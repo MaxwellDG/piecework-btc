@@ -3,7 +3,7 @@
 import React, { Suspense } from 'react';
 import Loading from '../../loading';
 import Company from '../company';
-import { ICompany } from '../../../../db/modeling/company/types';
+import { ICompany } from '../../../../db/models/company/types';
 
 export default function CompaniesList() {
     const [companies, setCompanies] = React.useState<ICompany[]>(

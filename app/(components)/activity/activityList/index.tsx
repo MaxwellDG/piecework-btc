@@ -2,7 +2,7 @@
 
 import useSWR from 'swr';
 import Activity from '..';
-import { IActivity } from '../../../../db/modeling/activity/types';
+import { IActivity } from '../../../../db/models/activity/types';
 import Loading from '../../loading';
 
 export default function ActivityList() {

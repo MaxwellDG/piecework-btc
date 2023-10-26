@@ -1,4 +1,4 @@
-import { TASK_STATUS } from '../../../db/modeling/task/types';
+import { TASK_STATUS } from '../../../db/models/task/types';
 
 export const getStatusColor = (status: TASK_STATUS) => {
     switch (status) {

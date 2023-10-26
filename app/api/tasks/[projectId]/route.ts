@@ -1,16 +1,16 @@
 import { HydratedDocument } from 'mongoose';
 import dbConnect from '../../../../db';
-import TasksHandler from '../../../../db/modeling/task';
-import { ITask } from '../../../../db/modeling/task/types';
+import TasksHandler from '../../../../db/models/task';
+import { ITask } from '../../../../db/models/task/types';
 import { NextResponse } from 'next/server';
 import { UpdateTaskReq } from '../../../(types)/api/requests/tasks';
-import ActivityHandler from '../../../../db/modeling/activity';
-import CompanyHandler from '../../../../db/modeling/company';
+import ActivityHandler from '../../../../db/models/activity';
+import CompanyHandler from '../../../../db/models/company';
 import {
     ActivityCRUD,
     ActivityType,
-} from '../../../../db/modeling/activity/types';
-import { IProject } from '../../../../db/modeling/project/types';
+} from '../../../../db/models/activity/types';
+import { IProject } from '../../../../db/models/project/types';
 
 export async function GET(
     req: Request,

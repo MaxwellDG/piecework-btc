@@ -1,4 +1,4 @@
-import { Role } from '../../../../../db/modeling/account/types';
+import { Role } from '../../../../../db/models/account/types';
 
 export type CreateAccountReq = {
     username: string;

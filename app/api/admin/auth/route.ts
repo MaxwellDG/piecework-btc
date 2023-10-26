@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Role } from '../../../../db/modeling/account/types';
+import { Role } from '../../../../db/models/account/types';
 import { serialize } from 'cookie';
 import { SignJWT } from 'jose';
 

@@ -1,5 +1,5 @@
 import HeroScreenContainer from '../../../(components)/containers/hero-screen-container';
-import CompanyHandler from '../../../../db/modeling/company';
+import CompanyHandler from '../../../../db/models/company';
 import { headers } from 'next/headers';
 
 export default async function Layout({

@@ -1,4 +1,4 @@
-import AccountHandler from '../../../db/modeling/account';
+import AccountHandler from '../../../db/models/account';
 import { NextResponse } from 'next/server';
 
 export async function GET(req: Request) {

@@ -2,11 +2,11 @@ import { headers } from 'next/headers';
 import PendingAction from '../(components)/pendingAction';
 import PendingActionsHandler, {
     IPendingAction,
-} from '../../db/modeling/pendingAction';
-import TasksHandler from '../../db/modeling/task';
+} from '../../db/models/pendingAction';
+import TasksHandler from '../../db/models/task';
 import ActivityList from '../(components)/activity/activityList';
 import HeroScreenContainer from '../(components)/containers/hero-screen-container';
-import { TASK_STATUS } from '../../db/modeling/task/types';
+import { TASK_STATUS } from '../../db/models/task/types';
 import dbConnect from '../../db';
 
 export default async function Page() {

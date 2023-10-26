@@ -1,15 +1,15 @@
 import { HydratedDocument } from 'mongoose';
 import dbConnect from '../../../db';
-import ProjectsHandler from '../../../db/modeling/project';
-import { IProject } from '../../../db/modeling/project/types';
+import ProjectsHandler from '../../../db/models/project';
+import { IProject } from '../../../db/models/project/types';
 import { NextResponse } from 'next/server';
-import ActivityHandler from '../../../db/modeling/activity';
+import ActivityHandler from '../../../db/models/activity';
 import {
     ActivityCRUD,
     ActivityType,
     IActivity,
-} from '../../../db/modeling/activity/types';
-import CompanyHandler from '../../../db/modeling/company';
+} from '../../../db/models/activity/types';
+import CompanyHandler from '../../../db/models/company';
 
 export async function GET(req: Request) {
     await dbConnect();

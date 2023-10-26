@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { IProject } from '../../../../db/modeling/project/types';
+import { IProject } from '../../../../db/models/project/types';
 import Chevron from '../../../../public/svgs/chevron';
 import Delete from '../../../../public/svgs/delete';
 import Edit from '../../../../public/svgs/edit';

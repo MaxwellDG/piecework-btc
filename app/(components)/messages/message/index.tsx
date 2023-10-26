@@ -1,4 +1,4 @@
-import { IMessage } from '../../../../db/modeling/message';
+import { IMessage } from '../../../../db/models/message';
 
 type MessageProps = {
     message: IMessage;

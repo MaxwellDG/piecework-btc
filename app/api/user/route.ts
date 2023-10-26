@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import AccountsHandler from '../../../db/modeling/account';
+import AccountsHandler from '../../../db/models/account';
 import dbConnect from '../../../db';
-import { IAccount, Role } from '../../../db/modeling/account/types';
+import { IAccount, Role } from '../../../db/models/account/types';
 import { UpdateAccountReq } from '../../(types)/api/requests/accounts';
 
 export async function GET(request: Request) {

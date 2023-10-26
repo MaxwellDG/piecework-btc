@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import AccountsHandler from '../../../../db/modeling/account';
+import AccountsHandler from '../../../../db/models/account';
 import { serialize } from 'cookie';
 import dbConnect from '../../../../db';
 import { SignJWT } from 'jose';
-import { IAccount } from '../../../../db/modeling/account/types';
-import CompanyHandler from '../../../../db/modeling/company';
-import { ICompany } from '../../../../db/modeling/company/types';
+import { IAccount } from '../../../../db/models/account/types';
+import CompanyHandler from '../../../../db/models/company';
+import { ICompany } from '../../../../db/models/company/types';
 
 export async function POST(request: NextRequest) {
     await dbConnect();

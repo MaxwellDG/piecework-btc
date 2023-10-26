@@ -3,7 +3,7 @@ import {
     ActivityCRUD,
     ActivityType,
     IActivity,
-} from '../../../db/modeling/activity/types';
+} from '../../../db/models/activity/types';
 import User from '../../../public/svgs/user';
 import Projects from '../../../public/svgs/projects';
 import Messages from '../../../public/svgs/messages';

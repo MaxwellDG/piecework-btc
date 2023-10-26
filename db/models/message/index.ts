@@ -1,5 +1,5 @@
 import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
-import { ICompany } from '../company';
+import { ICompany } from '../company/types';
 
 export interface IMessage {
     _id: string;

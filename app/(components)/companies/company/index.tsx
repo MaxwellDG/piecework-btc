@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Messages from '../../../../public/svgs/messages';
 import Projects from '../../../../public/svgs/projects';
 import NotificationCircle from '../../notificationCircle';
-import { ICompany } from '../../../../db/modeling/company/types';
+import { ICompany } from '../../../../db/models/company/types';
 
 type Props = {
     company: ICompany;

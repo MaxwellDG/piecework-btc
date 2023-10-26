@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Chevron from '../../../../public/svgs/chevron';
-import { ITask } from '../../../../db/modeling/task/types';
+import { ITask } from '../../../../db/models/task/types';
 
 type Props = {
     task: ITask;

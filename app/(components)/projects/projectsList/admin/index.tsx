@@ -1,7 +1,7 @@
 'use client';
 
 import React, { Suspense } from 'react';
-import { IProject } from '../../../../../db/modeling/project/types';
+import { IProject } from '../../../../../db/models/project/types';
 import Loading from '../../../loading';
 import ProjectComponentList from './../componentList';
 

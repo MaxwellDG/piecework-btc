@@ -1,6 +1,6 @@
 import Message from '../../../../(components)/messages/message';
 import SendMsg from '../../../../(components)/messages/sendMsg';
-import MessagesHandler, { IMessage } from '../../../../../db/modeling/message';
+import MessagesHandler, { IMessage } from '../../../../../db/models/message';
 import { revalidatePath } from 'next/cache';
 import BackButton from '../../../../(components)/buttons/back';
 import { usePathnameServer } from '../../../../(hooks)/useServerHeaders';

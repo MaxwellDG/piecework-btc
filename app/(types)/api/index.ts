@@ -1,4 +1,4 @@
-import { Role } from '../../../db/modeling/account/types';
+import { Role } from '../../../db/models/account/types';
 
 export type JWT_DATA = {
     _id: string;

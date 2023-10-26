@@ -1,7 +1,7 @@
 import Message from '../../(components)/messages/message';
 import SendMsg from '../../(components)/messages/sendMsg';
 import { headers } from 'next/headers';
-import MessagesHandler, { IMessage } from '../../../db/modeling/message';
+import MessagesHandler, { IMessage } from '../../../db/models/message';
 import { revalidatePath } from 'next/cache';
 import HeroScreenContainer from '../../(components)/containers/hero-screen-container';
 import Question from '../../../public/svgs/question';

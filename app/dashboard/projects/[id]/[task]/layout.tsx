@@ -1,8 +1,8 @@
 import BackButton from '../../../../(components)/buttons/back';
 import HeroScreenContainer from '../../../../(components)/containers/hero-screen-container';
 import Loading from '../../../../(components)/loading';
-import ProjectsHandler from '../../../../../db/modeling/project';
-import TasksHandler from '../../../../../db/modeling/task';
+import ProjectsHandler from '../../../../../db/models/project';
+import TasksHandler from '../../../../../db/models/task';
 import { headers } from 'next/headers';
 
 export default async function Layout({
