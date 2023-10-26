@@ -5,6 +5,7 @@ import React from 'react';
 import Loading from '../../../(components)/loading';
 import ModalWrapper from '../../../(components)/modals';
 import { IAccount, Role } from '../../../../db/models/account/types';
+import ConfirmModal from '../../../(components)/modals/confirm';
 
 export default function Page() {
     const { data, error, isLoading, mutate } = useSWR(
@@ -131,35 +132,30 @@ export default function Page() {
             </div>
 
             {showModal && (
-                <ModalWrapper>
-                    <div>
-                        <div>
-                            <p>{`Created new account:`}</p>
-                            <ul className="mb-8">
-                                <li className="flex">
-                                    <p>Username:&nbsp;</p>
-                                    <p className="font-bold">{newUser}</p>
-                                </li>
-                                <li className="flex">
-                                    <p>Password:&nbsp;</p>
-                                    <p className="font-bold">password</p>
-                                </li>
-                                <li className="flex">
-                                    <p>Role:&nbsp;</p>
-                                    <p className="font-bold">
-                                        {isAdmin ? Role.ADMIN : Role.USER}
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                        <button
-                            onClick={() => toggleModal(false)}
-                            className="button"
-                        >
-                            Confirm
-                        </button>
-                    </div>
-                </ModalWrapper>
+                <ConfirmModal
+                    closeModal={() => toggleModal(false)}
+                    header="Created new user"
+                    content={
+                        <ul className="mb-8">
+                            <li className="flex">
+                                <p>Username:&nbsp;</p>
+                                <p className="font-bold">{newUser}</p>
+                            </li>
+                            <li className="flex">
+                                <p>Password:&nbsp;</p>
+                                <p className="font-bold">password</p>
+                            </li>
+                            <li className="flex">
+                                <p>Role:&nbsp;</p>
+                                <p className="font-bold">
+                                    {isAdmin ? Role.ADMIN : Role.USER}
+                                </p>
+                            </li>
+                        </ul>
+                    }
+                    buttonFuncs={[() => toggleModal(false)]}
+                    buttonTexts={['Okay']}
+                />
             )}
         </div>
     );
