@@ -7,12 +7,14 @@ import { headers } from 'next/headers';
 import ProjectsHandler from '../../../../db/models/project';
 import BackButton from '../../../(components)/buttons/back';
 import HeroScreenContainer from '../../../(components)/containers/hero-screen-container';
+import dbConnect from '../../../../db';
 
 type Props = {
     searchParams: Record<string, string> | null;
 };
 
 export default async function Tasks({ searchParams }: Props) {
+    await dbConnect();
     const { id: projectId, path } = usePathnameServer();
     const _headers = headers();
     const company = _headers.get('jwt-company') as string;
