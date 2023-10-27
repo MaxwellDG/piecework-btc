@@ -2,7 +2,7 @@
 
 import { useGlobalContext } from '../../(context)';
 import { useEffect } from 'react';
-import { TOAST_TYPE, Toast } from '../../(types)/api';
+import { Toast } from '../../(types)/api';
 
 type Props = {
     id: number;
@@ -15,7 +15,7 @@ const Toast = ({ id, text, type, removeToast }: Props) => {
     return (
         <div
             onClick={() => removeToast(id)}
-            className="border border-toastBlue bg-white px-2 rounded cursor-pointer"
+            className="border border-toastBlue bg-white px-2 rounded cursor-pointer mb-2"
         >
             <p className="text-md">{text}</p>
         </div>

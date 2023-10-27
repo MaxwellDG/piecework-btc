@@ -9,7 +9,7 @@ const API_AUTH_ROUTES = ['/api/company', '/api/auth/login', '/api/admin/auth'];
 // todo check for expiration
 async function extractJWTForNext(
     cookie: RequestCookie,
-    request: NextRequest,
+    requestHeaders: Headers,
     isSuperAdmin: boolean
 ): Promise<NextResponse | null> {
     try {
@@ -18,7 +18,6 @@ async function extractJWTForNext(
             new TextEncoder().encode(process.env.JWT_SECRET || '')
         );
 
-        const requestHeaders = new Headers(request.headers);
         if (!isSuperAdmin) {
             requestHeaders.set(
                 'jwt-company',
@@ -37,6 +36,7 @@ async function extractJWTForNext(
                 headers: requestHeaders,
             },
         });
+
         return response;
     } catch (e) {
         // todo delete jwt cookie
@@ -44,10 +44,18 @@ async function extractJWTForNext(
     }
 }
 
-export async function middleware(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
+    // add pathname to headers for access in SSR components
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set('x-pathname', request.nextUrl.pathname);
+
     // login paths
     if (API_AUTH_ROUTES.includes(request.nextUrl.pathname)) {
-        return NextResponse.next();
+        return NextResponse.next({
+            request: {
+                headers: requestHeaders,
+            },
+        });
     } else {
         // jwt verification and role based authorization
         const cookie = request.cookies.get('JWT');
@@ -59,7 +67,11 @@ export async function middleware(request: NextRequest) {
             if (!cookie) {
                 return NextResponse.redirect(new URL('/admin', request.url));
             } else {
-                const response = await extractJWTForNext(cookie, request, true);
+                const response = await extractJWTForNext(
+                    cookie,
+                    requestHeaders,
+                    true
+                );
                 const token = await jwtVerify(
                     cookie.value,
                     new TextEncoder().encode(process.env.JWT_SECRET || '')
@@ -82,7 +94,7 @@ export async function middleware(request: NextRequest) {
             } else {
                 const response = await extractJWTForNext(
                     cookie,
-                    request,
+                    requestHeaders,
                     false
                 );
                 if (response) {
@@ -92,7 +104,11 @@ export async function middleware(request: NextRequest) {
                 }
             }
         } else {
-            return NextResponse.next();
+            return NextResponse.next({
+                request: {
+                    headers: requestHeaders,
+                },
+            });
         }
     }
 }

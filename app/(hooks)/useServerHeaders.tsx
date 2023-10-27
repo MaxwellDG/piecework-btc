@@ -4,7 +4,8 @@ import { headers } from 'next/headers';
 
 export function usePathnameServer(): { id: string; path: string } {
     const _headers = headers();
-    const path: string = _headers.get('x-invoke-path') as string;
+    // x-pathname header added in middleware
+    const path: string = _headers.get('x-pathname') as string;
     const pathSplit: string[] = path.split('/');
     const id: string = pathSplit[pathSplit.length - 1];
 

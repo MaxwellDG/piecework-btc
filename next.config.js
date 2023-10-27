@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 /** @type {import('next').NextConfig} */
 
-console.log('can we print this: ', process.env.NEXT_PUBLIC_BASE_URL);
-
 const nextConfig = {
     reactStrictMode: true,
     images: {
