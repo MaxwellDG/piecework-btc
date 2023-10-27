@@ -12,7 +12,7 @@ export default async function Layout({
 }) {
     const _headers = headers();
     const company = _headers.get('jwt-company') as string;
-    const path: string = _headers.get('x-invoke-path') as string;
+    const path: string = _headers.get('x-pathname') as string;
     const pathSplit: string[] = path.split('/');
     const taskId: string = pathSplit[pathSplit.length - 1];
     const projectId: string = pathSplit[pathSplit.length - 2];
