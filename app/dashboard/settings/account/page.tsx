@@ -62,7 +62,10 @@ export default function AccountSettings() {
                     </span>
                 </div>
                 <form
-                    onSubmit={() => updateUser({ username })}
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        updateUser({ username });
+                    }}
                     className="mb-8"
                 >
                     <label>
