@@ -33,6 +33,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# google cloud
-app/(clients)/google/piecework-btc-7687d637bcb8.json
