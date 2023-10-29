@@ -1,5 +1,6 @@
 import BackButton from '../../../../(components)/buttons/back';
 import HeroScreenContainer from '../../../../(components)/containers/hero-screen-container';
+import MainContent from '../../../../(components)/containers/main-content';
 import Loading from '../../../../(components)/loading';
 import dbConnect from '../../../../../db';
 import ProjectsHandler from '../../../../../db/models/project';
@@ -23,11 +24,15 @@ export default async function Layout({
     return (
         <HeroScreenContainer>
             <BackButton route={`/dashboard/projects/${projectId}`} />
-            {!task ? (
-                Loading()
-            ) : (
-                <div className="m-auto w-full max-w-4xl">{children}</div>
-            )}
+            <MainContent>
+                {!task ? (
+                    Loading()
+                ) : (
+                    <div className="m-auto w-full max-w-4xl h-full flex flex-col">
+                        {children}
+                    </div>
+                )}
+            </MainContent>
         </HeroScreenContainer>
     );
 }

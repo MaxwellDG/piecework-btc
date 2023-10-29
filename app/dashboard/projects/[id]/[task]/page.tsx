@@ -41,7 +41,7 @@ export default async function Page() {
     }
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col m-auto w-full">
             <div className="flex justify-end mb-2 items-center">
                 <p
                     className={`${getStatusColor(

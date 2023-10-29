@@ -6,6 +6,7 @@ import { UpdateAccountReq } from '../../../(types)/api/requests/accounts';
 import HeroScreenContainer from '../../../(components)/containers/hero-screen-container';
 import useToasts from '../../../(hooks)/useToasts';
 import { TOAST_TYPE } from '../../../(types)/api';
+import MainContent from '../../../(components)/containers/main-content';
 
 export default function AccountSettings() {
     const { createToast } = useToasts();
@@ -53,8 +54,8 @@ export default function AccountSettings() {
 
     return (
         <HeroScreenContainer>
-            <div>
-                <BackButton route="/dashboard/settings" />
+            <BackButton route="/dashboard/settings" />
+            <MainContent>
                 <div className="flex w-full mb-8">
                     <span className="flex flex-1">
                         <p>Role:&nbsp;</p>
@@ -110,7 +111,7 @@ export default function AccountSettings() {
                         Update password
                     </button>
                 </form>
-            </div>
+            </MainContent>
         </HeroScreenContainer>
     );
 }

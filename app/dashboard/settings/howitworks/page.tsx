@@ -1,5 +1,6 @@
 import BackButton from '../../../(components)/buttons/back';
 import HeroScreenContainer from '../../../(components)/containers/hero-screen-container';
+import MainContent from '../../../(components)/containers/main-content';
 import Home from '../../../../public/svgs/home';
 import Messages from '../../../../public/svgs/messages';
 import Projects from '../../../../public/svgs/projects';
@@ -9,7 +10,7 @@ export default function Page() {
     return (
         <HeroScreenContainer>
             <BackButton route="/dashboard/settings" />
-            <div className="h-96 overflow-y-auto pr-2">
+            <MainContent>
                 <p className="mb-8">
                     &nbsp;&nbsp;&nbsp;&nbsp;Piecework-BTC is a tool to help
                     connect employers with freelancers in the world of software
@@ -154,7 +155,7 @@ export default function Page() {
                         </span>
                     </li>
                 </ul>
-            </div>
+            </MainContent>
         </HeroScreenContainer>
     );
 }
