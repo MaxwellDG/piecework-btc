@@ -13,7 +13,7 @@ export default function ProjectsList() {
     });
 
     return (
-        <div className="w-full h-96 flex overflow-y-auto">
+        <div className="w-full h-96 flex">
             {isLoading ? Loading() : <ProjectComponentList projects={data} />}
         </div>
     );

@@ -37,7 +37,7 @@ export default async function Page({ searchParams }: Props) {
                     {Question('grey', 25)}
                 </Link>
             </div>
-            <div className="custom-border-color flex flex-col bg-white mb-2 p-2 max-h-[50vh] sm:max-h-none sm:h-96 overflow-y-auto rounded border">
+            <div className="custom-border-color flex flex-col bg-white mb-2 p-2 sm:max-h-none sm:h-96 overflow-y-auto rounded border">
                 {messages?.map((msg: IMessage, i: number) => {
                     return (
                         <Message
