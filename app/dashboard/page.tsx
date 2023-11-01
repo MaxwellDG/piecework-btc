@@ -24,7 +24,7 @@ export default async function Page() {
 
     return (
         <HeroScreenContainer>
-            <h2 className="text-4xl font-bold mb-2">Home</h2>
+            <h2 className="text-4xl font-bold mb-[40px]">Home</h2>
             <div className="flex flex-col h-96 xl:flex-row overflow-y-auto pr-2">
                 <div className="flex flex-1 flex-col mb-8 xl:mb-0 xl:mr-4">
                     <h3 className="text-lg mb-2 font-semibold">Activity</h3>

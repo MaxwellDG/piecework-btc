@@ -27,9 +27,13 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" data-theme="wireframe" style={{ fontSize: '20px' }}>
+        <html
+            lang="en"
+            data-theme="wireframe"
+            style={{ fontSize: '20px', height: '100vh', display: 'flex' }}
+        >
             <body
-                className={`${myFont.className} relative`}
+                className={`${myFont.className} relative flex flex-1`}
                 style={{ color: 'black' }}
             >
                 <GlobalContextProvider>

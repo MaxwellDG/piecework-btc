@@ -7,7 +7,7 @@ type Props = {
 
 export default function ProjectComponentList({ projects }: Props): JSX.Element {
     return (
-        <div className="flex flex-1 flex-col overflow-y-auto pr-1 gap-y-2">
+        <div className="flex flex-1 flex-col overflow-y-auto pr-1 gap-y-2 h-full">
             {projects.length ? (
                 <div className="flex flex-col gap-y-2">
                     {projects.map((project) => (

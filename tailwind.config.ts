@@ -12,6 +12,7 @@ const config: Config = {
                 btcOrange: '#F2A900',
                 btcOrangePale: '#F5D6A1',
                 toastBlue: '#3bbef8',
+                baseGray: '#ececed',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

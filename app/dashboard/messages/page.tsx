@@ -7,12 +7,14 @@ import HeroScreenContainer from '../../(components)/containers/hero-screen-conta
 import Question from '../../../public/svgs/question';
 import ConfirmModalServer from '../../(components)/modals/confirm/server';
 import Link from 'next/link';
+import dbConnect from '../../../db';
 
 type Props = {
     searchParams: Record<string, string> | null | undefined;
 };
 
 export default async function Page({ searchParams }: Props) {
+    await dbConnect();
     const _headers = headers();
     const companyId = _headers.get('jwt-company') as string;
     const showModal = searchParams?.modal;
@@ -35,7 +37,7 @@ export default async function Page({ searchParams }: Props) {
                     {Question('grey', 25)}
                 </Link>
             </div>
-            <div className="custom-border-color flex flex-col bg-white mb-2 p-2 h-96 overflow-y-auto rounded border">
+            <div className="custom-border-color flex flex-col bg-white mb-2 p-2 max-h-[50vh] sm:max-h-none sm:h-96 overflow-y-auto rounded border">
                 {messages?.map((msg: IMessage, i: number) => {
                     return (
                         <Message

@@ -28,25 +28,17 @@ $button-shadow-active: $button-shadow-base, $shadow-inset-active;
     -webkit-appearance: none;
     appearance: none;
     user-select: none;
-    display: flex;
     align-items: center;
-    justify-content: center;
     outline: none;
     cursor: pointer;
-    padding: 20px;
     border: 1px solid $button-border 1px solid $button-border 1px solid
         $button-border 1px solid $button-border;
-    box-shadow: $button-shadow-default;
     box-shadow: $button-shadow-hover;
     background-image: linear-gradient(to left, $button-gradient);
 
     transition: all 0.2s ease;
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
     color: $button-text;
-    text-shadow: 0 1px #fff;
-    border-radius: 100px;
 
     &::-moz-focus-inner {
         border: 0;

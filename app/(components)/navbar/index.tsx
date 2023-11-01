@@ -23,7 +23,10 @@ export default function NavBar() {
 
     return (
         <div
-            className={`nav-con absolute top-0 bottom-0 left-4 flex flex-col p-4 gap-x-2 justify-center h-fit m-auto gap-y-20 w-[50px] h-[435px]`}
+            className={`flex nav-con sm:flex sm:w-[50px] h-[40px] sm:h-[435px] sm:absolute sm:top-0 bottom-0 left-0 right-0 sm:right-auto sm:left-4 sm:flex-col 
+                p-2 m-2 gap-x-2 justify-around sm:m-auto sm:gap-y-20 bg-baseGray rounded-xl`}
+            // className={`flex nav-con sm:flex sm:w-[50px] h-[40px] sm:h-[435px] absolute sm:top-0 bottom-0 left-0 right-0 sm:right-auto sm:left-4 sm:flex-col
+            //     p-2 m-2 gap-x-2 justify-around sm:m-auto sm:gap-y-20 bg-baseGray rounded-xl`}
             onMouseOver={() => setEstado(true)}
             onMouseLeave={() => setEstado(false)}
         >

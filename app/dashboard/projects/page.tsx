@@ -5,7 +5,7 @@ import ProjectsList from '../../(components)/projects/projectsList';
 export default function Projects() {
     return (
         <HeroScreenContainer>
-            <div className="flex flex-col justify-between h-20 items-start md:flex-row">
+            <div className="flex flex-col justify-between items-start md:flex-row mb-2">
                 <h2 className="text-4xl font-bold mb-2">Projects</h2>
                 <AddProject />
             </div>
