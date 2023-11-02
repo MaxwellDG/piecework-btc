@@ -67,12 +67,12 @@ export default function LoginInput() {
                         <div className="absolute -top-8 right-0 w-full">
                             <div className="flex border border-toastBlue bg-white px-2 rounded">
                                 <p>
-                                    If you have recently made an account, it
+                                    {`If you have recently made an account, it
                                     might be useful to know that all default
                                     passwords are 'password'. Newly created
                                     companies all have an account with username
                                     'admin'. These can be changed on the
-                                    'Account Settings' page.
+                                    'Account Settings' page.`}
                                 </p>
                             </div>
                         </div>

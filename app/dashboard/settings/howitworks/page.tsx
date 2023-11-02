@@ -12,12 +12,12 @@ export default function Page() {
             <BackButton route="/dashboard/settings" />
             <MainContent>
                 <p className="mb-8">
-                    &nbsp;&nbsp;&nbsp;&nbsp;Piecework-BTC is a tool to help
+                    {`    Piecework-BTC is a tool to help
                     connect employers with freelancers in the world of software
                     development. What makes us different is that we have less
                     overhead, and less fluff. We take no fees, and only gather
                     minimal information. All that matters is connecting one
-                    entity with another to complete a certain task.
+                    entity with another to complete a certain task.`}
                 </p>
                 <div className="flex items-center mb-4">
                     {Home('black', 30)}

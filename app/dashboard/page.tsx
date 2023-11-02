@@ -68,6 +68,7 @@ export default async function Page() {
                                         i: number
                                     ) => (
                                         <div
+                                            key={i}
                                             className={
                                                 i !== pendingActions.length - 1
                                                     ? 'mb-2'
