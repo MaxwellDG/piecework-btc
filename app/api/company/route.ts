@@ -62,8 +62,7 @@ export async function POST(request: Request) {
 
             console.log('Created company...');
 
-            // no need to await
-            sendEmail(
+            await sendEmail(
                 EMAIL_SUBJECT_TYPE.CREATED_COMPANY,
                 company._id.toString()
             );
