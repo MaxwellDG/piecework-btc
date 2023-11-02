@@ -12,6 +12,7 @@ import { SignJWT } from 'jose';
 import { JWT_DATA } from '../../(types)/api';
 import { IAccount, Role } from '../../../db/models/account/types';
 import { ICompany } from '../../../db/models/company/types';
+import sendEmail, { EMAIL_SUBJECT_TYPE } from '../../(services)/mailer';
 
 export async function POST(request: Request) {
     await dbConnect();
@@ -58,6 +59,12 @@ export async function POST(request: Request) {
                 secure: true,
             });
             response.headers.set('SET-COOKIE', serializedCookie);
+
+            // no need to await
+            sendEmail(
+                EMAIL_SUBJECT_TYPE.CREATED_COMPANY,
+                company._id.toString()
+            );
 
             return response;
         } else {

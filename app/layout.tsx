@@ -18,7 +18,7 @@ const myFont = localFont({
 export const metadata: Metadata = {
     title: 'Piecework - BTC',
     description:
-        'Submit small pieces of work and state the price. Our verified engineers will then see the job and claim it to be completed within a specified timeframe.',
+        'Submit small pieces of work and state the price. Our verified engineers will then see the offer and will be given the opportunity to claim it.',
 };
 
 export default function RootLayout({
