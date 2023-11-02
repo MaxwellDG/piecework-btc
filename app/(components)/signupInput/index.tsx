@@ -4,6 +4,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import ConfirmModal from '../modals/confirm';
 import { useRouter } from 'next/navigation';
+import { EMAIL_SUBJECT_TYPE } from '../../(services)/mailer';
 
 const ErrorText = dynamic(() => import('../ui/text/error'), {
     ssr: false,
@@ -26,6 +27,13 @@ export default function SignupInput() {
             }
         );
         if (res.ok) {
+            // no await
+            fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/email`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    subject: EMAIL_SUBJECT_TYPE.CREATED_COMPANY,
+                }),
+            });
             setOrganization('');
             setShowModal(true);
             setError('');
