@@ -60,6 +60,8 @@ export async function POST(request: Request) {
             });
             response.headers.set('SET-COOKIE', serializedCookie);
 
+            console.log('Created company...');
+
             // no need to await
             sendEmail(
                 EMAIL_SUBJECT_TYPE.CREATED_COMPANY,
