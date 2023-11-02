@@ -37,10 +37,15 @@ export default async function sendEmail(
     companyId: string,
     extraText?: string
 ) {
-    const info = await transporter.sendMail({
-        from: `Piecework-BTC <${process.env.SUPER_ADMIN_EMAIL_SENDER}>`,
-        to: process.env.SUPER_ADMIN_EMAIL,
-        subject,
-        text: getText(subject, companyId, extraText),
-    });
+    try {
+        const info = await transporter.sendMail({
+            from: `Piecework-BTC <${process.env.SUPER_ADMIN_EMAIL_SENDER}>`,
+            to: process.env.SUPER_ADMIN_EMAIL,
+            subject,
+            text: getText(subject, companyId, extraText),
+        });
+        console.log('EMAIL SENT:', info);
+    } catch (e) {
+        console.log('err sending email');
+    }
 }
