@@ -27,13 +27,6 @@ export default function SignupInput() {
             }
         );
         if (res.ok) {
-            // no await
-            //fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/email`, {
-               // method: 'POST',
-               // body: JSON.stringify({
-                  //  subject: EMAIL_SUBJECT_TYPE.CREATED_COMPANY,
-               // }),
-           // });
             setOrganization('');
             setShowModal(true);
             setError('');

@@ -1,8 +1,8 @@
-import MailHandler from '../../../db/models/mail';
+import { NextResponse } from 'next/server';
 import { PopulatedIMail } from '../../../db/models/mail/types';
 import sendEmail from '../../(services)/mailer';
 import { EMAIL_SUBJECT_TYPE } from '../../(services)/mailer/types';
-import { NextResponse } from 'next/server';
+import MailHandler from '../../../db/models/mail';
 
 export async function GET() {
     const data: PopulatedIMail[] = await MailHandler.findAll();
