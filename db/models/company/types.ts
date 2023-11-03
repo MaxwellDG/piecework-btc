@@ -3,5 +3,5 @@ export interface ICompany {
     name: string;
     createdAt: Date;
     updatedAt: Date;
-    updateViewedByAdmin: boolean;
+    viewedBySuperAdmin: boolean;
 }

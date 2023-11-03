@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default function Company({ company }: Props) {
-    const { _id, name, updatedAt, updateViewedByAdmin }: ICompany = company;
+    const { _id, name, updatedAt, viewedBySuperAdmin }: ICompany = company;
 
     return (
         <div className="w-full p-2 mb-2 flex justify-between border">
@@ -28,7 +28,7 @@ export default function Company({ company }: Props) {
                     <div className="button">{Projects('black', 30)}</div>
                 </Link>
             </div>
-            {!updateViewedByAdmin ? (
+            {!viewedBySuperAdmin ? (
                 <NotificationCircle color="red" size={10} />
             ) : null}
         </div>

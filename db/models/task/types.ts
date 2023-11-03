@@ -20,4 +20,5 @@ export interface ITask {
     status: TASK_STATUS;
     createdAt: Date;
     updatedAt: Date;
+    viewedBySuperAdmin: boolean;
 }

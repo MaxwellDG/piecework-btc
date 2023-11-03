@@ -4,5 +4,5 @@ export type CompanyNameReq = {
 
 export type UpdateCompanyReq = {
     name?: string;
-    updateViewedByAdmin?: boolean;
+    viewedBySuperAdmin?: boolean;
 };

@@ -73,7 +73,7 @@ export async function POST(
         );
 
         // update company to be viewed by admin
-        await CompanyHandler.update(companyId, { updateViewedByAdmin: false });
+        await CompanyHandler.update(companyId, { viewedBySuperAdmin: false });
 
         // add mail for super admin
         await MailHandler.create(

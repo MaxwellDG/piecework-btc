@@ -48,7 +48,7 @@ export async function POST(req: Request) {
         );
 
         // update company to be viewed by admin
-        await CompanyHandler.update(company, { updateViewedByAdmin: false });
+        await CompanyHandler.update(company, { viewedBySuperAdmin: false });
 
         return NextResponse.json(
             {

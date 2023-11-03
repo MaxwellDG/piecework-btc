@@ -30,7 +30,7 @@ async function seedDB() {
 
         const testCompany = {
             name: COMPANY_TESTING_NAME, // is unique
-            updateViewedByAdmin: false,
+            viewedBySuperAdmin: false,
             createdAt: new Date(Date.now()),
             updatedAt: new Date(Date.now()),
         };
@@ -69,7 +69,7 @@ async function seedDB() {
     } catch (e) {
         console.log(e);
     } finally {
-        client.close();
+        await client.close();
     }
 }
 

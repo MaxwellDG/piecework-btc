@@ -22,6 +22,7 @@ export const projectSchema = new Schema<IProject>(
     {
         name: { type: String, required: true },
         company: { type: mongoose.SchemaTypes.ObjectId, required: true },
+        viewedBySuperAdmin: { type: Boolean, default: false, required: true },
     },
     {
         timestamps: true,

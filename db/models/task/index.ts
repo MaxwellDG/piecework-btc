@@ -25,6 +25,7 @@ export const taskSchema = new Schema<ITask>(
         desc: { type: String, required: true },
         price: { type: Number, required: true },
         status: { type: String, enum: TASK_STATUS, required: true },
+        viewedBySuperAdmin: { type: Boolean, default: false, required: true },
     },
     {
         timestamps: true,
