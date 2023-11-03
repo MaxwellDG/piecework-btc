@@ -8,6 +8,10 @@ Once an .env file has been populated correctly with MongoDB related information,
 
 Once an .env.local file has been populated correctly, run the command 'yarn' (you must have yarn installed on your local) to install all dependencies.
 
+# Migrations
+
+If you are returning to this project and want to update your database, run the command 'node migrations/m_1.ts' from the root directory. This will update your database with the latest schemas.
+
 Then you may run the development server:
 
 ```bash
