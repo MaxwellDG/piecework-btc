@@ -8,47 +8,41 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-export enum EMAIL_SUBJECT_TYPE {
-    CREATED_COMPANY = 'Created company',
-    CREATED_TASK = 'Created task',
-    UPDATED_TASK = 'Updated task',
-    RECEIVED_MESSAGE = 'Received message',
-}
-
-function getText(
-    subject: EMAIL_SUBJECT_TYPE,
-    companyId: string,
-    extraText?: string
+function generateHTML(
+    newCompanies: string[],
+    unseenTasks: string[],
+    newMessages: string[]
 ) {
-    switch (subject) {
-        case EMAIL_SUBJECT_TYPE.CREATED_COMPANY:
-            return 'Created company: ' + companyId;
-        case EMAIL_SUBJECT_TYPE.CREATED_TASK:
-            return companyId + 'created task: ' + extraText;
-        case EMAIL_SUBJECT_TYPE.UPDATED_TASK:
-            return companyId + 'updated task: ' + extraText;
-        case EMAIL_SUBJECT_TYPE.RECEIVED_MESSAGE:
-            return companyId + 'sent you a message: ' + extraText;
-    }
+    return `
+    <div>
+        <h2>New Companies:</h2>
+        <ul>
+            ${newCompanies.map((text) => `<li>${text}</li>`)}
+        </ul>
+        <h2>Unseen Tasks:</h2>
+        <ul>
+            ${unseenTasks.map((text) => `<li>${text}</li>`)}
+        </ul>
+        <h2>New Messages:</h2>
+        <ul>
+            ${newMessages.map((text) => `<li>${text}</li>`)}
+        </ul>
+    </div>
+    `;
 }
 
 export default async function sendEmail(
-    subject: EMAIL_SUBJECT_TYPE,
-    companyId: string,
-    extraText?: string
+    newCompanies: string[],
+    unseenTasks: string[],
+    newMessages: string[]
 ) {
-    console.log(
-        'even trying???',
-        process.env.SUPER_ADMIN_EMAIL_SENDER,
-        process.env.SUPER_ADMIN_EMAIL_SENDER_PASS,
-        process.env.SUPER_ADMIN_EMAIL
-    );
     try {
         const info = await transporter.sendMail({
             from: `Piecework-BTC <${process.env.SUPER_ADMIN_EMAIL_SENDER}>`,
             to: process.env.SUPER_ADMIN_EMAIL,
-            subject,
-            text: getText(subject, companyId, extraText),
+            subject: 'Daily updates',
+            text: "Here's your daily updates",
+            html: generateHTML(newCompanies, unseenTasks, newMessages),
         });
         console.log('EMAIL SENT:', info);
     } catch (e) {

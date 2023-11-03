@@ -12,7 +12,8 @@ import { SignJWT } from 'jose';
 import { JWT_DATA } from '../../(types)/api';
 import { IAccount, Role } from '../../../db/models/account/types';
 import { ICompany } from '../../../db/models/company/types';
-import sendEmail, { EMAIL_SUBJECT_TYPE } from '../../(services)/mailer';
+import MailHandler from '../../../db/models/mail';
+import { EMAIL_SUBJECT_TYPE } from '../../(services)/mailer/types';
 
 export async function POST(request: Request) {
     await dbConnect();
@@ -59,6 +60,12 @@ export async function POST(request: Request) {
                 secure: true,
             });
             response.headers.set('SET-COOKIE', serializedCookie);
+
+            // add mail for super admin
+            await MailHandler.create(
+                EMAIL_SUBJECT_TYPE.CREATED_COMPANY,
+                company.id
+            );
 
             return response;
         } else {

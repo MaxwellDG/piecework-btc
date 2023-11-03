@@ -11,7 +11,8 @@ import {
     ActivityType,
 } from '../../../../db/models/activity/types';
 import { IProject } from '../../../../db/models/project/types';
-import sendEmail, { EMAIL_SUBJECT_TYPE } from '../../../(services)/mailer';
+import { EMAIL_SUBJECT_TYPE } from '../../../(services)/mailer/types';
+import MailHandler from '../../../../db/models/mail';
 
 export async function GET(
     req: Request,
@@ -74,8 +75,12 @@ export async function POST(
         // update company to be viewed by admin
         await CompanyHandler.update(companyId, { updateViewedByAdmin: false });
 
-        // send email to super admin to notify of user activity
-        sendEmail(EMAIL_SUBJECT_TYPE.CREATED_TASK, companyId, task.name);
+        // add mail for super admin
+        await MailHandler.create(
+            EMAIL_SUBJECT_TYPE.CREATED_TASK,
+            companyId,
+            task._id
+        );
 
         return NextResponse.json(
             {
@@ -112,8 +117,12 @@ export async function PATCH(
     );
 
     if (task) {
-        // send email to super admin to notify of user activity
-        sendEmail(EMAIL_SUBJECT_TYPE.UPDATED_TASK, companyId, task.name);
+        // add mail for super admin
+        await MailHandler.create(
+            EMAIL_SUBJECT_TYPE.UPDATED_TASK,
+            companyId,
+            task._id
+        );
 
         return NextResponse.json(
             {

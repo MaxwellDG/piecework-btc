@@ -4,7 +4,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import ConfirmModal from '../modals/confirm';
 import { useRouter } from 'next/navigation';
-import { EMAIL_SUBJECT_TYPE } from '../../(services)/mailer';
+import { EMAIL_SUBJECT_TYPE } from '../../(services)/mailer/types';
 
 const ErrorText = dynamic(() => import('../ui/text/error'), {
     ssr: false,

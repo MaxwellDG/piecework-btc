@@ -8,7 +8,8 @@ import Question from '../../../public/svgs/question';
 import ConfirmModalServer from '../../(components)/modals/confirm/server';
 import Link from 'next/link';
 import dbConnect from '../../../db';
-import sendEmail, { EMAIL_SUBJECT_TYPE } from '../../(services)/mailer';
+import { EMAIL_SUBJECT_TYPE } from '../../(services)/mailer/types';
+import MailHandler from '../../../db/models/mail';
 
 type Props = {
     searchParams: Record<string, string> | null | undefined;
@@ -27,8 +28,12 @@ export default async function Page({ searchParams }: Props) {
 
         const text = formData.get('input') as string;
         await MessagesHandler.create(true, text, companyId);
-        // send email to super admin to notify of user activity
-        sendEmail(EMAIL_SUBJECT_TYPE.RECEIVED_MESSAGE, companyId, text);
+        // add mail for super admin
+        await MailHandler.create(
+            EMAIL_SUBJECT_TYPE.RECEIVED_MESSAGE,
+            companyId,
+            text
+        );
         revalidatePath('/dashboard/messages');
     }
 

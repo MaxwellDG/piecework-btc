@@ -12,7 +12,7 @@ export default {
     update,
 };
 
-export const accountSchema = new Schema<IAccount>(
+const accountSchema = new Schema<IAccount>(
     {
         username: { type: String, required: true, unique: false },
         password: { type: String, required: true, unqiue: false },
