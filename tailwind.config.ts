@@ -9,10 +9,14 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
+                backgroundLight: '#2d3c4a',
+                backgroundDark: '#0e111c',
                 btcOrange: '#F2A900',
                 btcOrangePale: '#F5D6A1',
                 toastBlue: '#3bbef8',
                 baseGray: '#ececed',
+                lightGray: '#69737f',
+                whiteGray: '#cbced3',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

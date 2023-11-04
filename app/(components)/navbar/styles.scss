@@ -33,8 +33,9 @@ $button-shadow-active: $button-shadow-base, $shadow-inset-active;
     cursor: pointer;
     border: 1px solid $button-border 1px solid $button-border 1px solid
         $button-border 1px solid $button-border;
-    box-shadow: $button-shadow-hover;
-    background-image: linear-gradient(to left, $button-gradient);
+    // box-shadow: $button-shadow-hover;
+    background-color: #2d3c4a;
+    // background-image: linear-gradient(to left, $button-gradient);
 
     transition: all 0.2s ease;
     font-family: 'Source Sans Pro', sans-serif;
@@ -47,9 +48,9 @@ $button-shadow-active: $button-shadow-base, $shadow-inset-active;
         transition: transform 0.2s ease;
     }
 
-    &:hover:not([disabled]) {
-        box-shadow: $button-shadow-default;
-    }
+    // &:hover:not([disabled]) {
+    //     box-shadow: $button-shadow-default;
+    // }
     & > * {
         transform: scale(0.975);
     }

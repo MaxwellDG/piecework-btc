@@ -22,7 +22,7 @@ export default function SendMsg({ handleSend }: Props) {
                 <input
                     type="text"
                     name="input"
-                    className="input input-bordered flex flex-1"
+                    className="input input-bordered flex flex-1 bg-backgroundDark bg-opacity-20 text-white"
                     required
                 />
                 <button type="submit" className="button">
