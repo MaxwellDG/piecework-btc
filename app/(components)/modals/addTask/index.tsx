@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 
 import TaskImage from '../../taskImages/image';
 import { readFile } from '../../../(util)/files';
-import AddFile from '../../buttons/addFile';
+import AddFile from '../../ui/buttons/addFile';
 import useToasts from '../../../(hooks)/useToasts';
 import { TOAST_TYPE } from '../../../(types)/api';
 import ConfirmModal from '../confirm';
@@ -166,7 +166,7 @@ export default function AddTaskModal({ projectId, path }: Props) {
                         name="name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="input input-bordered flex flex-1"
+                        className="flex flex-1"
                         required
                     />
                 </div>
@@ -179,7 +179,7 @@ export default function AddTaskModal({ projectId, path }: Props) {
                         name="price"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
-                        className="input input-bordered flex flex-1"
+                        className="flex flex-1"
                         required
                     />
                 </div>
@@ -191,7 +191,7 @@ export default function AddTaskModal({ projectId, path }: Props) {
                         name="description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        className="input input-bordered flex flex-1"
+                        className="flex flex-1"
                         required
                     />
                 </div>

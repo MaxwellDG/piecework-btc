@@ -55,7 +55,7 @@ export default function AddProject() {
                     <input
                         type="text"
                         placeholder="Name"
-                        className="input input-bordered mx-2"
+                        className="mx-2"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                     />

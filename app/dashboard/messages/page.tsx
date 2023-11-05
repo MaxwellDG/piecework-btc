@@ -45,7 +45,7 @@ export default async function Page({ searchParams }: Props) {
                     {Question('grey', 25)}
                 </Link>
             </div>
-            <div className="custom-border-color flex flex-col bg-backgroundDark bg-opacity-20 mb-2 p-2 sm:max-h-none sm:h-96 overflow-y-auto rounded border">
+            <div className="custom-border-color flex flex-col bg-[rgba(255,255,255,0.1)] mb-2 p-2 sm:max-h-none sm:h-96 overflow-y-auto rounded border gap-y-2">
                 {messages?.map((msg: IMessage, i: number) => {
                     return (
                         <Message
@@ -53,6 +53,7 @@ export default async function Page({ searchParams }: Props) {
                             message={msg}
                             isFromSelf={msg.isUser}
                             label={msg.isUser ? 'Company' : 'Piecework-BTC '}
+                            isLast={i === messages.length - 1}
                         />
                     );
                 })}

@@ -1,4 +1,4 @@
-import BackButton from '../../../(components)/buttons/back';
+import BackButton from '../../../(components)/ui/buttons/back';
 import HeroScreenContainer from '../../../(components)/containers/hero-screen-container';
 import MainContent from '../../../(components)/containers/main-content';
 import dbConnect from '../../../../db';

@@ -1,12 +1,13 @@
 'use client';
 
 import React from 'react';
-import BackButton from '../../../(components)/buttons/back';
+import BackButton from '../../../(components)/ui/buttons/back';
 import { UpdateAccountReq } from '../../../(types)/api/requests/accounts';
 import HeroScreenContainer from '../../../(components)/containers/hero-screen-container';
 import useToasts from '../../../(hooks)/useToasts';
 import { TOAST_TYPE } from '../../../(types)/api';
 import MainContent from '../../../(components)/containers/main-content';
+import ArrowCornersCard from '../../../(components)/containers/cards/arrow-corners';
 
 export default function AccountSettings() {
     const { createToast } = useToasts();
@@ -56,12 +57,12 @@ export default function AccountSettings() {
         <HeroScreenContainer>
             <BackButton route="/dashboard/settings" />
             <MainContent>
-                <div className="flex w-full mb-8">
+                <ArrowCornersCard className="flex w-fit mb-8 p-2">
                     <span className="flex flex-1">
                         <p>Role:&nbsp;</p>
                         <p className="font-bold">{role}</p>
                     </span>
-                </div>
+                </ArrowCornersCard>
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
@@ -91,7 +92,7 @@ export default function AccountSettings() {
                             name="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="input w-full mb-2 input-bordered"
+                            className="w-full mb-2"
                         />
                     </label>
                     <label>
@@ -101,7 +102,7 @@ export default function AccountSettings() {
                             name="repeatPassword"
                             value={repeatPassword}
                             onChange={(e) => setRepeatPassword(e.target.value)}
-                            className="input w-full mb-2 input-bordered"
+                            className="w-full mb-2"
                         />
                     </label>
                     {passwordError && (

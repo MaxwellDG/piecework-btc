@@ -8,7 +8,7 @@ import Loading from '../loading';
 import ConfirmModal from '../modals/confirm';
 import Delete from '../../../public/svgs/delete';
 import TaskImage from './image';
-import AddFile from '../buttons/addFile';
+import AddFile from '../ui/buttons/addFile';
 
 type Props = {
     imageUrls: string[];

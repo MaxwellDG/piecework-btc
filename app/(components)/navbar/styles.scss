@@ -31,10 +31,9 @@ $button-shadow-active: $button-shadow-base, $shadow-inset-active;
     align-items: center;
     outline: none;
     cursor: pointer;
-    border: 1px solid $button-border 1px solid $button-border 1px solid
-        $button-border 1px solid $button-border;
+    border: 4px solid #224146;
     // box-shadow: $button-shadow-hover;
-    background-color: #2d3c4a;
+    background-color: rgba(34, 65, 70, 1);
     // background-image: linear-gradient(to left, $button-gradient);
 
     transition: all 0.2s ease;

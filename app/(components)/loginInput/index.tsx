@@ -7,6 +7,7 @@ import Hello from '../hello';
 import dynamic from 'next/dynamic';
 import HoverInfo from '../hoverInfo';
 import Question from '../../../public/svgs/question';
+import GlitchButton from '../ui/buttons/glitch';
 
 const ErrorText = dynamic(() => import('../ui/text/error'), {
     ssr: false,
@@ -81,9 +82,10 @@ export default function LoginInput() {
                         <input
                             type="text"
                             placeholder="Company"
-                            className="input input-bordered w-full max-w-full mb-6 pr-1"
+                            className="w-full max-w-full mb-6 pr-1"
                             value={company}
                             onChange={(e) => setCompany(e.target.value)}
+                            autoFocus
                         />
                         {error && (
                             <div
@@ -99,14 +101,14 @@ export default function LoginInput() {
                         <input
                             type="text"
                             placeholder="Username"
-                            className="input input-bordered w-1/2 max-w-xs mb-6"
+                            className="w-1/2 max-w-xs mb-6"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         />
                         <input
                             type="text"
                             placeholder="Password"
-                            className="input input-bordered w-1/2 max-w-xs mb-8"
+                            className="w-1/2 max-w-xs mb-8"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
@@ -114,16 +116,26 @@ export default function LoginInput() {
                 </div>
             </div>
             <div className="flex w-full gap-x-1 mb-2">
-                <button
-                    type="button"
-                    className="flex flex-1 button"
-                    onClick={handleLogin}
-                >
-                    Login
-                </button>
-                <Link href="/auth/signup" className="flex flex-1 button">
-                    <p>Sign up</p>
-                </Link>
+                <div className="flex flex-1">
+                    <GlitchButton
+                        text="Login"
+                        onClick={handleLogin}
+                        isRightLeaning={false}
+                    />
+                </div>
+                <div className="flex flex-1">
+                    <Link
+                        href="/auth/signup"
+                        className="w-full outline-none"
+                        tabIndex={-1}
+                    >
+                        <GlitchButton
+                            text="Sign up"
+                            onClick={() => {}}
+                            isRightLeaning
+                        />
+                    </Link>
+                </div>
             </div>
             <div className="h-[24.1px]">
                 {error && <ErrorText text={error} />}

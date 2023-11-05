@@ -1,10 +1,10 @@
-import BackButton from '../../(components)/buttons/back';
+import BackButton from '../../(components)/ui/buttons/back';
 import SignupInput from '../../(components)/signupInput';
 
 export default function Page() {
     return (
-        <div className="hero min-h-screen bg-base-200">
-            <div className="hero-content">
+        <div className="flex min-h-screen w-screen">
+            <div className="flex flex-1 m-auto justify-center">
                 <div className="max-w-md">
                     <BackButton route="/" />
                     <p className="mb-2">

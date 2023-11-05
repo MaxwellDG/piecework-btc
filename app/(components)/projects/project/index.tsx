@@ -10,6 +10,7 @@ import ConfirmModal from '../../modals/confirm';
 import useToasts from '../../../(hooks)/useToasts';
 import { TOAST_TYPE } from '../../../(types)/api';
 import { useSWRConfig } from 'swr';
+import ArrowCornersCard from '../../containers/cards/arrow-corners';
 
 type Props = {
     project: IProject;
@@ -71,55 +72,58 @@ export default function Project({ project }: Props) {
     }
 
     return (
-        <Link
-            href={`/dashboard/projects/${_id}`}
-            className="w-full p-2 flex justify-between border items-center"
-        >
-            <div>
+        <ArrowCornersCard>
+            <Link
+                href={`/dashboard/projects/${_id}`}
+                className="w-full p-2 flex justify-between items-center"
+            >
                 <p>{name}</p>
-            </div>
-            <div className="flex gap-x-2 items-center">
-                <button
-                    className="button"
-                    onClick={(e) => toggleConfirm(e, true)}
-                >
-                    {Delete('black', 30)}
-                </button>
-                <button className="button" onClick={(e) => toggleEdit(e, true)}>
-                    {Edit('black', 30)}
-                </button>
-                {Chevron('black', 15)}
-            </div>
+                <div className="flex gap-x-2 items-center">
+                    <button
+                        className=""
+                        onClick={(e) => toggleConfirm(e, true)}
+                    >
+                        {Delete('black', 30)}
+                    </button>
+                    <button
+                        className="mr-5"
+                        onClick={(e) => toggleEdit(e, true)}
+                    >
+                        {Edit('black', 30)}
+                    </button>
+                    {Chevron('white', 20)}
+                </div>
 
-            {/* Modals */}
-            {showConfirmModal && (
-                <ConfirmModal
-                    closeModal={(e) => toggleConfirm(e, false)}
-                    header="Confirm"
-                    content={`Are you sure you'd like to delete the project: ${project.name}?`}
-                    buttonFuncs={[
-                        (e) => toggleConfirm(e, false),
-                        deleteProject,
-                    ]}
-                    buttonTexts={['Cancel', 'Delete']}
-                />
-            )}
-            {showEditModal && (
-                <ConfirmModal
-                    closeModal={(e) => toggleEdit(e, false)}
-                    header="Edit project"
-                    content={
-                        <input
-                            className="input input-bordered"
-                            type="text"
-                            value={_name}
-                            onChange={(e) => _setName(e.target.value)}
-                        />
-                    }
-                    buttonFuncs={[(e) => toggleEdit(e, false), editProject]}
-                    buttonTexts={['Cancel', 'Submit']}
-                />
-            )}
-        </Link>
+                {/* Modals */}
+                {showConfirmModal && (
+                    <ConfirmModal
+                        closeModal={(e) => toggleConfirm(e, false)}
+                        header="Confirm"
+                        content={`Are you sure you'd like to delete the project: ${project.name}?`}
+                        buttonFuncs={[
+                            (e) => toggleConfirm(e, false),
+                            deleteProject,
+                        ]}
+                        buttonTexts={['Cancel', 'Delete']}
+                    />
+                )}
+                {showEditModal && (
+                    <ConfirmModal
+                        closeModal={(e) => toggleEdit(e, false)}
+                        header="Edit project"
+                        content={
+                            <input
+                                className=""
+                                type="text"
+                                value={_name}
+                                onChange={(e) => _setName(e.target.value)}
+                            />
+                        }
+                        buttonFuncs={[(e) => toggleEdit(e, false), editProject]}
+                        buttonTexts={['Cancel', 'Submit']}
+                    />
+                )}
+            </Link>
+        </ArrowCornersCard>
     );
 }

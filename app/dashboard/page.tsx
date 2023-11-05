@@ -25,11 +25,11 @@ export default async function Page() {
 
     return (
         <HeroScreenContainer>
-            <h2 className="text-4xl font-bold mb-[40px]">Home</h2>
+            <h2 className="text-4xl font-bold mb-8">Home</h2>
             <div className="flex flex-col h-96 xl:flex-row pr-2">
                 <div className="flex flex-1 flex-col mb-8 xl:mb-0 xl:mr-4">
                     <h3 className="text-lg mb-2 font-semibold">Activity</h3>
-                    <ArrowCornersCard>
+                    <ArrowCornersCard canOverflow>
                         <ActivityList />
                     </ArrowCornersCard>
                 </div>
@@ -38,7 +38,7 @@ export default async function Page() {
                         <h3 className="text-lg mb-2 font-semibold">Tasks</h3>
                         <div className="flex w-full mb-2 gap-x-2">
                             <ArrowCornersCard>
-                                <span className="flex flex-1 p-2 rounded mr-1">
+                                <span className="flex flex-1 p-2 rounded">
                                     <p className="inline font-bold">
                                         Created:&nbsp;
                                     </p>
@@ -46,7 +46,7 @@ export default async function Page() {
                                 </span>
                             </ArrowCornersCard>
                             <ArrowCornersCard>
-                                <span className="flex flex-1 p-2 rounded ml-2">
+                                <span className="flex flex-1 p-2 rounded">
                                     <p className="inline font-bold">
                                         Completed:&nbsp;
                                     </p>
@@ -59,7 +59,7 @@ export default async function Page() {
                         <h3 className="text-lg mb-2 font-semibold">
                             Pending Actions
                         </h3>
-                        <ArrowCornersCard>
+                        <ArrowCornersCard canOverflow>
                             <div className="flex flex-1 flex-col">
                                 {pendingActions.length === 0 ? (
                                     <div className="flex flex-1 justify-center items-center">

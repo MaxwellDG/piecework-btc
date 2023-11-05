@@ -4,7 +4,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import ConfirmModal from '../modals/confirm';
 import { useRouter } from 'next/navigation';
-import { EMAIL_SUBJECT_TYPE } from '../../(services)/mailer/types';
+import GlitchButton from '../ui/buttons/glitch';
 
 const ErrorText = dynamic(() => import('../ui/text/error'), {
     ssr: false,
@@ -43,17 +43,16 @@ export default function SignupInput() {
         <div className="flex flex-col">
             <input
                 type="text"
-                className="input input-bordered w-full max-w-xs mb-8"
+                className="w-full max-w-xs mb-8"
                 value={organization}
                 onChange={(e) => setOrganization(e.target.value)}
+                autoFocus
             />
-            <button
-                type="button"
-                className="button w-full mb-2"
+            <GlitchButton
+                text="Create company account"
                 onClick={handleCreate}
-            >
-                Create company account
-            </button>
+                isRightLeaning
+            />
             <div className="h-[24.1px]">
                 {error && <ErrorText text={error} />}
             </div>

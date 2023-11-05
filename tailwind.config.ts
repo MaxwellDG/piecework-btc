@@ -17,6 +17,7 @@ const config: Config = {
                 baseGray: '#ececed',
                 lightGray: '#69737f',
                 whiteGray: '#cbced3',
+                chillGreen: '#224146',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -24,10 +25,6 @@ const config: Config = {
                     'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
             },
         },
-    },
-    plugins: [require('daisyui')],
-    daisyui: {
-        themes: ['wireframe'],
     },
 };
 export default config;

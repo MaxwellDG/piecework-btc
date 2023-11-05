@@ -6,6 +6,7 @@ import Loading from '../../../(components)/loading';
 import ModalWrapper from '../../../(components)/modals';
 import { IAccount, Role } from '../../../../db/models/account/types';
 import ConfirmModal from '../../../(components)/modals/confirm';
+import ArrowCornersCard from '../../../(components)/containers/cards/arrow-corners';
 
 export default function Page() {
     const { data, error, isLoading, mutate } = useSWR(
@@ -67,7 +68,7 @@ export default function Page() {
                         <input
                             value={newUser}
                             onChange={(e) => setNewUser(e.target.value)}
-                            className="input input-bordered mr-8"
+                            className="mr-8"
                             required
                             placeholder="username"
                         />
@@ -95,35 +96,44 @@ export default function Page() {
                     <div className="flex gap-x-2">
                         <div className="flex flex-col flex-1">
                             <h3>Admins</h3>
-                            <div className="flex flex-col gap-y-2 bg-gray-200 overflow-y-auto h-32 p-2">
-                                {isLoading ? (
-                                    <div className="flex flex-1 justify-center items-center">
-                                        {Loading()}
-                                    </div>
-                                ) : (
-                                    data?.admins.map((user: IAccount) => (
-                                        <div key={user._id}>
-                                            <p>{user.username}</p>
-                                        </div>
-                                    ))
-                                )}
-                            </div>
-                        </div>
-                        <div className="flex flex-col flex-1">
-                            <div className="flex flex-col">
-                                <h3>Users</h3>
-                                <div className="flex flex-col gap-y-2 bg-gray-200 overflow-y-auto h-32 p-2">
+                            <div className="h-32">
+                                <ArrowCornersCard canOverflow className="h-32">
                                     {isLoading ? (
                                         <div className="flex flex-1 justify-center items-center">
                                             {Loading()}
                                         </div>
                                     ) : (
-                                        data?.users.map((user: IAccount) => (
+                                        data?.admins.map((user: IAccount) => (
                                             <div key={user._id}>
                                                 <p>{user.username}</p>
                                             </div>
                                         ))
                                     )}
+                                </ArrowCornersCard>
+                            </div>
+                        </div>
+                        <div className="flex flex-col flex-1">
+                            <div className="flex flex-col">
+                                <h3>Users</h3>
+                                <div className="h-32">
+                                    <ArrowCornersCard
+                                        canOverflow
+                                        className="h-32"
+                                    >
+                                        {isLoading ? (
+                                            <div className="flex flex-1 justify-center items-center">
+                                                {Loading()}
+                                            </div>
+                                        ) : (
+                                            data?.users.map(
+                                                (user: IAccount) => (
+                                                    <div key={user._id}>
+                                                        <p>{user.username}</p>
+                                                    </div>
+                                                )
+                                            )
+                                        )}
+                                    </ArrowCornersCard>
                                 </div>
                             </div>
                         </div>

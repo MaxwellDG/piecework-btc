@@ -1,8 +1,8 @@
 'use client';
 
 import NextImage from 'next/image';
-import Add from '../../../../public/svgs/add';
-import Loading from '../../loading';
+import Add from '../../../../../public/svgs/add';
+import Loading from '../../../loading';
 
 type Props = {
     submitFile: (e: React.FormEvent) => void;
