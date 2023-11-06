@@ -1,14 +1,18 @@
 import './styles.scss';
 
+export interface ArrowCornersCardProps {
+    children: React.ReactNode;
+    className?: string;
+    canOverflow?: boolean;
+    header?: React.ReactNode;
+}
+
 export default function ArrowCornersCard({
     children,
     className,
     canOverflow = false,
-}: {
-    children: React.ReactNode;
-    className?: string;
-    canOverflow?: boolean;
-}) {
+    header,
+}: ArrowCornersCardProps) {
     return (
         <div
             className={`relative flex flex-1 ${
@@ -26,6 +30,11 @@ export default function ArrowCornersCard({
                     canOverflow ? 'overflow-y-auto' : ''
                 } z-10`}
             >
+                {header ? (
+                    <div className="w-full bg-[rgba(255,255,255,0.1)] flex px-2 border-b border-lightGray">
+                        {header}
+                    </div>
+                ) : null}
                 {children}
             </div>
         </div>
