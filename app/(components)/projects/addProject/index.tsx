@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { useSWRConfig } from 'swr';
 import useToasts from '../../../(hooks)/useToasts';
 import { TOAST_TYPE } from '../../../(types)/api';
+import SimpleButton from '../../ui/buttons/simple';
 
 const variants = {
     expand: { display: 'flex', transition: { duration: 0.5 } },
@@ -59,13 +60,7 @@ export default function AddProject() {
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                     />
-                    <button
-                        type="button"
-                        onClick={createProject}
-                        className="button"
-                    >
-                        Create
-                    </button>
+                    <SimpleButton text="Create" onClick={createProject} />
                 </div>
             </motion.div>
         </div>

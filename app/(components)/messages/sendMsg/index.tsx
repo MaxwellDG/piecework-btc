@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import SimpleButton from '../../ui/buttons/simple';
 
 type Props = {
     handleSend: (formData: FormData) => Promise<void>;
@@ -25,9 +26,7 @@ export default function SendMsg({ handleSend }: Props) {
                     className="input border border-lightGray flex flex-1 bg-backgroundDark bg-opacity-20 text-white"
                     required
                 />
-                <button type="submit" className="button">
-                    Send
-                </button>
+                <SimpleButton text="Send" type="submit" />
             </form>
         </div>
     );

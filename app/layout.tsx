@@ -2,6 +2,7 @@ import './(styles)/globals.scss';
 import './(styles)/buttons.scss';
 import './(styles)/scrollbar.css';
 import './(styles)/main.scss';
+import './(styles)/svgs.scss';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { GlobalContextProvider } from './(context)';

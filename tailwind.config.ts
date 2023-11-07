@@ -18,6 +18,8 @@ const config: Config = {
                 lightGray: '#69737f',
                 whiteGray: '#cbced3',
                 chillGreen: '#224146',
+                teal: 'rgba(61, 211, 165, 1)',
+                tealOpaque: 'rgba(61, 211, 165, 0.3)',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

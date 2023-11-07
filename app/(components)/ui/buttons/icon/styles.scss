@@ -1,0 +1,10 @@
+$color-teal: rgba(61, 211, 165, 1);
+$color-teal-opaque: rgba(61, 211, 165, 0.3);
+
+.icon-button-border {
+  border: outset 4px $color-teal-opaque;
+
+  &:active{
+    border: inset 4px $color-teal-opaque;
+  }
+}

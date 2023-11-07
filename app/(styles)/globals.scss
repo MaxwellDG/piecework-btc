@@ -25,12 +25,14 @@ h2,
 h3,
 h4,
 h5 {
-    color: #afb5ba;
+    color: white;
 }
 
-input {
+input[type='text'],
+input[type='password'],
+input[type='number'],
+textarea {
     display: block;
-    height: 40px;
     width: 100%;
     padding: 0.375rem 0.75rem;
     font-size: 0.875rem;
@@ -45,11 +47,11 @@ input {
     border: 1px solid #69737f;
     border-radius: 4px;
     outline: none;
-}
 
-input:focus {
-    animation: border-color 0.25s linear 0s 1;
-    animation-fill-mode: forwards;
+    &:focus {
+        animation: border-color 0.25s linear 0s 1;
+        animation-fill-mode: forwards;
+    }
 }
 
 @keyframes border-color {

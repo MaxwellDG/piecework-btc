@@ -1,5 +1,7 @@
 'use client';
 
+import Close from '../../../../public/svgs/close';
+
 type Props = {
     header: string;
     content: string | React.ReactNode;
@@ -26,18 +28,27 @@ export default function ConfirmModal({
                     e.preventDefault();
                     e.stopPropagation();
                 }}
-                className="absolute top-0 right-0 left-0 bottom-0 m-auto h-fit modal-box rounded p-0 z-10 cursor-default pointer-events-auto border border-[#f0f0f0]"
+                className="absolute top-0 right-2 left-2 bottom-0 m-auto md:max-w-[50%] md:w-fit h-fit modal-box rounded p-0 z-10 cursor-default pointer-events-auto border border-lightGray"
             >
-                <div className="p-4 bg-white">
-                    <h2 className="font-semibold text-2xl mb-4">{header}</h2>
+                <div className="flex w-full justify-between items-center p-2 border-b border-lightGray bg-[#1f2935]">
+                    <h2 className="font-semibold text-2xl ">{header}</h2>
+                    <button
+                        onClick={closeModal}
+                        type="button"
+                        style={{ all: 'unset', cursor: 'pointer' }}
+                    >
+                        {Close(25)}
+                    </button>
+                </div>
+                <div className="p-2 pb-8 bg-[#1f2935]">
                     {typeof content === 'string' ? (
-                        <p className="mb-4">{content}</p>
+                        <p className="p-2 pb-8">{content}</p>
                     ) : (
                         content
                     )}
                 </div>
                 <div
-                    className={`flex w-full bg-[#fbfbfa] p-4 border-t border-[#f0f0f0] ${
+                    className={`flex w-full bg-[#1c2834] p-4 border-t border-lightGray ${
                         buttonTexts.length === 1
                             ? 'justify-end'
                             : 'justify-between'
@@ -50,19 +61,19 @@ export default function ConfirmModal({
                             onClick={(e) => buttonFuncs[i](e)}
                             className={`rounded py-1 px-2 ${
                                 i === 0 && buttonTexts.length === 2
-                                    ? 'bg-[#FFFFFF]'
-                                    : 'bg-[#161617]'
+                                    ? 'hover:bg-[#788f98]'
+                                    : 'hover:bg-teal'
                             } ${
                                 i === 0 && buttonTexts.length === 2
-                                    ? 'border border-[#f0f0f0]'
-                                    : 'border border-[#161617]'
+                                    ? 'border border-[#788f98]'
+                                    : 'border border-teal'
                             }`}
                         >
                             <p
                                 className={`${
                                     i === 0 && buttonTexts.length === 2
-                                        ? 'text-[#161617]'
-                                        : 'text-white'
+                                        ? 'text-[#788f98] hover:text-white'
+                                        : 'text-teal hover:text-white'
                                 }`}
                             >
                                 {buttonText}

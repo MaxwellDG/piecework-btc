@@ -10,7 +10,9 @@ export default function ProjectsAdmin() {
     return (
         <HeroScreenContainer>
             <div className="w-full flex flex-start mb-12">
-                <Link href="/admin/dashboard">{Chevron('black', 30, 180)}</Link>
+                <Link href="/admin/dashboard">
+                    {Chevron(30, undefined, 180)}
+                </Link>
             </div>
             <div className="flex h-20 items-start">
                 <h2 className="text-4xl font-bold mb-2">Projects</h2>

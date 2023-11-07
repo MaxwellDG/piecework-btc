@@ -8,7 +8,7 @@ type Props = {
 export default function BackButton({ route }: Props) {
     return (
         <div className="w-full flex flex-start mb-12">
-            <Link href={route}>{Chevron('white', 30, 180)}</Link>
+            <Link href={route}>{Chevron(30, undefined, 180)}</Link>
         </div>
     );
 }

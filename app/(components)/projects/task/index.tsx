@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import Chevron from '../../../../public/svgs/chevron';
 import { ITask } from '../../../../db/models/task/types';
+import ArrowCornersCard from '../../containers/cards/arrow-corners';
+import { getStatusColor } from '../../../(util)/styles';
 
 type Props = {
     task: ITask;
@@ -11,14 +12,21 @@ export default function Task({ task }: Props) {
         task;
 
     return (
-        <Link
-            href={`/dashboard/projects/${project}/${task._id}`}
-            className="w-full p-2 items-center flex justify-between border"
-        >
-            <div>
-                <p>{name}</p>
-            </div>
-            {Chevron('black', 15)}
-        </Link>
+        <ArrowCornersCard className="w-1/2">
+            <Link
+                href={`/dashboard/projects/${project}/${task._id}`}
+                className=" h-24 p-2 flex hover:bg-[rgba(255,255,255,0.1)]"
+            >
+                <div className="w-full flex flex-col ml-2">
+                    <div className="flex justify-between">
+                        <p className="text-lg font-semibold">{name}</p>
+                        <p className={`${getStatusColor(status)}`}>{status}</p>
+                    </div>
+                    <div className="w-[75%] flex flex-1 overflow-hidden text-ellipsis">
+                        {desc}
+                    </div>
+                </div>
+            </Link>
+        </ArrowCornersCard>
     );
 }

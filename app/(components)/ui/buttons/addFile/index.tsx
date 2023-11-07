@@ -3,9 +3,10 @@
 import NextImage from 'next/image';
 import Add from '../../../../../public/svgs/add';
 import Loading from '../../../loading';
+import SimpleButton from '../simple';
 
 type Props = {
-    submitFile: (e: React.FormEvent) => void;
+    submitFile: () => void;
     file: File | null;
     setFile: (file: File) => void;
     fileImg: string | null;
@@ -27,7 +28,7 @@ export default function AddFile({
                 className={`relative flex justify-center items-center h-32 w-32 ${
                     file
                         ? 'border-btcOrange border border-8 rounded'
-                        : 'border-black border border-dashed'
+                        : 'border-black border border-dashed border-whiteGray'
                 } rounded-xs mb-2 cursor-pointer`}
             >
                 <input
@@ -47,18 +48,16 @@ export default function AddFile({
                 ) : fileImg ? (
                     <NextImage src={fileImg} fill alt={`task-image-pending`} />
                 ) : (
-                    Add('black', 25)
+                    Add('#cbced3', 25)
                 )}
                 <div className="absolute h-32 w-32 flex flex-1 z-20 hover:bg-[rgba(255,255,255,0.3)]" />
             </label>
-            <button
+            <SimpleButton
                 type="button"
                 onClick={submitFile}
-                className="button"
                 disabled={!file || loading}
-            >
-                Submit file
-            </button>
+                text="Submit file"
+            />
         </div>
     );
 }

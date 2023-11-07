@@ -7,7 +7,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <section className="flex flex-1 flex-col overflow-hidden">
+        <section className="flex flex-1 flex-col overflow-hidden relative">
             {/* <div className="absolute top-0 bottom-0 left-0 right-0 h-full w-full flex justify-center items-center">
                 {BTC('rgba(242,169,0,0.01)', 1200)}
             </div> */}

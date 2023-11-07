@@ -11,6 +11,7 @@ import useToasts from '../../../(hooks)/useToasts';
 import { TOAST_TYPE } from '../../../(types)/api';
 import { useSWRConfig } from 'swr';
 import ArrowCornersCard from '../../containers/cards/arrow-corners';
+import IconButton from '../../ui/buttons/icon';
 
 type Props = {
     project: IProject;
@@ -24,6 +25,7 @@ export default function Project({ project }: Props) {
     const [_name, _setName] = useState(name);
     const [showConfirmModal, toggleConfirmModal] = useState(false);
     const [showEditModal, toggleEditModal] = useState(false);
+    const [isHover, toggleHover] = useState(false);
 
     async function deleteProject(e: React.MouseEvent<HTMLElement>) {
         e.preventDefault();
@@ -75,23 +77,32 @@ export default function Project({ project }: Props) {
         <ArrowCornersCard>
             <Link
                 href={`/dashboard/projects/${_id}`}
-                className="w-full p-2 flex justify-between items-center"
+                className="w-full flex justify-between"
             >
-                <p>{name}</p>
-                <div className="flex gap-x-2 items-center">
-                    <button
-                        className=""
-                        onClick={(e) => toggleConfirm(e, true)}
+                <div
+                    className="flex flex-1 hover:bg-[rgba(255,255,255,0.1)] items-center"
+                    onMouseEnter={() => toggleHover(true)}
+                    onMouseLeave={() => toggleHover(false)}
+                >
+                    <p className="ml-2">{name}</p>
+                </div>
+                <div className="flex gap-x-3 items-center bg-[rgba(255,255,255,0.1)] px-3 py-2 border-l border-lightGray">
+                    <div className="flex items-center gap-x-3">
+                        <IconButton
+                            onClick={(e) => toggleConfirm(e, true)}
+                            icon={Delete('#cbced3', 25)}
+                        />
+                        <IconButton
+                            onClick={(e) => toggleEdit(e, true)}
+                            icon={Edit('#cbced3', 25)}
+                        />
+                    </div>
+                    <div
+                        onMouseEnter={() => toggleHover(true)}
+                        onMouseLeave={() => toggleHover(false)}
                     >
-                        {Delete('black', 30)}
-                    </button>
-                    <button
-                        className="mr-5"
-                        onClick={(e) => toggleEdit(e, true)}
-                    >
-                        {Edit('black', 30)}
-                    </button>
-                    {Chevron('white', 20)}
+                        {Chevron(20, isHover ? '#cbced3' : 'white')}
+                    </div>
                 </div>
 
                 {/* Modals */}

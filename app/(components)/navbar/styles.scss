@@ -1,57 +1,29 @@
-$background: #f8f8f8;
-$button-gradient:
-    #d8d9db 0%,
-    #fff 80%,
-    #fdfdfd 100%;
-$button-border: #8f9092;
-$button-text: #606060;
+$color-teal: rgba(61, 211, 165, 1);
+$color-teal-opaque: rgba(61, 211, 165, 0.3);
+$color-btcOrange: #f2a900;
+$color-chillGreen: #224146;
 
-$highlight-bottom: 0 4px 3px 1px #fcfcfc;
-$shadow-bottom: 0 6px 8px #d6d7d9;
-$shadow-top: 0 -4px 4px #cecfd1;
-$highlight-top: 0 -6px 4px #fefefe;
-$shadow-inset: inset 0 0 3px 0 #cecfd1;
-$shadow-inset-hover: inset 0 0 3px 3px #cecfd1;
-$shadow-inset-focus: inset 0 0 10px 0px rgba(0, 0, 250, 0.6);
-$shadow-inset-active:
-    inset 0 0 5px 3px #999,
-    inset 0 0 30px #aaa;
+.nav-con-containerest {
+    position: absolute;
+    left: 2rem;
+    top: 50%;
+    transform: translate(0, -50%);
+    display: flex;
 
-$button-shadow-base: $highlight-bottom, $shadow-bottom, $shadow-top,
-    $highlight-top;
-$button-shadow-default: $button-shadow-base, $shadow-inset;
-$button-shadow-hover: $button-shadow-base, $shadow-inset-hover;
-$button-shadow-focus: $button-shadow-base, $shadow-inset-focus;
-$button-shadow-active: $button-shadow-base, $shadow-inset-active;
+    .nav-con-container {
+        position: relative;
+        background-color: $color-teal;
+        clip-path: polygon(15% 0, 85% 0, 100% 5%, 100% 95%, 85% 100%, 15% 100%, 0 95%, 0 5%);
 
-.nav-con {
-    -webkit-appearance: none;
-    appearance: none;
-    user-select: none;
-    align-items: center;
-    outline: none;
-    cursor: pointer;
-    border: 4px solid #224146;
-    // box-shadow: $button-shadow-hover;
-    background-color: rgba(34, 65, 70, 1);
-    // background-image: linear-gradient(to left, $button-gradient);
-
-    transition: all 0.2s ease;
-    font-family: 'Source Sans Pro', sans-serif;
-    color: $button-text;
-
-    &::-moz-focus-inner {
-        border: 0;
-    }
-    & > * {
-        transition: transform 0.2s ease;
-    }
-
-    // &:hover:not([disabled]) {
-    //     box-shadow: $button-shadow-default;
-    // }
-    & > * {
-        transform: scale(0.975);
+        .nav-con {
+            display: flex;
+            flex-direction: column;
+            row-gap: 4rem;
+            padding: 0.5rem;
+            margin: 2px;
+            background-color: rgba(14, 17, 28, 1);
+            clip-path: polygon(15% 0, 85% 0, 100% 5%, 100% 33%, 93% 40%, 93% 60%, 100% 64%, 100% 95%, 85% 100%, 15% 100%, 0 95%, 0 66%, 7% 60%, 7% 40%, 0 33%, 0 5%);
+        }
     }
 }
 

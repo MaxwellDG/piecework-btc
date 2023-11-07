@@ -7,6 +7,7 @@ import ModalWrapper from '../../../(components)/modals';
 import { IAccount, Role } from '../../../../db/models/account/types';
 import ConfirmModal from '../../../(components)/modals/confirm';
 import ArrowCornersCard from '../../../(components)/containers/cards/arrow-corners';
+import SciFiStandardButton from '../../../(components)/ui/buttons/sciFiStandard';
 
 export default function Page() {
     const { data, error, isLoading, mutate } = useSWR(
@@ -64,27 +65,31 @@ export default function Page() {
             <div className="flex flex-col">
                 <h2 className="font-semibold text-xl">Create new user</h2>
                 <form onSubmit={createNewUser} className="flex flex-col mb-8">
-                    <div className="flex mb-2">
+                    <div className="flex mb-2 items-end">
                         <input
                             value={newUser}
                             onChange={(e) => setNewUser(e.target.value)}
                             className="mr-8"
                             required
                             placeholder="username"
+                            type="text"
                         />
                         <div className="flex flex-col justify-between">
-                            <p>Admin</p>
-                            <input
-                                type="checkbox"
-                                onChange={() => setIsAdmin(!isAdmin)}
-                                checked={isAdmin}
-                                className="checkbox checkbox-primary"
-                            />
+                            <div className="flex items-center">
+                                <label htmlFor="isAdmin" className="mr-2">
+                                    Admin?
+                                </label>
+                                <input
+                                    name="isAdmin"
+                                    type="checkbox"
+                                    onChange={() => setIsAdmin(!isAdmin)}
+                                    checked={isAdmin}
+                                    className="checkbox h-8 w-8 cursor-pointer"
+                                />
+                            </div>
                         </div>
                     </div>
-                    <button type="submit" className="button self-start">
-                        Create
-                    </button>
+                    <SciFiStandardButton type="submit" text="Create" />
                 </form>
             </div>
 
