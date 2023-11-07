@@ -17,7 +17,7 @@ const Toast = ({ id, text, type, removeToast }: Props) => {
             onClick={() => removeToast(id)}
             className="border border-toastBlue bg-white px-2 rounded cursor-pointer mb-2"
         >
-            <p className="text-md">{text}</p>
+            <p className="text-md text-toastBlue">{text}</p>
         </div>
     );
 };

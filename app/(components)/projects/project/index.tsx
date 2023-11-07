@@ -6,10 +6,6 @@ import { IProject } from '../../../../db/models/project/types';
 import Chevron from '../../../../public/svgs/chevron';
 import Delete from '../../../../public/svgs/delete';
 import Edit from '../../../../public/svgs/edit';
-import ConfirmModal from '../../modals/confirm';
-import useToasts from '../../../(hooks)/useToasts';
-import { TOAST_TYPE } from '../../../(types)/api';
-import { useSWRConfig } from 'swr';
 import ArrowCornersCard from '../../containers/cards/arrow-corners';
 import IconButton from '../../ui/buttons/icon';
 
@@ -49,7 +45,7 @@ export default function Project({ project, toggleConfirm, toggleEdit }: Props) {
                     <div className="flex items-center gap-x-3">
                         <IconButton
                             onClick={(e) => toggleConfirm(e, true, project)}
-                            icon={Delete('#cbced3', 25)}
+                            icon={Delete(25, '#cbced3')}
                         />
                         <IconButton
                             onClick={(e) => toggleEdit(e, true, project)}

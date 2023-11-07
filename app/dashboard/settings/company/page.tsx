@@ -84,7 +84,7 @@ export default function Page() {
                                     type="checkbox"
                                     onChange={() => setIsAdmin(!isAdmin)}
                                     checked={isAdmin}
-                                    className="checkbox h-8 w-8 cursor-pointer"
+                                    className="h-8 w-8 cursor-pointer"
                                 />
                             </div>
                         </div>

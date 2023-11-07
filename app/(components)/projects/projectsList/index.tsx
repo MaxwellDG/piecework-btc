@@ -56,7 +56,7 @@ export default function ProjectsList() {
         });
 
         if (res.ok) {
-            mutate(`/api/projects`);
+            mutate();
             createToast('Project updated', TOAST_TYPE.INFO);
             toggleEditModal(false);
             setFocusedProject(null);
