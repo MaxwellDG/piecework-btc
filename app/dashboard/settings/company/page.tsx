@@ -98,7 +98,7 @@ export default function Page() {
                 {error ? (
                     <div>Error: {error.message}</div>
                 ) : (
-                    <div className="flex gap-x-2">
+                    <div className="flex gap-x-2 flex-col sm:flex-row">
                         <div className="flex flex-col flex-1">
                             <h3>Admins</h3>
                             <div className="h-32">

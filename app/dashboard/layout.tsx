@@ -12,9 +12,9 @@ export default function RootLayout({
                 {BTC('rgba(242,169,0,0.01)', 1200)}
             </div> */}
             <div
-                className={`relative mx-2 h-0.5 top-1 sm:absolute sm:top-0 sm:bottom-0 sm:right-[1rem] sm:w-0.5 sm:h-[435px] bg-btcOrangePale sm:m-auto`}
+                className={`relative mx-2 h-0.5 top-1 sm:absolute sm:top-0 sm:bottom-0 sm:right-[39px] sm:w-0.5 sm:h-[435px] bg-btcOrangePale sm:m-auto`}
             />
-            <div className="flex flex-1 overflow-y-auto sm:overflow-visible">
+            <div className="flex flex-1 overflow-y-auto sm:overflow-visible m-2 sm:m-0">
                 {children}
             </div>
             <NavBar />

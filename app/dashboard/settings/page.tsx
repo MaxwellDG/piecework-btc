@@ -13,7 +13,7 @@ export default function Settings() {
 
     return (
         <HeroScreenContainer>
-            <div className="md:w-1/2 m-auto">
+            <div className="w-full md:w-1/2 m-auto">
                 <h2 className="text-4xl font-bold mb-8 ml-[1/2]">Settings</h2>
                 <div className="flex flex-col">
                     <SciFiLinkButton

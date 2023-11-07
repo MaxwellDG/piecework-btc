@@ -23,6 +23,8 @@ export default async function Page() {
     );
     const tasksCreated: number = await TasksHandler.countTasks(companyId);
 
+    // todo activity list on mobile should use 'read more' button instead of its own overflow. same with pending actions
+
     return (
         <HeroScreenContainer>
             <h2 className="text-4xl font-bold mb-8">Home</h2>
