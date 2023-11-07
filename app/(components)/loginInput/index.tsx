@@ -97,18 +97,18 @@ export default function LoginInput() {
                             </div>
                         )}
                     </div>
-                    <div className="flex gap-x-1">
+                    <div className="flex gap-x-1 mb-6">
                         <input
                             type="text"
                             placeholder="Username"
-                            className="w-1/2 max-w-xs mb-6"
+                            className="w-1/2 max-w-xs"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         />
                         <input
                             type="text"
                             placeholder="Password"
-                            className="w-1/2 max-w-xs mb-8"
+                            className="w-1/2 max-w-xs"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />

@@ -28,7 +28,7 @@ export default function ConfirmModal({
                     e.preventDefault();
                     e.stopPropagation();
                 }}
-                className="absolute top-0 right-2 left-2 bottom-0 m-auto md:max-w-[50%] md:w-fit h-fit modal-box rounded p-0 z-10 cursor-default pointer-events-auto border border-lightGray"
+                className="absolute top-0 right-2 left-2 bottom-0 m-auto md:max-w-[50%] md:w-fit md:min-w-[500px] h-fit modal-box rounded p-0 z-10 cursor-default pointer-events-auto border border-lightGray"
             >
                 <div className="flex w-full justify-between items-center p-2 border-b border-lightGray bg-[#1f2935]">
                     <h2 className="font-semibold text-2xl ">{header}</h2>
@@ -59,25 +59,17 @@ export default function ConfirmModal({
                             key={i}
                             type="button"
                             onClick={(e) => buttonFuncs[i](e)}
-                            className={`rounded py-1 px-2 ${
+                            className={`rounded py-1 px-2 hover:text-white ${
                                 i === 0 && buttonTexts.length === 2
-                                    ? 'hover:bg-[#788f98]'
-                                    : 'hover:bg-teal'
+                                    ? 'hover:bg-[#788f98] text-[#788f98]'
+                                    : 'hover:bg-teal text-teal'
                             } ${
                                 i === 0 && buttonTexts.length === 2
                                     ? 'border border-[#788f98]'
                                     : 'border border-teal'
                             }`}
                         >
-                            <p
-                                className={`${
-                                    i === 0 && buttonTexts.length === 2
-                                        ? 'text-[#788f98] hover:text-white'
-                                        : 'text-teal hover:text-white'
-                                }`}
-                            >
-                                {buttonText}
-                            </p>
+                            {buttonText}
                         </button>
                     ))}
                 </div>
