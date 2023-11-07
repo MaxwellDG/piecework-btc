@@ -31,7 +31,7 @@ export default function ArrowCornersCard({
                 } z-10`}
             >
                 {header ? (
-                    <div className="w-full bg-[rgba(255,255,255,0.1)] flex px-2 border-b border-lightGray">
+                    <div className="w-full bg-[rgba(255,255,255,0.1)] flex px-2 border-b border-lightGray relative">
                         {header}
                     </div>
                 ) : null}

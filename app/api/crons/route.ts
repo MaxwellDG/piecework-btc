@@ -52,7 +52,8 @@ export async function GET() {
             return NextResponse.json({ success: false }, { status: 500 });
         }
     } else {
-        return NextResponse.json({ success: true }, { status: 200 });
         // no op
+        console.log('MAIL: data was length 1');
+        return NextResponse.json({ success: true }, { status: 200 });
     }
 }

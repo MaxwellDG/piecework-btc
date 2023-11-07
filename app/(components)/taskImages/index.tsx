@@ -80,9 +80,8 @@ export default function TaskImages({ imageUrls, projectId, taskId }: Props) {
             .catch((e) => console.log('err', e));
     };
 
-    const submitFile = async (e: React.FormEvent) => {
+    const submitFile = async () => {
         setLoading(true);
-        e.preventDefault();
         if (file instanceof File) {
             let formData = new FormData();
             const filePath = `projects/${projectId}/tasks/${taskId}/${file.name}`;

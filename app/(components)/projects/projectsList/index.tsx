@@ -36,7 +36,7 @@ export default function ProjectsList() {
         });
 
         if (res.ok) {
-            mutate(`/api/projects`);
+            mutate();
             createToast('Project deleted', TOAST_TYPE.INFO);
             toggleConfirmModal(false);
             setFocusedProject(null);

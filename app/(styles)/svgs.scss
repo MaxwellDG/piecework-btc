@@ -8,3 +8,14 @@
     fill: #69737f;
   }
 }
+
+.svg-delete {
+
+  path {
+    stroke: #69737f;
+  }
+
+  &:hover path {
+    stroke: #cbced3;
+  }
+}

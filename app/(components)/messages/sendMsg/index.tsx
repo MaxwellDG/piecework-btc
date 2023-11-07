@@ -2,6 +2,7 @@
 
 import React from 'react';
 import SimpleButton from '../../ui/buttons/simple';
+import SciFiStandardButton from '../../ui/buttons/sciFiStandard';
 
 type Props = {
     handleSend: (formData: FormData) => Promise<void>;
@@ -26,7 +27,7 @@ export default function SendMsg({ handleSend }: Props) {
                     className="input border border-lightGray flex flex-1 bg-backgroundDark bg-opacity-20 text-white"
                     required
                 />
-                <SimpleButton text="Send" type="submit" />
+                <SciFiStandardButton text="Send" type="submit" />
             </form>
         </div>
     );

@@ -116,10 +116,15 @@ export async function update(
 
 export async function deleteTask(
     id: string,
-    companyId: string
+    companyId: string,
+    projectId: string
 ): Promise<boolean> {
     try {
-        await TaskModel.deleteOne({ _id: id, company: companyId });
+        await TaskModel.deleteOne({
+            _id: id,
+            company: companyId,
+            project: projectId,
+        });
         return true;
     } catch (e) {
         return false;

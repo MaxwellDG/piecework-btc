@@ -52,6 +52,7 @@ export default function TaskInformation({
         <div className="flex flex-col">
             <div className="flex justify-between mb-4 items-center">
                 <input
+                    type="text"
                     className="text-3xl font-semibold flex flex-1 mr-4 px-2"
                     value={name}
                     onChange={(e) => {
