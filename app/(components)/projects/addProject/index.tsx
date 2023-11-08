@@ -60,7 +60,11 @@ export default function AddProject() {
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                     />
-                    <SimpleButton text="Create" onClick={createProject} />
+                    <SimpleButton
+                        text="Create"
+                        onClick={createProject}
+                        type="button"
+                    />
                 </div>
             </motion.div>
         </div>
