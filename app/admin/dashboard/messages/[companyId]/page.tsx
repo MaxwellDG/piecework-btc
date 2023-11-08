@@ -35,6 +35,7 @@ export default async function Page() {
                                 message={msg}
                                 isFromSelf={!msg.isUser}
                                 label={msg.isUser ? 'Company' : 'Piecework-BTC'}
+                                isLast={i === messages.length - 1}
                             />
                         );
                     })}

@@ -20,9 +20,18 @@ export default function TasksListAdmin({ projectId }: Props) {
         getTasks();
     }, []);
 
+    function toggleDeleteModal(
+        e: React.MouseEvent<HTMLElement>,
+        bool: boolean,
+        task: ITask
+    ) {}
+
     return (
         <div className="flex flex-1 flex-col overflow-y-auto">
-            <TaskComponentList tasks={tasks} />
+            <TaskComponentList
+                tasks={tasks}
+                toggleDeleteModal={toggleDeleteModal}
+            />
         </div>
     );
 }

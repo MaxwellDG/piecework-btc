@@ -27,12 +27,28 @@ export default function ProjectsListAdmin({ companyId }: Props) {
         getProjects();
     }, []);
 
+    function toggleConfirm(
+        e: React.MouseEvent<HTMLElement>,
+        bool: boolean,
+        project: IProject
+    ) {}
+
+    function toggleEdit(
+        e: React.MouseEvent<HTMLElement>,
+        bool: boolean,
+        project: IProject
+    ) {}
+
     return (
         <div className="w-full h-96 flex">
             {initialLoad ? (
                 Loading()
             ) : (
-                <ProjectComponentList projects={projects} />
+                <ProjectComponentList
+                    projects={projects}
+                    toggleConfirm={toggleConfirm}
+                    toggleEdit={toggleEdit}
+                />
             )}
         </div>
     );
