@@ -20,6 +20,7 @@ const config: Config = {
                 chillGreen: '#224146',
                 teal: 'rgba(61, 211, 165, 1)',
                 tealOpaque: 'rgba(61, 211, 165, 0.3)',
+                normalText: 'rgba(255, 255, 255, 0.8)',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

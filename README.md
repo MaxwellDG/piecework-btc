@@ -4,6 +4,7 @@
 -   The latter stages of task completion after a Piecework-BTC super admin has accepted a task
 -   Admin dashboard should show more updates for when a project / task has been created / updated
 -   More 'info' buttons to explain what certain things mean
+-   Modals are kinda ugly atm
 
 ## Getting Started
 

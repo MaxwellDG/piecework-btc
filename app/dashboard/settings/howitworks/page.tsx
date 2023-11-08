@@ -31,39 +31,43 @@ export default function Page() {
                     canOverflow={false}
                 >
                     <ul
-                        className="lg:ml-6"
+                        className="lg:ml-6 p-2"
                         style={{ listStyle: 'outside', listStyleType: 'disc' }}
                     >
                         <li>
-                            <span className="flex">
-                                <p className="font-semibold">Activity:&nbsp;</p>
-                                <p>
+                            <p>
+                                <span className="font-semibold">
+                                    Activity:&nbsp;
+                                </span>
+                                <span className="text-normalText">
                                     See what you and your team members have been
                                     up to
-                                </p>
-                            </span>
+                                </span>
+                            </p>
                         </li>
                         <li>
-                            <span className="flex">
-                                <p className="font-semibold">Tasks:&nbsp;</p>
-                                <p>
+                            <p>
+                                <span className="font-semibold">
+                                    Tasks:&nbsp;
+                                </span>
+                                <span className="text-normalText">
                                     A counter of all of the created and
                                     completed tasks for your company
-                                </p>
-                            </span>
+                                </span>
+                            </p>
                         </li>
                         <li>
-                            <span className="flex">
-                                <p className="font-semibold whitespace-nowrap">
+                            <p>
+                                <span className="font-semibold">
                                     Pending actions:&nbsp;
-                                </p>
-                                <p>
+                                </span>
+                                <span className="text-normalText">
                                     {`Anything that requires a response from you in
                                 regards to a task while be posted here to notify
                                 you. You can click on these to be navigated
                                 directly to what needs to be addressed.`}
-                                </p>
-                            </span>
+                                </span>
+                            </p>
                         </li>
                     </ul>
                 </ArrowCornersCard>
@@ -80,53 +84,59 @@ export default function Page() {
                     className="mb-6"
                 >
                     <ul
-                        className="lg:ml-6 p-0"
+                        className="lg:ml-6 p-2"
                         style={{ listStyle: 'outside', listStyleType: 'disc' }}
                     >
                         <li>
-                            <span className="flex">
-                                <p className="font-semibold">Projects:&nbsp;</p>
-                                <p>
+                            <p>
+                                <span className="font-semibold">
+                                    Projects:&nbsp;
+                                </span>
+                                <span className="text-normalText">
                                     Create and organize your work into projects
-                                </p>
-                            </span>
+                                </span>
+                            </p>
                         </li>
                         <li>
-                            <span className="flex">
-                                <p className="font-semibold">Tasks:&nbsp;</p>
-                                <p>
+                            <p>
+                                <span className="font-semibold">
+                                    Tasks:&nbsp;
+                                </span>
+                                <span className="text-normalText">
                                     {`Click on a project to go to the 'Tasks' screen.
                                 Here you can create specific tasks{' '}`}
-                                </p>
-                            </span>
+                                </span>
+                            </p>
                         </li>
                         <li>
-                            <span className="flex">
-                                <p className="font-semibold whitespace-nowrap">
+                            <p>
+                                <span className="font-semibold">
                                     Task Status:&nbsp;
-                                </p>
-                                <p>
+                                </span>
+                                <span className="text-normalText">
                                     {`A Piecework-BTC team member will either be
                                 assigned to your task, or will contact you about
                                 negotiating the price. If a price is agreed
                                 upon, the team member will begin working on the
                                 project. Make sure to revisit this page often,
                                 as the status of your task will be updated here.`}
-                                </p>
-                            </span>
+                                </span>
+                            </p>
                         </li>
                         <li>
-                            <span className="flex">
-                                <p className="font-semibold">Payment:&nbsp;</p>
-                                <p>
+                            <p>
+                                <span className="font-semibold">
+                                    Payment:&nbsp;
+                                </span>
+                                <span className="text-normalText">
                                     {`When both parties agree a task is completed, a
                                 BTC address will be shown on the respective task
                                 screen. Payment must be made here in order to
                                 continue adding future tasks. As successful
                                 payments are made overtime, the maximum amount
                                 of tasks alotted will be increased`}
-                                </p>
-                            </span>
+                                </span>
+                            </p>
                         </li>
                     </ul>
                 </ArrowCornersCard>
@@ -142,13 +152,15 @@ export default function Page() {
                     canOverflow={false}
                     className="mb-6"
                 >
-                    <p className="lg:ml-6">
-                        {`Communicate directly with the Piecework-BTC team about
-                    anything you'd like.`}
-                    </p>
-                    <p className="lg:ml-6">
-                        Responses will be sent in less than 24 hours.
-                    </p>
+                    <div className="p-2">
+                        <p className="lg:ml-6 text-normalText">
+                            {`Communicate directly with the Piecework-BTC team about
+                        anything you'd like.`}
+                        </p>
+                        <p className="lg:ml-6 text-normalText">
+                            Responses will be sent in less than 24 hours.
+                        </p>
+                    </div>
                 </ArrowCornersCard>
                 <ArrowCornersCard
                     header={
@@ -163,32 +175,32 @@ export default function Page() {
                     className="mb-1"
                 >
                     <ul
-                        className="lg:ml-6"
+                        className="lg:ml-6 p-2"
                         style={{ listStyle: 'outside', listStyleType: 'disc' }}
                     >
                         <li>
-                            <span className="flex">
-                                <p className="font-semibold whitespace-nowrap">
+                            <p>
+                                <span className="font-semibold">
                                     Account settings:&nbsp;
-                                </p>
-                                <p>{`Update your account's username and password`}</p>
-                            </span>
+                                </span>
+                                <span className="text-normalText">{`Update your account's username and password`}</span>
+                            </p>
                         </li>
                         <li>
-                            <span className="flex">
-                                <p className="font-semibold whitespace-nowrap">
+                            <p>
+                                <span className="font-semibold">
                                     Company settings:&nbsp;
-                                </p>
-                                <p>{`View, add, remove users from your company.`}</p>
-                            </span>
+                                </span>
+                                <span className="text-normalText">{`View, add, remove users from your company.`}</span>
+                            </p>
                         </li>
                         <li>
-                            <span className="flex">
-                                <p className="font-semibold whitespace-nowrap">
+                            <p>
+                                <span className="font-semibold">
                                     How it works:&nbsp;
-                                </p>
-                                <p>{`Hi. That's where you are right now`}</p>
-                            </span>
+                                </span>
+                                <span className="text-normalText">{`Hi. That's where you are right now`}</span>
+                            </p>
                         </li>
                     </ul>
                 </ArrowCornersCard>
