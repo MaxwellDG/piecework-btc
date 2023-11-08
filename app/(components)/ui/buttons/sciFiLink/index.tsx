@@ -1,5 +1,13 @@
 import Link from 'next/link';
-import { tomorrowFont } from '../../../../layout';
+import localFont from 'next/font/local';
+
+const tomorrowFont = localFont({
+    src: [
+        {
+            path: '../../../../(styles)/fonts/tomorrow/Tomorrow-Regular.ttf',
+        },
+    ],
+});
 
 export default function SciFiLinkButton({
     text,
