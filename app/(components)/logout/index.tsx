@@ -1,9 +1,16 @@
 'use client';
 
 import React from 'react';
-import LogoutSVG from '../../../public/svgs/logout';
 import { useRouter } from 'next/navigation';
-import { tomorrowFont } from '../../layout';
+import localFont from 'next/font/local';
+
+const tomorrowFont = localFont({
+    src: [
+        {
+            path: '../../(styles)/fonts/tomorrow/Tomorrow-Regular.ttf',
+        },
+    ],
+});
 
 export default function Logout() {
     const router = useRouter();

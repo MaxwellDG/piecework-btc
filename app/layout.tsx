@@ -17,14 +17,6 @@ const myFont = localFont({
     ],
 });
 
-export const tomorrowFont = localFont({
-    src: [
-        {
-            path: './(styles)/fonts/tomorrow/Tomorrow-Regular.ttf',
-        },
-    ],
-});
-
 export const metadata: Metadata = {
     title: 'Piecework - BTC',
     description:

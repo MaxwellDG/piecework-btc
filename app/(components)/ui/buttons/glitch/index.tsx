@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { tomorrowFont } from '../../../../layout';
+import localFont from 'next/font/local';
 
 type Props = {
     text: string;
@@ -9,6 +9,14 @@ type Props = {
     className?: string;
     isRightLeaning: boolean;
 };
+
+const tomorrowFont = localFont({
+    src: [
+        {
+            path: '../../../../(styles)/fonts/tomorrow/Tomorrow-Regular.ttf',
+        },
+    ],
+});
 
 export default function GlitchButton({
     text,

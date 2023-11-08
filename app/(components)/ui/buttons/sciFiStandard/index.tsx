@@ -1,10 +1,18 @@
-import { tomorrowFont } from '../../../../layout';
+import localFont from 'next/font/local';
 
 export enum SciFiStandardButtonSize {
     SMALL = 100,
     MEDIUM = 150,
     LARGE = 225,
 }
+
+export const tomorrowFont = localFont({
+    src: [
+        {
+            path: '../../../../(styles)/fonts/tomorrow/Tomorrow-Regular.ttf',
+        },
+    ],
+});
 
 export default function SciFiStandardButton({
     text,
