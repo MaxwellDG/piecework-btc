@@ -2,7 +2,9 @@
 
 import React from 'react';
 import SimpleButton from '../../ui/buttons/simple';
-import SciFiStandardButton from '../../ui/buttons/sciFiStandard';
+import SciFiStandardButton, {
+    SciFiStandardButtonSize,
+} from '../../ui/buttons/sciFiStandard';
 
 type Props = {
     handleSend: (formData: FormData) => Promise<void>;
@@ -27,7 +29,11 @@ export default function SendMsg({ handleSend }: Props) {
                     className="input border border-lightGray flex flex-1 bg-backgroundDark bg-opacity-20 text-white"
                     required
                 />
-                <SciFiStandardButton text="Send" type="submit" />
+                <SciFiStandardButton
+                    text="Send"
+                    type="submit"
+                    size={SciFiStandardButtonSize.SMALL}
+                />
             </form>
         </div>
     );

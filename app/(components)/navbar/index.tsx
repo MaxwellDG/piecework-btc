@@ -21,14 +21,10 @@ export default function NavBar() {
         }
     }
 
-    // old nav bar code
-    // className={`flex nav-con sm:flex sm:w-[50px] h-[40px] sm:h-[435px] sm:absolute sm:top-0 bottom-0 left-0 right-0 sm:right-auto sm:left-4 sm:flex-col
-    // p-2 m-2 gap-x-2 justify-around sm:m-auto sm:gap-y-20 rounded-xl`}
-
     return (
         <div className="flex h-[50px] bottom-0 left-0 right-0 sm:absolute sm:left-4 sm:top-[50%]">
             <div
-                className="w-full h-full bg-gradient-to-b from-[rgb(50,70,80)] to-[rgb(13, 16, 27)] border-t border-teal border-t-4 rounded-t-lg sm:border-none sm:bg-transparent sm:w-fit"
+                className="w-full h-full bg-gradient-to-b from-[rgb(50,70,80)] to-[rgb(13, 16, 27)] sm:bg-none border-t border-teal border-t-4 rounded-t-lg sm:border-none sm:bg-transparent sm:w-fit"
                 onMouseOver={() => setEstado(true)}
                 onMouseLeave={() => setEstado(false)}
             >

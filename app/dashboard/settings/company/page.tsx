@@ -7,7 +7,9 @@ import ModalWrapper from '../../../(components)/modals';
 import { IAccount, Role } from '../../../../db/models/account/types';
 import ConfirmModal from '../../../(components)/modals/confirm';
 import ArrowCornersCard from '../../../(components)/containers/cards/arrow-corners';
-import SciFiStandardButton from '../../../(components)/ui/buttons/sciFiStandard';
+import SciFiStandardButton, {
+    SciFiStandardButtonSize,
+} from '../../../(components)/ui/buttons/sciFiStandard';
 
 export default function Page() {
     const { data, error, isLoading, mutate } = useSWR(
@@ -89,7 +91,11 @@ export default function Page() {
                             </div>
                         </div>
                     </div>
-                    <SciFiStandardButton type="submit" text="Create" />
+                    <SciFiStandardButton
+                        type="submit"
+                        text="Create"
+                        size={SciFiStandardButtonSize.LARGE}
+                    />
                 </form>
             </div>
 

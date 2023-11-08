@@ -8,7 +8,9 @@ import useToasts from '../../../(hooks)/useToasts';
 import { TOAST_TYPE } from '../../../(types)/api';
 import MainContent from '../../../(components)/containers/main-content';
 import ArrowCornersCard from '../../../(components)/containers/cards/arrow-corners';
-import SciFiStandardButton from '../../../(components)/ui/buttons/sciFiStandard';
+import SciFiStandardButton, {
+    SciFiStandardButtonSize,
+} from '../../../(components)/ui/buttons/sciFiStandard';
 
 export default function AccountSettings() {
     const { createToast } = useToasts();
@@ -81,7 +83,11 @@ export default function AccountSettings() {
                             className="input w-full mb-2 input-bordered"
                         />
                     </label>
-                    <SciFiStandardButton type="submit" text="Update username" />
+                    <SciFiStandardButton
+                        type="submit"
+                        text="Update username"
+                        size={SciFiStandardButtonSize.LARGE}
+                    />
                 </form>
                 <form onSubmit={updatePassword}>
                     <label>
@@ -107,7 +113,11 @@ export default function AccountSettings() {
                     {passwordError && (
                         <p className="text-red-500">{passwordError}</p>
                     )}
-                    <SciFiStandardButton type="submit" text="Update password" />
+                    <SciFiStandardButton
+                        type="submit"
+                        text="Update password"
+                        size={SciFiStandardButtonSize.LARGE}
+                    />
                 </form>
             </MainContent>
         </HeroScreenContainer>

@@ -35,10 +35,10 @@ export default function Activity({ activity }: Props) {
                 </div>
                 <span className="flex justify-between items-center">
                     <span className="flex ">
-                        <p className="inline text-gray-600 text-xs">
+                        <p className="inline text-lightGray text-xs">
                             {new Date(createdAt).toLocaleDateString()}&nbsp;
                         </p>
-                        <p className="inline text-gray-600 text-xs">
+                        <p className="inline text-lightGray text-xs">
                             {new Date(createdAt).toLocaleTimeString()}
                         </p>
                     </span>

@@ -195,7 +195,7 @@ export default function AddTaskModal({ projectId, path }: Props) {
                 </div>
                 <div className="m-2 mb-8">
                     <h2>Files</h2>
-                    <div className="flex gap-x-2">
+                    <div className="flex flex-1 gap-x-2 overflow-x-auto pb-2">
                         <AddFile
                             file={file}
                             setFile={setFile}
