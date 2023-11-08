@@ -1,6 +1,6 @@
 export default function Chevron(
-    color: string,
     size: number,
+    color?: string,
     rotation?: number
 ) {
     return (
@@ -10,6 +10,7 @@ export default function Chevron(
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="8.47 5.47 7.59 13.06"
+                className={color ? '' : 'svg-back'}
             >
                 {' '}
                 <path

@@ -24,6 +24,11 @@ $button-shadow-hover: $button-shadow-base, $shadow-inset-hover;
 $button-shadow-focus: $button-shadow-base, $shadow-inset-focus;
 $button-shadow-active: $button-shadow-base, $shadow-inset-active;
 
+$color-teal: rgba(61, 211, 165, 1);
+$color-teal-opaque: rgba(61, 211, 165, 0.3);
+$color-btcOrange: #f2a900;
+$color-chillGreen: #224146;
+
 .button {
     -webkit-appearance: none;
     appearance: none;
@@ -72,5 +77,339 @@ $button-shadow-active: $button-shadow-base, $shadow-inset-active;
     &:disabled {
         opacity: 0.6;
         cursor: not-allowed;
+    }
+}
+
+@keyframes glitch-animation {
+    0% {
+        opacity: 1;
+        transform: translateZ(0);
+        clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%);
+    }
+
+    2% {
+        clip-path: polygon(0 78%, 100% 78%, 100% 100%, 0 100%);
+        transform: translate(-5px);
+    }
+
+    6% {
+        clip-path: polygon(0 78%, 100% 78%, 100% 100%, 0 100%);
+        transform: translate(5px);
+    }
+
+    8% {
+        clip-path: polygon(0 78%, 100% 78%, 100% 100%, 0 100%);
+        transform: translate(-5px);
+    }
+
+    9% {
+        clip-path: polygon(0 78%, 100% 78%, 100% 100%, 0 100%);
+        transform: translate(0);
+    }
+
+    10% {
+        clip-path: polygon(0 54%, 100% 54%, 100% 44%, 0 44%);
+        transform: translate3d(5px, 0, 0);
+    }
+
+    13% {
+        clip-path: polygon(0 54%, 100% 54%, 100% 44%, 0 44%);
+        transform: translateZ(0);
+    }
+
+    13.1% {
+        clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+        transform: translate3d(5px, 0, 0);
+    }
+
+    15% {
+        clip-path: polygon(0 60%, 100% 60%, 100% 40%, 0 40%);
+        transform: translate3d(5px, 0, 0);
+    }
+
+    20% {
+        clip-path: polygon(0 60%, 100% 60%, 100% 40%, 0 40%);
+        transform: translate3d(-5px, 0, 0);
+    }
+
+    20.1% {
+        clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+        transform: translate3d(5px, 0, 0);
+    }
+
+    25% {
+        clip-path: polygon(0 85%, 100% 85%, 100% 40%, 0 40%);
+        transform: translate3d(5px, 0, 0);
+    }
+
+    30% {
+        clip-path: polygon(0 85%, 100% 85%, 100% 40%, 0 40%);
+        transform: translate3d(-5px, 0, 0);
+    }
+
+    30.1% {
+        clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+    }
+
+    35% {
+        clip-path: polygon(0 63%, 100% 63%, 100% 80%, 0 80%);
+        transform: translate(-5px);
+    }
+
+    40% {
+        clip-path: polygon(0 63%, 100% 63%, 100% 80%, 0 80%);
+        transform: translate(5px);
+    }
+
+    45% {
+        clip-path: polygon(0 63%, 100% 63%, 100% 80%, 0 80%);
+        transform: translate(-5px);
+    }
+
+    50% {
+        clip-path: polygon(0 63%, 100% 63%, 100% 80%, 0 80%);
+        transform: translate(0);
+    }
+
+    55% {
+        clip-path: polygon(0 10%, 100% 10%, 100% 0, 0 0);
+        transform: translate3d(5px, 0, 0);
+    }
+
+    60% {
+        clip-path: polygon(0 10%, 100% 10%, 100% 0, 0 0);
+        transform: translateZ(0);
+        opacity: 1;
+    }
+
+    60.1% {
+        clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+        opacity: 1;
+    }
+
+    to {
+        clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+        opacity: 1;
+    }
+}
+
+.btn-cyberpunk:hover .btn-cyberpunk__glitch,
+.btn-cyberpunk:hover .btn-cyberpunk__content::after,
+.btn-cyberpunk:focus .btn-cyberpunk__glitch,
+.btn-cyberpunk:focus .btn-cyberpunk__content::after {
+    display: block;
+    animation: glitch-animation 2s linear 0s infinite;
+}
+
+.btn-cyberpunk {
+    width: 100%;
+    height: 60px;
+    border: 0;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    position: relative;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: black;
+}
+
+.btn-cyberpunk-left {
+    clip-path: polygon(92% 0, 100% 25%, 100% 100%, 8% 100%, 0% 75%, 0 0);
+}
+.btn-cyberpunk-right {
+    clip-path: polygon(8% 0, 100% 0, 100% 75%, 92% 100%, 0% 100%, 0 25%);
+}
+
+.btn-cyberpunk__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    background-color: $color-teal;
+    outline: none;
+}
+
+.btn-cyberpunk__label {
+    height: 10px;
+    font-size: 0.4rem;
+    position: absolute;
+    bottom: 0px;
+    right: 8%;
+    padding: 0 5px;
+    background-color: $color-teal;
+    z-index: 3;
+}
+
+.btn-cyberpunk__glitch {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $color-teal;
+    filter: drop-shadow(-2px 3px $color-teal) drop-shadow(-1px -3px $color-teal)
+        drop-shadow(2px 1px $color-teal);
+}
+
+.sciFi-btn {
+    width: 100%;
+    height: 60px;
+    border: 0;
+    display: flex;
+    column-gap: 0.25rem;
+    position: relative;
+
+    .line {
+        height: 100%;
+        width: 0.25rem;
+        background-color: $color-teal;
+    }
+
+    .main-btn-container {
+        width: 100%;
+        height: 100%;
+        outline: none;
+        background-color: $color-chillGreen;
+        cursor: pointer;
+        position: relative;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        color: #cbced3;
+        clip-path: polygon(0 0, 100% 0, 100% 50%, 80% 100%, 0 100%);
+        padding: 1rem;
+    }
+
+    .main-btn {
+        &:hover{
+            box-shadow: inset 0 0 50px 5px rgba(61, 211, 165, 0.5);
+        }
+
+        position: absolute;
+        top: 1px;
+        bottom: 1px;
+        left: 1px;
+        right: 1px;
+        flex: 1;
+        box-shadow: inset 0 0 50px 2px $color-teal-opaque;
+        background-color: rgba(0, 0, 0, 0.9);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        clip-path: polygon(0 0, 100% 0, 100% 50%, 80% 100%, 0 100%);
+        outline: none;
+    }
+
+    .bottom-right-corner {
+        position: absolute;
+        bottom: 0;
+        left: 0.5rem;
+        height: 100%;
+        width: 97%;
+        background-color: $color-teal;
+        z-index: -1;
+        clip-path: polygon(85% 100%, 100% 64%, 100% 82%, 91% 100%, 85% 100%);
+    }
+}
+
+.sciFiStandard-btn {
+    position: relative;
+    width: fit-content;
+
+    .line{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background-color: $color-teal;
+        margin: auto;
+        clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%)
+    }
+
+    .left-line {
+        position: absolute;
+        z-index: 20;
+        left: 5px;
+        top: 5px;
+        bottom: 5px;
+        width: 4px;
+        background-color: $color-teal-opaque;
+        clip-path: polygon(0 0, 100% 5%, 100% 95%, 0 100%)
+    }
+
+    .right-line {
+        position: absolute;
+        z-index: 20;
+        right: 5px;
+        top: 5px;
+        bottom: 5px;
+        width: 4px;
+        background-color: $color-teal-opaque;
+        clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 95%)
+    }
+
+    .main-btn-container {
+        height: 50px;
+        outline: none;
+        background-color: $color-teal;
+        cursor: pointer;
+        position: relative;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        color: #cbced3;
+        clip-path: polygon(
+            5% 0,
+            95% 0,
+            100% 5%,
+            100% 95%,
+            95% 100%,
+            66% 100%,
+            60% 90%,
+            39% 90%,
+            33% 100%,
+            5% 100%,
+            0 95%,
+            0 5%
+        );
+        padding: 1rem;
+
+        .main-btn {
+            &:hover{
+                box-shadow: inset 0 0 50px 5px rgba(61, 211, 165, 0.5);
+            }
+        
+            position: absolute;
+            top: 2px;
+            bottom: 2px;
+            left: 2px;
+            right: 2px;
+            flex: 1;
+            box-shadow: inset 0 0 50px 2px $color-teal-opaque;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            clip-path: polygon(
+                5% 0,
+                95% 0,
+                100% 5%,
+                100% 95%,
+                95% 100%,
+                66% 100%,
+                60% 90%,
+                39% 90%,
+                33% 100%,
+                5% 100%,
+                0 95%,
+                0 5%
+            );
+            outline: none;
+        }
     }
 }

@@ -3,6 +3,7 @@
 import React from 'react';
 import LogoutSVG from '../../../public/svgs/logout';
 import { useRouter } from 'next/navigation';
+import { tomorrowFont } from '../../layout';
 
 export default function Logout() {
     const router = useRouter();
@@ -17,14 +18,18 @@ export default function Logout() {
         <button
             type="button"
             onClick={handleLogout}
-            className="btn bg-white rounded mb-8 w-full items-center group m-auto"
+            className="sciFi-btn"
             onMouseOver={() => toggleHovering(true)}
             onMouseLeave={() => toggleHovering(false)}
         >
-            {LogoutSVG(25, isHover ? 'rgb(248 113 113)' : 'rgb(252 165 165)')}
-            <p className={`ml-6 text-red-300 group-hover:text-red-400 w-32`}>
-                Logout
-            </p>
+            <div className="line" />
+            {/* {LogoutSVG(25, isHover ? 'rgb(248 113 113)' : 'rgb(252 165 165)')} */}
+            <div className="main-btn-container">
+                <div className={`main-btn ${tomorrowFont.className}`}>
+                    Logout
+                </div>
+            </div>
+            <div className="bottom-right-corner" />
         </button>
     );
 }

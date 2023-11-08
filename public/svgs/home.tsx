@@ -12,14 +12,14 @@ export default function Home(color: string, size: number, className?: string) {
                 id="vector"
                 d="M19 23H5C3.34315 23 2 21.6569 2 20V11.563C2 10.4094 2.49808 9.31192 3.36639 8.55236L10.0248 2.72784C11.1558 1.7385 12.8442 1.73851 13.9752 2.72784L20.6336 8.55236C21.5019 9.31192 22 10.4094 22 11.563V20C22 21.6569 20.6569 23 19 23Z"
                 stroke={color}
-                strokeWidth="2"
+                strokeWidth="1"
                 strokeLinecap="round"
             />
             <path
                 id="vector_2"
                 d="M12 16L12 19"
                 stroke={color}
-                strokeWidth="2"
+                strokeWidth="1"
                 strokeLinecap="round"
             />
 

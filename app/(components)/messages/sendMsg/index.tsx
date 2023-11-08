@@ -1,6 +1,10 @@
 'use client';
 
 import React from 'react';
+import SimpleButton from '../../ui/buttons/simple';
+import SciFiStandardButton, {
+    SciFiStandardButtonSize,
+} from '../../ui/buttons/sciFiStandard';
 
 type Props = {
     handleSend: (formData: FormData) => Promise<void>;
@@ -22,12 +26,14 @@ export default function SendMsg({ handleSend }: Props) {
                 <input
                     type="text"
                     name="input"
-                    className="input input-bordered flex flex-1"
+                    className="input border border-lightGray flex flex-1 bg-backgroundDark bg-opacity-20 text-white"
                     required
                 />
-                <button type="submit" className="button">
-                    Send
-                </button>
+                <SciFiStandardButton
+                    text="Send"
+                    type="submit"
+                    size={SciFiStandardButtonSize.SMALL}
+                />
             </form>
         </div>
     );

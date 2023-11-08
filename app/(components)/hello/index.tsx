@@ -10,7 +10,7 @@ export default function Hello() {
                 <p>{choice[0]}</p>
                 <p>{"Used as a greeting"}</p>
                 <p>{`${choice[1]} world`}</p> */}
-                <h1 className="text-8xl font-bold">Hello</h1>
+                <h1 className="text-8xl font-bold text-white">Hello</h1>
                 <span className="flex items-center mb-6">
                     <p>english - </p>
                     <p className="text-xl">/həˈləʊ,hɛˈləʊ/</p>

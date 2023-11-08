@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Chevron from '../../../../public/svgs/chevron';
+import Chevron from '../../../../../public/svgs/chevron';
 
 type Props = {
     route: string;
@@ -8,7 +8,7 @@ type Props = {
 export default function BackButton({ route }: Props) {
     return (
         <div className="w-full flex flex-start mb-12">
-            <Link href={route}>{Chevron('black', 30, 180)}</Link>
+            <Link href={route}>{Chevron(30, undefined, 180)}</Link>
         </div>
     );
 }

@@ -5,7 +5,7 @@ import TasksList from '../../../(components)/projects/tasksList';
 import { usePathnameServer } from '../../../(hooks)/useServerHeaders';
 import { headers } from 'next/headers';
 import ProjectsHandler from '../../../../db/models/project';
-import BackButton from '../../../(components)/buttons/back';
+import BackButton from '../../../(components)/ui/buttons/back';
 import HeroScreenContainer from '../../../(components)/containers/hero-screen-container';
 import dbConnect from '../../../../db';
 

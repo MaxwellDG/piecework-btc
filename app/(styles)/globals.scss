@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --background-start-rgb: 45, 60, 74;
+    --background-end-rgb: 14, 17, 28;
+    --color-teal: rgba(61, 211, 165, 1);
+    --color-teal-opaque: rgba(61, 211, 165, 0.3);
+    --color-btcOrange: #f2a900;
+    --color-chillGreen: #224146;
+}
+
+html {
+    background: linear-gradient(
+        180deg,
+        rgba(50, 70, 80, 0.9) 0%,
+        rgb(13, 16, 27) 100%
+    );
+}
+
+p {
+    color: white;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: white;
+}
+
+input[type='text'],
+input[type='password'],
+input[type='number'],
+textarea {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.75);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    background-clip: padding-box;
+    border: 1px solid #69737f;
+    border-radius: 4px;
+    outline: none;
+
+    &:focus {
+        animation: border-color 0.25s linear 0s 1;
+        animation-fill-mode: forwards;
+    }
+}
+
+input[type='checkbox']:checked {
+    background-color: transparent;
+}
+input[type='checkbox']:checked:after {
+    position: absolute;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: '\2713';
+    color: var(--color-teal);
+}
+input[type='checkbox'] {
+    position: relative;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    width: 40px !important;
+    height: 40px !important;
+    appearance: none;
+    border-radius: 10%;
+    border: 1px solid #69737f;
+    box-shadow: none;
+    font-size: 1.5em;
+}
+
+@keyframes border-color {
+    0% {
+        border: 1px solid #cbced3;
+        box-shadow: 0 0 0 #596871;
+    }
+    100% {
+        border: 1px solid #cbced3;
+        box-shadow: 0 0 15px #596871;
+    }
+}

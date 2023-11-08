@@ -6,7 +6,7 @@ export default function Projects() {
     return (
         <HeroScreenContainer>
             <div className="flex flex-col justify-between items-start md:flex-row mb-2">
-                <h2 className="text-4xl font-bold mb-2">Projects</h2>
+                <h2 className="text-4xl font-bold mb-8">Projects</h2>
                 <AddProject />
             </div>
             <ProjectsList />

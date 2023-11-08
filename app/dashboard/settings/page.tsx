@@ -1,6 +1,7 @@
 import HeroScreenContainer from '../../(components)/containers/hero-screen-container';
 import Logout from '../../(components)/logout';
 import Card from '../../(components)/settings/card';
+import SciFiLinkButton from '../../(components)/ui/buttons/sciFiLink';
 import Company from '../../../public/svgs/company';
 import Question from '../../../public/svgs/question';
 import User from '../../../public/svgs/user';
@@ -12,22 +13,22 @@ export default function Settings() {
 
     return (
         <HeroScreenContainer>
-            <div className="md:w-1/2 m-auto">
-                <h2 className="text-4xl font-bold mb-2 ml-[1/2]">Settings</h2>
+            <div className="w-full md:w-1/2 m-auto">
+                <h2 className="text-4xl font-bold mb-8 ml-[1/2]">Settings</h2>
                 <div className="flex flex-col">
-                    <Card
+                    <SciFiLinkButton
                         text="Account settings"
-                        route="account"
+                        path="account"
                         icon={User('black', 25)}
                     />
-                    <Card
+                    <SciFiLinkButton
                         text="Company settings"
-                        route="company"
+                        path="company"
                         icon={Company('black', 25)}
                     />
-                    <Card
+                    <SciFiLinkButton
                         text="How it works"
-                        route="howitworks"
+                        path="howitworks"
                         icon={Question('black', 25)}
                     />
                     <Logout />

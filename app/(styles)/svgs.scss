@@ -1,0 +1,21 @@
+.svg-close, .svg-back {
+
+  path {
+    fill: #cbced3;
+  }
+  
+  &:hover path {
+    fill: #69737f;
+  }
+}
+
+.svg-delete {
+
+  path {
+    stroke: #69737f;
+  }
+
+  &:hover path {
+    stroke: #cbced3;
+  }
+}

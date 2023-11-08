@@ -1,4 +1,10 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## In Development - Not Ready for Production. Todo list:
+
+-   UI responsivity for edge screen sizes (i.e. mobile in landscape mode, or skinny tablets, 320px width?)
+-   The latter stages of task completion after a Piecework-BTC super admin has accepted a task
+-   Admin dashboard should show more updates for when a project / task has been created / updated
+-   More 'info' buttons to explain what certain things mean
+-   Modals are kinda ugly atm
 
 ## Getting Started
 
@@ -7,6 +13,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 Once an .env file has been populated correctly with MongoDB related information, run the command 'node/scripts/seed.js' from the root directory. This will seed the database with the necessary data for development.
 
 Once an .env.local file has been populated correctly, run the command 'yarn' (you must have yarn installed on your local) to install all dependencies.
+
+# Migrations
+
+If you are returning to this project and want to update your database, run the command 'node migrations/m_1.ts' from the root directory. This will update your database with the latest schemas.
 
 Then you may run the development server:
 

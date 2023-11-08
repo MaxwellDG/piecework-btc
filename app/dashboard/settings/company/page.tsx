@@ -6,6 +6,10 @@ import Loading from '../../../(components)/loading';
 import ModalWrapper from '../../../(components)/modals';
 import { IAccount, Role } from '../../../../db/models/account/types';
 import ConfirmModal from '../../../(components)/modals/confirm';
+import ArrowCornersCard from '../../../(components)/containers/cards/arrow-corners';
+import SciFiStandardButton, {
+    SciFiStandardButtonSize,
+} from '../../../(components)/ui/buttons/sciFiStandard';
 
 export default function Page() {
     const { data, error, isLoading, mutate } = useSWR(
@@ -63,27 +67,35 @@ export default function Page() {
             <div className="flex flex-col">
                 <h2 className="font-semibold text-xl">Create new user</h2>
                 <form onSubmit={createNewUser} className="flex flex-col mb-8">
-                    <div className="flex mb-2">
+                    <div className="flex mb-2 items-end">
                         <input
                             value={newUser}
                             onChange={(e) => setNewUser(e.target.value)}
-                            className="input input-bordered mr-8"
+                            className="mr-8"
                             required
                             placeholder="username"
+                            type="text"
                         />
                         <div className="flex flex-col justify-between">
-                            <p>Admin</p>
-                            <input
-                                type="checkbox"
-                                onChange={() => setIsAdmin(!isAdmin)}
-                                checked={isAdmin}
-                                className="checkbox checkbox-primary"
-                            />
+                            <div className="flex items-center">
+                                <label htmlFor="isAdmin" className="mr-2">
+                                    Admin?
+                                </label>
+                                <input
+                                    name="isAdmin"
+                                    type="checkbox"
+                                    onChange={() => setIsAdmin(!isAdmin)}
+                                    checked={isAdmin}
+                                    className="h-8 w-8 cursor-pointer"
+                                />
+                            </div>
                         </div>
                     </div>
-                    <button type="submit" className="button self-start">
-                        Create
-                    </button>
+                    <SciFiStandardButton
+                        type="submit"
+                        text="Create"
+                        size={SciFiStandardButtonSize.LARGE}
+                    />
                 </form>
             </div>
 
@@ -92,38 +104,47 @@ export default function Page() {
                 {error ? (
                     <div>Error: {error.message}</div>
                 ) : (
-                    <div className="flex gap-x-2">
+                    <div className="flex gap-x-2 flex-col sm:flex-row">
                         <div className="flex flex-col flex-1">
                             <h3>Admins</h3>
-                            <div className="flex flex-col gap-y-2 bg-gray-200 overflow-y-auto h-32 p-2">
-                                {isLoading ? (
-                                    <div className="flex flex-1 justify-center items-center">
-                                        {Loading()}
-                                    </div>
-                                ) : (
-                                    data?.admins.map((user: IAccount) => (
-                                        <div key={user._id}>
-                                            <p>{user.username}</p>
-                                        </div>
-                                    ))
-                                )}
-                            </div>
-                        </div>
-                        <div className="flex flex-col flex-1">
-                            <div className="flex flex-col">
-                                <h3>Users</h3>
-                                <div className="flex flex-col gap-y-2 bg-gray-200 overflow-y-auto h-32 p-2">
+                            <div className="h-32">
+                                <ArrowCornersCard canOverflow className="h-32">
                                     {isLoading ? (
                                         <div className="flex flex-1 justify-center items-center">
                                             {Loading()}
                                         </div>
                                     ) : (
-                                        data?.users.map((user: IAccount) => (
+                                        data?.admins.map((user: IAccount) => (
                                             <div key={user._id}>
                                                 <p>{user.username}</p>
                                             </div>
                                         ))
                                     )}
+                                </ArrowCornersCard>
+                            </div>
+                        </div>
+                        <div className="flex flex-col flex-1">
+                            <div className="flex flex-col">
+                                <h3>Users</h3>
+                                <div className="h-32">
+                                    <ArrowCornersCard
+                                        canOverflow
+                                        className="h-32"
+                                    >
+                                        {isLoading ? (
+                                            <div className="flex flex-1 justify-center items-center">
+                                                {Loading()}
+                                            </div>
+                                        ) : (
+                                            data?.users.map(
+                                                (user: IAccount) => (
+                                                    <div key={user._id}>
+                                                        <p>{user.username}</p>
+                                                    </div>
+                                                )
+                                            )
+                                        )}
+                                    </ArrowCornersCard>
                                 </div>
                             </div>
                         </div>

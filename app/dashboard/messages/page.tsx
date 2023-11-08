@@ -42,10 +42,10 @@ export default async function Page({ searchParams }: Props) {
             <div className="flex justify-between">
                 <h2 className="text-4xl font-bold mb-2">Messages</h2>
                 <Link href="/dashboard/messages?modal=true">
-                    {Question('grey', 25)}
+                    {Question('rgba(61, 211, 165, 1)', 25)}
                 </Link>
             </div>
-            <div className="custom-border-color flex flex-col bg-white mb-2 p-2 sm:max-h-none sm:h-96 overflow-y-auto rounded border">
+            <div className="custom-border-color flex flex-col bg-[rgba(100,100,100,0.1)] mb-2 p-2 h-96 overflow-y-auto rounded border gap-y-2">
                 {messages?.map((msg: IMessage, i: number) => {
                     return (
                         <Message
@@ -53,6 +53,7 @@ export default async function Page({ searchParams }: Props) {
                             message={msg}
                             isFromSelf={msg.isUser}
                             label={msg.isUser ? 'Company' : 'Piecework-BTC '}
+                            isLast={i === messages.length - 1}
                         />
                     );
                 })}

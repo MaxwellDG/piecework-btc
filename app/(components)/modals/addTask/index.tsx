@@ -7,10 +7,11 @@ import { useRouter } from 'next/navigation';
 
 import TaskImage from '../../taskImages/image';
 import { readFile } from '../../../(util)/files';
-import AddFile from '../../buttons/addFile';
+import AddFile from '../../ui/buttons/addFile';
 import useToasts from '../../../(hooks)/useToasts';
 import { TOAST_TYPE } from '../../../(types)/api';
 import ConfirmModal from '../confirm';
+import SimpleButton from '../../ui/buttons/simple';
 
 type Props = {
     projectId: string;
@@ -104,10 +105,8 @@ export default function AddTaskModal({ projectId, path }: Props) {
         }
     }
 
-    const submitFile = async (e: React.FormEvent) => {
+    const submitFile = async () => {
         toggleLoading(true);
-        e.preventDefault();
-        e.stopPropagation();
         if (file instanceof File) {
             let formData = new FormData();
             const uuid = Math.random().toString(36).substring(2, 15);
@@ -154,9 +153,8 @@ export default function AddTaskModal({ projectId, path }: Props) {
     };
 
     return (
-        <ModalWrapper path={path}>
-            <h2 className="font-semibold text-2xl m-2 mb-4">Add task</h2>
-            <form onSubmit={handleSubmit}>
+        <ModalWrapper path={path} header="Add task">
+            <form onSubmit={handleSubmit} className="bg-[#1f2935] pt-2">
                 <div className="flex m-2">
                     <label htmlFor="name" className="mr-2 w-20">
                         Name:
@@ -166,7 +164,7 @@ export default function AddTaskModal({ projectId, path }: Props) {
                         name="name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="input input-bordered flex flex-1"
+                        className="flex flex-1"
                         required
                     />
                 </div>
@@ -179,7 +177,7 @@ export default function AddTaskModal({ projectId, path }: Props) {
                         name="price"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
-                        className="input input-bordered flex flex-1"
+                        className="flex flex-1"
                         required
                     />
                 </div>
@@ -191,13 +189,13 @@ export default function AddTaskModal({ projectId, path }: Props) {
                         name="description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        className="input input-bordered flex flex-1"
+                        className="flex flex-1 h-32"
                         required
                     />
                 </div>
                 <div className="m-2 mb-8">
                     <h2>Files</h2>
-                    <div className="flex gap-x-2">
+                    <div className="flex flex-1 gap-x-2 overflow-x-auto pb-2">
                         <AddFile
                             file={file}
                             setFile={setFile}
@@ -216,13 +214,8 @@ export default function AddTaskModal({ projectId, path }: Props) {
                         ))}
                     </div>
                 </div>
-                <div className="flex w-full bg-[#fbfbfa] p-4 border-t border-[#f0f0f0] justify-end">
-                    <button
-                        type="submit"
-                        className="rounded py-1 px-2 bg-[#161617] border border-[#161617] text-white"
-                    >
-                        Submit
-                    </button>
+                <div className="flex w-full bg-[#1c2834] p-4 border-t border-lightGray justify-end">
+                    <SimpleButton type="submit" text="Submit" />
                 </div>
             </form>
         </ModalWrapper>

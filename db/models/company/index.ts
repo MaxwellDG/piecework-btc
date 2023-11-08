@@ -19,7 +19,7 @@ export default {
 export const companySchema = new Schema<ICompany>(
     {
         name: { type: String, unique: true, required: true },
-        updateViewedByAdmin: { type: Boolean, default: false },
+        viewedBySuperAdmin: { type: Boolean, default: false },
     },
     {
         timestamps: true,
@@ -59,7 +59,7 @@ export async function findAllPaginated(
 ): Promise<{ companies: HydratedDocument<ICompany>[]; newOffset: Date }> {
     const unviewedCompanies: HydratedDocument<ICompany>[] =
         await CompanyModel.find({
-            updateViewedByAdmin: false,
+            viewedBySuperAdmin: false,
             updatedAt: { $lte: offsetUpdatedAt },
         })
             .limit(limit)
@@ -68,7 +68,7 @@ export async function findAllPaginated(
     const unviewedCompaniesLength = unviewedCompanies.length;
     if (unviewedCompaniesLength < 10) {
         viewedCompanies = await CompanyModel.find({
-            updateViewedByAdmin: true,
+            viewedBySuperAdmin: true,
             updatedAt: { $lte: offsetUpdatedAt },
         })
             .limit(10 - unviewedCompaniesLength)
@@ -88,13 +88,13 @@ export async function update(
     _id: string,
     updateObj: UpdateCompanyReq
 ): Promise<HydratedDocument<ICompany> | null> {
-    const { name, updateViewedByAdmin }: UpdateCompanyReq = updateObj;
+    const { name, viewedBySuperAdmin }: UpdateCompanyReq = updateObj;
     const company = await findById(_id);
 
     if (company) {
         company.name = name ?? company.name;
-        company.updateViewedByAdmin =
-            updateViewedByAdmin ?? company.updateViewedByAdmin;
+        company.viewedBySuperAdmin =
+            viewedBySuperAdmin ?? company.viewedBySuperAdmin;
         await company.save();
         return company;
     } else {

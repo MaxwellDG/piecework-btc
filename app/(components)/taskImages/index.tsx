@@ -8,7 +8,7 @@ import Loading from '../loading';
 import ConfirmModal from '../modals/confirm';
 import Delete from '../../../public/svgs/delete';
 import TaskImage from './image';
-import AddFile from '../buttons/addFile';
+import AddFile from '../ui/buttons/addFile';
 
 type Props = {
     imageUrls: string[];
@@ -80,9 +80,8 @@ export default function TaskImages({ imageUrls, projectId, taskId }: Props) {
             .catch((e) => console.log('err', e));
     };
 
-    const submitFile = async (e: React.FormEvent) => {
+    const submitFile = async () => {
         setLoading(true);
-        e.preventDefault();
         if (file instanceof File) {
             let formData = new FormData();
             const filePath = `projects/${projectId}/tasks/${taskId}/${file.name}`;
@@ -115,7 +114,7 @@ export default function TaskImages({ imageUrls, projectId, taskId }: Props) {
     return (
         <div className="flex flex-1 flex-col">
             <p>Task Images</p>
-            <div className="flex flex-1 flex-row gap-x-2">
+            <div className="flex flex-1 gap-x-2 overflow-x-auto max-w-[90vw] sm:max-w-[70vw] pb-2">
                 <AddFile
                     file={file}
                     setFile={setFile}
@@ -124,16 +123,14 @@ export default function TaskImages({ imageUrls, projectId, taskId }: Props) {
                     setLoading={setLoading}
                     submitFile={submitFile}
                 />
-                <div className="flex flex-1 overflow-x-auto gap-x-2">
-                    {_imageUrls.map((imageUrl, index) => (
-                        <TaskImage
-                            key={imageUrl}
-                            imageUrl={imageUrl}
-                            index={index}
-                            deleteFunc={toggleConfirm}
-                        />
-                    ))}
-                </div>
+                {_imageUrls.map((imageUrl, index) => (
+                    <TaskImage
+                        key={imageUrl}
+                        imageUrl={imageUrl}
+                        index={index}
+                        deleteFunc={toggleConfirm}
+                    />
+                ))}
             </div>
             {/* Modals */}
             {showConfirmModal && (

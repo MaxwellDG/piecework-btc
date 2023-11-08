@@ -6,6 +6,7 @@ export interface IProject {
     company: Types.ObjectId;
     createdAt: Date;
     updatedAt: Date;
+    viewedBySuperAdmin: boolean;
 }
 
 export interface UpdateProjectReq {

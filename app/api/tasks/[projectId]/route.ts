@@ -73,7 +73,7 @@ export async function POST(
         );
 
         // update company to be viewed by admin
-        await CompanyHandler.update(companyId, { updateViewedByAdmin: false });
+        await CompanyHandler.update(companyId, { viewedBySuperAdmin: false });
 
         // add mail for super admin
         await MailHandler.create(
@@ -130,27 +130,6 @@ export async function PATCH(
             },
             { status: 200 }
         );
-    } else {
-        return NextResponse.json(
-            { message: 'Task not found' },
-            { status: 404 }
-        );
-    }
-}
-
-export async function DELETE(
-    req: Request,
-    { params }: { params: { taskId: string } }
-) {
-    await dbConnect();
-
-    const companyId = req.headers.get('jwt-company') as string;
-    const taskId = params.taskId;
-
-    const bool: boolean = await TasksHandler.deleteTask(taskId, companyId);
-
-    if (bool) {
-        return NextResponse.json({ status: 200 });
     } else {
         return NextResponse.json(
             { message: 'Task not found' },

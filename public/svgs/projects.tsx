@@ -16,13 +16,13 @@ export default function Projects(
                 id="rec"
                 d="M3 7C3 4.23858 5.23858 2 8 2H16C18.7614 2 21 4.23858 21 7V17C21 19.7614 18.7614 22 16 22H8C5.23858 22 3 19.7614 3 17V7Z"
                 stroke={color}
-                strokeWidth="2"
+                strokeWidth="1"
             />
             <path
                 id="line"
                 d="M8 8.2002H16"
                 stroke={color}
-                strokeWidth="2"
+                strokeWidth="1"
                 strokeMiterlimit="10"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -31,7 +31,7 @@ export default function Projects(
                 id="line_2"
                 d="M8 12.2002H16"
                 stroke={color}
-                strokeWidth="2"
+                strokeWidth="1"
                 strokeMiterlimit="10"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -40,7 +40,7 @@ export default function Projects(
                 id="line_3"
                 d="M9 16.2002H15"
                 stroke={color}
-                strokeWidth="1.5"
+                strokeWidth="1"
                 strokeMiterlimit="10"
                 strokeLinecap="round"
                 strokeLinejoin="round"
