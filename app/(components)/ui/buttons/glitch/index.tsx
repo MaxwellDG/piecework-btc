@@ -5,9 +5,9 @@ import localFont from 'next/font/local';
 
 type Props = {
     text: string;
+    isRightLeaning: boolean;
     onClick?: () => void;
     className?: string;
-    isRightLeaning: boolean;
 };
 
 const tomorrowFont = localFont({

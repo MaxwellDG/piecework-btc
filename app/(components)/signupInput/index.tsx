@@ -16,8 +16,10 @@ export default function SignupInput() {
     const [organization, setOrganization] = React.useState('');
     const [error, setError] = React.useState('');
     const [showModal, setShowModal] = React.useState(false);
+    const [isLoading, toggleLoading] = React.useState(false);
 
     async function handleCreate() {
+        toggleLoading(true);
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_BASE_URL}/api/company`,
             {
@@ -33,6 +35,7 @@ export default function SignupInput() {
         } else {
             setError('Company name taken');
         }
+        toggleLoading(false);
     }
 
     const navToDashboard = () => {
@@ -49,7 +52,7 @@ export default function SignupInput() {
                 autoFocus
             />
             <GlitchButton
-                text="Create company account"
+                text={isLoading ? 'Creating...' : 'Create company account'}
                 onClick={handleCreate}
                 isRightLeaning
             />

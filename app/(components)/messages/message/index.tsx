@@ -23,7 +23,7 @@ export default function Message({
                     {createdAt?.toLocaleString()}
                 </time>
             </div>
-            <div className="p-2 rounded-sm bg-gray-200 border w-fit max-w-[5rem] relative">
+            <div className="p-2 rounded-sm bg-gray-200 border w-fit relative">
                 <p className="text-black">{text}</p>
                 <div
                     className={`absolute -bottom-1.5 ${

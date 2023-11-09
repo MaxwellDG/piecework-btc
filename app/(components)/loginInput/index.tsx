@@ -29,12 +29,14 @@ export default function LoginInput() {
     const [company, setCompany] = React.useState('');
     const [error, setError] = React.useState('');
     const [isHover, toggleHover] = React.useState(false);
+    const [isLoading, toggleLoading] = React.useState(false);
 
     function navLogin() {
         router.push('/dashboard');
     }
 
     async function handleLogin() {
+        toggleLoading(true);
         setError('');
 
         const payload =
@@ -57,6 +59,7 @@ export default function LoginInput() {
         } else {
             setError('Invalid login');
         }
+        toggleLoading(false);
     }
 
     return (
@@ -118,7 +121,7 @@ export default function LoginInput() {
             <div className="flex w-full gap-x-1 mb-2">
                 <div className="flex flex-1">
                     <GlitchButton
-                        text="Login"
+                        text={isLoading ? 'Logging in...' : 'Login'}
                         onClick={handleLogin}
                         isRightLeaning={false}
                     />
