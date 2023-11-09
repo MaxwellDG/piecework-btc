@@ -5,6 +5,7 @@ import { EMAIL_SUBJECT_TYPE } from '../../(services)/mailer/types';
 import MailHandler from '../../../db/models/mail';
 
 export async function GET() {
+    console.log('Cron called');
     const data: PopulatedIMail[] = await MailHandler.findAll();
 
     if (data?.length) {

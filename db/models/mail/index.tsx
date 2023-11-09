@@ -45,5 +45,8 @@ export async function create(
     company: string,
     extraText?: string
 ): Promise<HydratedDocument<IMail>> {
-    return await MailModel.create({ subject, company, extraText });
+    console.log('huhhhh?', subject, company, extraText);
+    const mail = await MailModel.create({ subject, company, extraText });
+    console.log('exidst?', mail);
+    return mail;
 }
