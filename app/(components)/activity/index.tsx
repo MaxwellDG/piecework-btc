@@ -18,11 +18,11 @@ export default function Activity({ activity }: Props) {
     const iconType = React.useMemo(() => {
         switch (type) {
             case ActivityType.MESSAGES:
-                return Messages('#F2A900', 20);
+                return Messages(20, '#F2A900');
             case ActivityType.USERS:
                 return User('#F2A900', 20);
             default:
-                return Projects('#F2A900', 20);
+                return Projects(20, '#F2A900');
         }
     }, []);
 

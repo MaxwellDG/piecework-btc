@@ -4,11 +4,10 @@ import ProjectsHandler from '../../../../db/models/project';
 import { IProject } from '../../../../db/models/project/types';
 import { HydratedDocument } from 'mongoose';
 
-export async function GET(req: Request) {
+export async function POST(req: Request) {
     await dbConnect();
 
-    const url = new URL(req.url);
-    const companyId: string = url.searchParams.get('companyId') as string;
+    const { companyId } = await req.json();
     const projects: HydratedDocument<IProject>[] =
         await ProjectsHandler.findByCompanyId(companyId);
 

@@ -1,15 +1,16 @@
 'use client';
 
 import React, { Suspense } from 'react';
-import Loading from '../../loading';
 import Company from '../company';
 import { ICompany } from '../../../../db/models/company/types';
+import Loading from '../../loading';
 
 export default function CompaniesList() {
     const [companies, setCompanies] = React.useState<ICompany[]>(
         [] as ICompany[]
     );
     const [offset, setOffset] = React.useState<number>(Date.now());
+    const [loading, setLoading] = React.useState<boolean>(true);
 
     React.useEffect(() => {
         getProjects();
@@ -24,24 +25,25 @@ export default function CompaniesList() {
                     new Date(data.newOffset).getTime() / 1000
                 );
                 setOffset(unixTimestamp);
-            });
+            })
+            .finally(() => setLoading(false));
     }
 
     return (
         <div className="w-full h-96 flex">
-            <Suspense fallback={Loading()}>
-                <div className="flex flex-1 flex-col overflow-y-auto">
-                    {companies.length ? (
-                        companies.map((company) => (
-                            <Company key={company._id} company={company} />
-                        ))
-                    ) : (
-                        <div className="flex flex-1 justify-center items-center">
-                            <h3>No companies yet</h3>
-                        </div>
-                    )}
-                </div>
-            </Suspense>
+            <div className="flex flex-1 flex-col overflow-y-auto pr-2">
+                {loading ? (
+                    Loading()
+                ) : companies?.length ? (
+                    companies.map((company) => (
+                        <Company key={company._id} company={company} />
+                    ))
+                ) : (
+                    <div className="flex flex-1 justify-center items-center">
+                        <h3>No companies yet</h3>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

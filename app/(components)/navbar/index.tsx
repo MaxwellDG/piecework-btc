@@ -43,8 +43,8 @@ export default function NavBar() {
                         className="flex cursor-pointer"
                     >
                         {Projects(
-                            getColor(pathname.split('/')[2] === 'projects'),
                             25,
+                            getColor(pathname.split('/')[2] === 'projects'),
                             pathname.split('/')[2] !== 'projects'
                                 ? 'nav-bar-button-stroke'
                                 : ''
@@ -55,8 +55,8 @@ export default function NavBar() {
                         className="flex cursor-pointer"
                     >
                         {Messages(
-                            getColor(pathname.split('/')[2] === 'messages'),
                             25,
+                            getColor(pathname.split('/')[2] === 'messages'),
                             pathname.split('/')[2] !== 'messages'
                                 ? 'nav-bar-button-stroke'
                                 : ''

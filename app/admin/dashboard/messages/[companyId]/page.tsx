@@ -4,6 +4,7 @@ import MessagesHandler, { IMessage } from '../../../../../db/models/message';
 import { revalidatePath } from 'next/cache';
 import BackButton from '../../../../(components)/ui/buttons/back';
 import { usePathnameServer } from '../../../../(hooks)/useServerHeaders';
+import HeroScreenContainer from '../../../../(components)/containers/hero-screen-container';
 
 export default async function Page() {
     const { id: companyId } = usePathnameServer();
@@ -23,11 +24,11 @@ export default async function Page() {
     }
 
     return (
-        <div className="hero min-h-screen bg-base-200 flex flex-col justify-center">
+        <HeroScreenContainer>
             <div className="m-auto w-full max-w-4xl">
                 <BackButton route="/admin/dashboard" />
                 <h2 className="text-4xl font-bold mb-2">Messages</h2>
-                <div className="custom-border-color flex flex-col bg-white mb-2 p-2 h-96 overflow-y-auto rounded border">
+                <div className="custom-border-color flex flex-col bg-[rgba(100,100,100,0.1)] mb-2 p-2 h-96 overflow-y-auto rounded border gap-y-2">
                     {messages?.map((msg: IMessage, i: number) => {
                         return (
                             <Message
@@ -42,6 +43,6 @@ export default async function Page() {
                 </div>
                 <SendMsg handleSend={handleSend} />
             </div>
-        </div>
+        </HeroScreenContainer>
     );
 }

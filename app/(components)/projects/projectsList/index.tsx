@@ -98,6 +98,7 @@ export default function ProjectsList() {
                     projects={data}
                     toggleConfirm={toggleConfirm}
                     toggleEdit={toggleEdit}
+                    isAdmin={false}
                 />
             )}
             {/* Modals */}

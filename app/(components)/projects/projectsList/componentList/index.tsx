@@ -3,6 +3,7 @@ import Project from '../../project';
 
 type Props = {
     projects: IProject[];
+    isAdmin: boolean;
     toggleConfirm: (
         e: React.MouseEvent<HTMLElement>,
         bool: boolean,
@@ -17,6 +18,7 @@ type Props = {
 
 export default function ProjectComponentList({
     projects,
+    isAdmin,
     toggleConfirm,
     toggleEdit,
 }: Props): JSX.Element {
@@ -30,6 +32,7 @@ export default function ProjectComponentList({
                             project={project}
                             toggleConfirm={toggleConfirm}
                             toggleEdit={toggleEdit}
+                            isAdmin={isAdmin}
                         />
                     ))}
                 </div>

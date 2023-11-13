@@ -27,7 +27,7 @@ export default function TasksListAdmin({ projectId }: Props) {
     ) {}
 
     return (
-        <div className="flex flex-1 flex-col overflow-y-auto">
+        <div className="flex h-96 flex-col overflow-y-auto">
             <TaskComponentList
                 tasks={tasks}
                 toggleDeleteModal={toggleDeleteModal}
