@@ -18,7 +18,7 @@ export default function TasksAdmin() {
             <div className="flex h-20 items-start">
                 <h2 className="text-4xl font-bold mb-2">Tasks</h2>
             </div>
-            <TasksListAdmin projectId={projectId} />
+            <TasksListAdmin projectId={projectId} companyId={companyId} />
         </HeroScreenContainer>
     );
 }

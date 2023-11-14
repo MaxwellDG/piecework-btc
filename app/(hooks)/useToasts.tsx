@@ -1,5 +1,5 @@
 import { useGlobalContext } from '../(context)';
-import { TOAST_TYPE } from '../(types)/api';
+import { TOAST_TYPE } from '../(types)';
 
 export const useToasts = () => {
     const { toasts, setToasts } = useGlobalContext();

@@ -2,7 +2,7 @@
 
 import { useGlobalContext } from '../../(context)';
 import { useEffect } from 'react';
-import { Toast } from '../../(types)/api';
+import { Toast } from '../../(types)';
 
 type Props = {
     id: number;

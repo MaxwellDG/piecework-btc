@@ -1,6 +1,5 @@
 import mongoose, { HydratedDocument, Query, Schema, model } from 'mongoose';
-import { UpdateCompanyReq } from '../../../app/(types)/api/requests/company';
-import { ICompany } from './types';
+import { ICompany, UpdateCompanyReq } from './types';
 import { ActivityModel } from '../activity';
 import { ProjectModel } from '../project';
 import { PendingActionModel } from '../pendingAction';

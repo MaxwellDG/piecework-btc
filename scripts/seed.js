@@ -26,11 +26,9 @@ async function seedDB() {
             .db(process.env.MONGO_DB_NAME)
             .collection('accounts');
 
-        // collection.drop();
-
         const testCompany = {
             name: COMPANY_TESTING_NAME, // is unique
-            viewedBySuperAdmin: false,
+            viewedBySuperAdmin: true,
             createdAt: new Date(Date.now()),
             updatedAt: new Date(Date.now()),
         };

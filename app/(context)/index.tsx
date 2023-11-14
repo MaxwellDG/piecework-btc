@@ -7,7 +7,7 @@ import {
     SetStateAction,
     useState,
 } from 'react';
-import { TOAST_TYPE, Toast } from '../(types)/api';
+import { TOAST_TYPE, Toast } from '../(types)';
 
 type ContextProps = {
     toasts: Toast[];

@@ -30,7 +30,8 @@ export default function Project({
     toggleEdit,
     isAdmin,
 }: Props) {
-    const { _id, name, company, updatedAt, createdAt } = project;
+    const { _id, name, company, updatedAt, createdAt, viewedBySuperAdmin } =
+        project;
 
     const [isHover, toggleHover] = useState(false);
 
@@ -45,13 +46,16 @@ export default function Project({
                 className="w-full flex justify-between"
             >
                 <div
-                    className={`flex flex-1 hover:bg-[rgba(255,255,255,0.1)] items-center ${
+                    className={`flex flex-1 hover:bg-[rgba(255,255,255,0.1)] items-center gap-x-2 ${
                         isAdmin ? 'p-2' : ''
                     }`}
                     onMouseEnter={() => toggleHover(true)}
                     onMouseLeave={() => toggleHover(false)}
                 >
                     <p className="ml-2">{name}</p>
+                    {!viewedBySuperAdmin && isAdmin && (
+                        <div className="h-2 w-2 rounded bg-btcOrange" />
+                    )}
                 </div>
                 {!isAdmin && (
                     <div className="flex gap-x-3 items-center bg-[rgba(255,255,255,0.1)] px-3 py-2 border-l border-lightGray">

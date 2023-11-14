@@ -1,9 +1,8 @@
 import { HydratedDocument } from 'mongoose';
 import dbConnect from '../../../../db';
 import TasksHandler from '../../../../db/models/task';
-import { ITask } from '../../../../db/models/task/types';
+import { ITask, UpdateTaskReq } from '../../../../db/models/task/types';
 import { NextResponse } from 'next/server';
-import { UpdateTaskReq } from '../../../(types)/api/requests/tasks';
 import ActivityHandler from '../../../../db/models/activity';
 import CompanyHandler from '../../../../db/models/company';
 import {

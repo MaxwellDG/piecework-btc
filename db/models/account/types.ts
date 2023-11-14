@@ -18,3 +18,15 @@ export interface IAccount {
     company: Types.ObjectId | ICompany;
     messages?: Types.ObjectId[] | IMessage[];
 }
+
+export type CreateAccountReq = {
+    username: string;
+    password: string;
+    role: Role; // ADMIN || USER
+};
+
+export type UpdateAccountReq = {
+    username?: string;
+    password?: string;
+    role?: Role;
+};

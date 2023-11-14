@@ -1,6 +1,5 @@
 import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
-import { UpdateAccountReq } from '../../../app/(types)/api/requests/accounts';
-import { IAccount, Role } from './types';
+import { IAccount, Role, UpdateAccountReq } from './types';
 
 export default {
     findById,

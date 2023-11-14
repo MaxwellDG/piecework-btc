@@ -5,3 +5,12 @@ export interface ICompany {
     updatedAt: Date;
     viewedBySuperAdmin: boolean;
 }
+
+export type CompanyNameReq = {
+    name: string;
+};
+
+export type UpdateCompanyReq = {
+    name?: string;
+    viewedBySuperAdmin?: boolean;
+};

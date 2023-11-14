@@ -6,7 +6,7 @@ import useSWR from 'swr';
 import ProjectComponentList from './componentList';
 import ConfirmModal from '../../modals/confirm';
 import useToasts from '../../../(hooks)/useToasts';
-import { TOAST_TYPE } from '../../../(types)/api';
+import { TOAST_TYPE } from '../../../(types)';
 import { IProject } from '../../../../db/models/project/types';
 
 export default function ProjectsList() {

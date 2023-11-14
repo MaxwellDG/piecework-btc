@@ -67,7 +67,7 @@ export async function update(
     companyId: string,
     obj: UpdateProjectReq
 ) {
-    const { name } = obj;
+    const { name, viewedBySuperAdmin } = obj;
 
     const projectDoc: HydratedDocument<IProject> | null = await findById(
         _id,
@@ -75,6 +75,8 @@ export async function update(
     );
     if (projectDoc) {
         projectDoc.name = name ?? projectDoc.name;
+        projectDoc.viewedBySuperAdmin =
+            viewedBySuperAdmin ?? projectDoc.viewedBySuperAdmin;
         await projectDoc.save();
         return projectDoc;
     } else {

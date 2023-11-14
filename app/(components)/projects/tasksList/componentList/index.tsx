@@ -1,11 +1,11 @@
 'use client';
 
-import { MouseEvent } from 'react';
 import { ITask } from '../../../../../db/models/task/types';
 import Task from '../../task';
 
 type Props = {
     tasks: ITask[];
+    isAdmin: boolean;
     toggleDeleteModal: (
         e: React.MouseEvent<HTMLElement>,
         bool: boolean,
@@ -13,9 +13,11 @@ type Props = {
     ) => void;
 };
 
-export default function TaskComponentList({ tasks, toggleDeleteModal }: Props) {
-    console.log('Wtf is tasks now: ', tasks);
-
+export default function TaskComponentList({
+    tasks,
+    toggleDeleteModal,
+    isAdmin,
+}: Props) {
     return (
         <div className="flex flex-1 flex-col sm:overflow-y-auto pr-1 gap-y-2">
             {tasks?.length ? (
@@ -25,6 +27,7 @@ export default function TaskComponentList({ tasks, toggleDeleteModal }: Props) {
                             key={task._id}
                             task={task}
                             toggleDeleteModal={toggleDeleteModal}
+                            isAdmin={isAdmin}
                         />
                     ))}
                 </div>

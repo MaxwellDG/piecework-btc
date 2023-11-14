@@ -6,14 +6,22 @@ import TaskComponentList from './../componentList';
 
 type Props = {
     projectId: string;
+    companyId: string;
 };
 
-export default function TasksListAdmin({ projectId }: Props) {
+export default function TasksListAdmin({ projectId, companyId }: Props) {
     const [tasks, setTasks] = React.useState<ITask[]>([] as ITask[]);
     React.useEffect(() => {
         async function getTasks() {
             const tasks: { tasks: ITask[] } | null = await fetch(
-                `/api/admin/tasks/${projectId}`
+                `/api/admin/tasks`,
+                {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        projectId,
+                        companyId,
+                    }),
+                }
             ).then((res) => res.json());
             setTasks(tasks?.tasks || []);
         }
@@ -31,6 +39,7 @@ export default function TasksListAdmin({ projectId }: Props) {
             <TaskComponentList
                 tasks={tasks}
                 toggleDeleteModal={toggleDeleteModal}
+                isAdmin
             />
         </div>
     );
