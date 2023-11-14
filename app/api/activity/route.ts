@@ -2,6 +2,8 @@ import dbConnect from '../../../db';
 import ActivityHandler from '../../../db/models/activity';
 import { NextResponse } from 'next/server';
 
+// todo delete activities that are older than 3 days? a week?
+// maybe in a cron job?
 export async function GET(req: Request) {
     await dbConnect();
 
