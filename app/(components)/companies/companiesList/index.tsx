@@ -53,13 +53,16 @@ export default function CompaniesList() {
                     </div>
                 )}
             </div>
-            <button
-                type="button"
-                style={{ all: 'unset', margin: 'auto', cursor: 'pointer' }}
-                onClick={() => getCompanies()}
-            >
-                <p className="text-teal">See more</p>
-            </button>
+            {companies?.length > 9 &&
+            offset !== Math.floor(new Date(0).getTime() / 1000) ? (
+                <button
+                    type="button"
+                    style={{ all: 'unset', margin: 'auto', cursor: 'pointer' }}
+                    onClick={() => getCompanies()}
+                >
+                    <p className="text-teal">See more</p>
+                </button>
+            ) : null}
         </div>
     );
 }

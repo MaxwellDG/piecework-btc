@@ -19,7 +19,7 @@ export default {
 export const companySchema = new Schema<ICompany>(
     {
         name: { type: String, unique: true, required: true },
-        viewedBySuperAdmin: { type: Boolean, default: false },
+        viewedBySuperAdmin: { type: Boolean, default: true },
     },
     {
         timestamps: true,

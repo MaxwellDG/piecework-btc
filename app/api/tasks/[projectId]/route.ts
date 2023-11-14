@@ -124,6 +124,9 @@ export async function PATCH(
             task._id
         );
 
+        // update company to be viewed by admin
+        await CompanyHandler.update(companyId, { viewedBySuperAdmin: false });
+
         return NextResponse.json(
             {
                 task,

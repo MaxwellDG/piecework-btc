@@ -17,7 +17,12 @@ export default function Company({ company }: Props) {
         <ArrowCornersCard className="mb-2 cursor-pointer">
             <div className="w-full p-2 flex justify-between">
                 <div className="flex flex-col justify-between">
-                    <p className="text-xl font-semibold">{name}</p>
+                    <div className="flex gap-x-2 items-center">
+                        <p className="text-xl font-semibold">{name}</p>
+                        {!viewedBySuperAdmin && (
+                            <div className="h-2 w-2 rounded bg-btcOrange" />
+                        )}
+                    </div>
                     <p className="text-whiteGray">
                         {new Date(updatedAt).toDateString()}
                     </p>

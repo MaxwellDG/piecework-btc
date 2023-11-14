@@ -6,7 +6,7 @@ import { Role } from './db/models/account/types';
 
 const API_AUTH_ROUTES = ['/api/company', '/api/auth/login', '/api/admin/auth'];
 
-// todo check for expiration
+// todo check for expiration and clear cookie if expired. then reroute
 async function extractJWTForNext(
     cookie: RequestCookie,
     requestHeaders: Headers,
