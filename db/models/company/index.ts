@@ -57,6 +57,7 @@ export async function findAllPaginated(
     limit: number,
     offsetUpdatedAt: Date
 ): Promise<{ companies: HydratedDocument<ICompany>[]; newOffset: Date }> {
+    // First search for companies with viewedBySuperAdmin = false
     const unviewedCompanies: HydratedDocument<ICompany>[] =
         await CompanyModel.find({
             viewedBySuperAdmin: false,
@@ -64,6 +65,9 @@ export async function findAllPaginated(
         })
             .limit(limit)
             .sort({ updatedAt: 'desc' });
+
+    // If there are no more viewedBySuperAdmin = false and the length of results is not 10
+    // search for companies with viewedBySuperAdmin = true
     let viewedCompanies: HydratedDocument<ICompany>[] = [];
     const unviewedCompaniesLength = unviewedCompanies.length;
     if (unviewedCompaniesLength < 10) {
@@ -77,7 +81,7 @@ export async function findAllPaginated(
     const concattedCompanies = [...unviewedCompanies, ...viewedCompanies];
     const newOffset = concattedCompanies.length
         ? concattedCompanies[concattedCompanies.length - 1].updatedAt
-        : new Date(Date.now());
+        : new Date(0);
     return {
         companies: concattedCompanies,
         newOffset,
