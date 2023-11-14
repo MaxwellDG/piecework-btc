@@ -1,5 +1,4 @@
 import React, { Suspense } from 'react';
-import Loading from '../../../(components)/loading';
 import AddTask from '../../../(components)/projects/addTask';
 import TasksList from '../../../(components)/projects/tasksList';
 import { usePathnameServer } from '../../../(hooks)/useServerHeaders';

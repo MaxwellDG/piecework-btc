@@ -9,7 +9,7 @@ import TaskImage from '../../taskImages/image';
 import { readFile } from '../../../(util)/files';
 import AddFile from '../../ui/buttons/addFile';
 import useToasts from '../../../(hooks)/useToasts';
-import { TOAST_TYPE } from '../../../(types)/api';
+import { TOAST_TYPE } from '../../../(types)';
 import ConfirmModal from '../confirm';
 import SimpleButton from '../../ui/buttons/simple';
 

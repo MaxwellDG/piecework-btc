@@ -16,7 +16,7 @@ async function seedDB() {
 
     try {
         await client.connect();
-        console.log('Connected correctly to server');
+        console.log('Connected to server');
 
         const companiesCollection = client
             .db(process.env.MONGO_DB_NAME)
@@ -26,11 +26,9 @@ async function seedDB() {
             .db(process.env.MONGO_DB_NAME)
             .collection('accounts');
 
-        // collection.drop();
-
         const testCompany = {
             name: COMPANY_TESTING_NAME, // is unique
-            viewedBySuperAdmin: false,
+            viewedBySuperAdmin: true,
             createdAt: new Date(Date.now()),
             updatedAt: new Date(Date.now()),
         };
@@ -45,7 +43,7 @@ async function seedDB() {
         );
 
         if (company?.upsertedId) {
-            companyId = company.upsertedId._id;
+            companyId = company.upsertedId;
         } else {
             const company = await companiesCollection.findOne({
                 name: COMPANY_TESTING_NAME,

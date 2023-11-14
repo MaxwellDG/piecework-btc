@@ -6,6 +6,7 @@ import Delete from '../../../../public/svgs/delete';
 
 type Props = {
     task: ITask;
+    isAdmin: boolean;
     toggleDeleteModal: (
         e: React.MouseEvent<HTMLElement>,
         bool: boolean,
@@ -13,22 +14,39 @@ type Props = {
     ) => void;
 };
 
-export default function Task({ task, toggleDeleteModal }: Props) {
-    const { _id, name, desc, price, project, updatedAt, createdAt, status } =
-        task;
+export default function Task({ task, toggleDeleteModal, isAdmin }: Props) {
+    const {
+        _id,
+        name,
+        desc,
+        price,
+        project,
+        company,
+        updatedAt,
+        createdAt,
+        status,
+        viewedBySuperAdmin,
+    } = task;
 
     return (
         <Link
-            href={`/dashboard/projects/${project}/${task._id}`}
+            href={
+                isAdmin
+                    ? `/admin/dashboard/companies/${company}/${project}/${task._id}`
+                    : `/dashboard/projects/${project}/${task._id}`
+            }
             className="group"
         >
             <ArrowCornersCard
                 header={
                     <div className="flex w-full justify-between items-center">
-                        <div className="w-48">
+                        <div className="w-48 flex items-center gap-x-2">
                             <p className="text-lg font-semibold block whitespace-nowrap overflow-hidden text-ellipsis">
                                 {name}
                             </p>
+                            {!viewedBySuperAdmin && isAdmin && (
+                                <div className="h-2 w-2 rounded bg-btcOrange" />
+                            )}
                         </div>
                         <button
                             className="absolute right-0.5 top-0 bottom-0"

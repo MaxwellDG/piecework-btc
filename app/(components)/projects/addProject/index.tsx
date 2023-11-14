@@ -6,7 +6,7 @@ import Minus from '../../../../public/svgs/minus';
 import { motion } from 'framer-motion';
 import { useSWRConfig } from 'swr';
 import useToasts from '../../../(hooks)/useToasts';
-import { TOAST_TYPE } from '../../../(types)/api';
+import { TOAST_TYPE } from '../../../(types)';
 import SimpleButton from '../../ui/buttons/simple';
 
 const variants = {

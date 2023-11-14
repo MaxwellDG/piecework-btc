@@ -11,4 +11,5 @@ export interface IProject {
 
 export interface UpdateProjectReq {
     name?: string;
+    viewedBySuperAdmin?: boolean;
 }

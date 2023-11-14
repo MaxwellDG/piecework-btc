@@ -17,11 +17,15 @@ export default function ProjectsListAdmin({ companyId }: Props) {
 
     React.useEffect(() => {
         async function getProjects() {
-            await fetch(`/api/admin/projects/${companyId}`)
+            await fetch(`/api/admin/projects`, {
+                method: 'POST',
+                body: JSON.stringify({ companyId }),
+            })
                 .then((res) => res.json())
-                .then((data: { projects: IProject[] }) =>
-                    setProjects(data.projects)
-                )
+                .then((data: { projects: IProject[] }) => {
+                    console.log('Any data? ', data);
+                    setProjects(data.projects);
+                })
                 .finally(() => setInitialLoad(false));
         }
         getProjects();
@@ -48,6 +52,7 @@ export default function ProjectsListAdmin({ companyId }: Props) {
                     projects={projects}
                     toggleConfirm={toggleConfirm}
                     toggleEdit={toggleEdit}
+                    isAdmin
                 />
             )}
         </div>

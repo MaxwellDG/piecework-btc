@@ -4,12 +4,10 @@ import { HydratedDocument } from 'mongoose';
 import TasksHandler from '../../../../db/models/task';
 import { ITask } from '../../../../db/models/task/types';
 
-export async function GET(req: Request) {
+export async function POST(req: Request) {
     await dbConnect();
 
-    const url = new URL(req.url);
-    const projectId: string = url.searchParams.get('projectId') as string;
-    const companyId: string = url.searchParams.get('companyId') as string;
+    const { companyId, projectId } = await req.json();
     const tasks: HydratedDocument<ITask>[] = await TasksHandler.findByProjectId(
         companyId,
         projectId
@@ -19,8 +17,8 @@ export async function GET(req: Request) {
         return NextResponse.json({ tasks }, { status: 200 });
     } else {
         return NextResponse.json(
-            { message: 'Unauthorized. Incorrect password' },
-            { status: 401 }
+            { message: 'Project and company ids do not match' },
+            { status: 404 }
         );
     }
 }

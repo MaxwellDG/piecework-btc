@@ -1,17 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import CompanyHandler from '../../../db/models/company';
-import {
-    CompanyNameReq,
-    UpdateCompanyReq,
-} from '../../(types)/api/requests/company';
 import dbConnect from '../../../db';
 import AccountHandler from '../../../db/models/account';
 import { HydratedDocument } from 'mongoose';
 import { serialize } from 'cookie';
 import { SignJWT } from 'jose';
-import { JWT_DATA } from '../../(types)/api';
+import { JWT_DATA } from '../../(types)';
 import { IAccount, Role } from '../../../db/models/account/types';
-import { ICompany } from '../../../db/models/company/types';
+import {
+    ICompany,
+    CompanyNameReq,
+    UpdateCompanyReq,
+} from '../../../db/models/company/types';
 import MailHandler from '../../../db/models/mail';
 import { EMAIL_SUBJECT_TYPE } from '../../(services)/mailer/types';
 

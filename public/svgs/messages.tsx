@@ -1,7 +1,7 @@
 export default function Messages(
-    color: string,
     size: number,
-    className: string = ''
+    color?: string,
+    className?: string
 ) {
     return (
         <svg

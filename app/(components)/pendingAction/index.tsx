@@ -1,16 +1,8 @@
 import React from 'react';
 import {
-    ActivityCRUD,
-    ActivityType,
-    IActivity,
-} from '../../../db/models/activity/types';
-import User from '../../../public/svgs/user';
-import Projects from '../../../public/svgs/projects';
-import Messages from '../../../public/svgs/messages';
-import {
     IPendingAction,
     PendingActionType,
-} from '../../../db/models/pendingAction';
+} from '../../../db/models/pendingAction/types';
 import Alert from '../../../public/svgs/alert';
 import Link from 'next/link';
 

@@ -1,6 +1,5 @@
 import mongoose, { HydratedDocument, Query, Schema, model } from 'mongoose';
-import { UpdateCompanyReq } from '../../../app/(types)/api/requests/company';
-import { ICompany } from './types';
+import { ICompany, UpdateCompanyReq } from './types';
 import { ActivityModel } from '../activity';
 import { ProjectModel } from '../project';
 import { PendingActionModel } from '../pendingAction';
@@ -19,7 +18,7 @@ export default {
 export const companySchema = new Schema<ICompany>(
     {
         name: { type: String, unique: true, required: true },
-        viewedBySuperAdmin: { type: Boolean, default: false },
+        viewedBySuperAdmin: { type: Boolean, default: true },
     },
     {
         timestamps: true,
@@ -57,6 +56,7 @@ export async function findAllPaginated(
     limit: number,
     offsetUpdatedAt: Date
 ): Promise<{ companies: HydratedDocument<ICompany>[]; newOffset: Date }> {
+    // First search for companies with viewedBySuperAdmin = false
     const unviewedCompanies: HydratedDocument<ICompany>[] =
         await CompanyModel.find({
             viewedBySuperAdmin: false,
@@ -64,6 +64,9 @@ export async function findAllPaginated(
         })
             .limit(limit)
             .sort({ updatedAt: 'desc' });
+
+    // If there are no more viewedBySuperAdmin = false and the length of results is not 10
+    // search for companies with viewedBySuperAdmin = true
     let viewedCompanies: HydratedDocument<ICompany>[] = [];
     const unviewedCompaniesLength = unviewedCompanies.length;
     if (unviewedCompaniesLength < 10) {
@@ -77,7 +80,7 @@ export async function findAllPaginated(
     const concattedCompanies = [...unviewedCompanies, ...viewedCompanies];
     const newOffset = concattedCompanies.length
         ? concattedCompanies[concattedCompanies.length - 1].updatedAt
-        : new Date(Date.now());
+        : new Date(0);
     return {
         companies: concattedCompanies,
         newOffset,

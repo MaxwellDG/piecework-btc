@@ -1,8 +1,11 @@
 import { NextResponse } from 'next/server';
 import AccountsHandler from '../../../db/models/account';
 import dbConnect from '../../../db';
-import { IAccount, Role } from '../../../db/models/account/types';
-import { UpdateAccountReq } from '../../(types)/api/requests/accounts';
+import {
+    IAccount,
+    Role,
+    UpdateAccountReq,
+} from '../../../db/models/account/types';
 
 export async function GET(request: Request) {
     const _id = request.headers.get('jwt-_id');

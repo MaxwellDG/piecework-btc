@@ -6,7 +6,7 @@ import useSWR from 'swr';
 import Loading from '../../loading';
 import { ITask } from '../../../../db/models/task/types';
 import useToasts from '../../../(hooks)/useToasts';
-import { TOAST_TYPE } from '../../../(types)/api';
+import { TOAST_TYPE } from '../../../(types)';
 import ConfirmModal from '../../modals/confirm';
 
 type Props = {
@@ -65,6 +65,7 @@ export default function TasksList({ projectId }: Props) {
                 <TaskComponentList
                     tasks={data}
                     toggleDeleteModal={toggleDeleteModal}
+                    isAdmin={false}
                 />
             )}
             {/* Modals */}

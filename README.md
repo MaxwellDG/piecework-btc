@@ -10,7 +10,7 @@
 
 .env and .env.local files must be populated. Their contents can be found in the .env.dist and .env.local.dist files respectively.
 
-Once an .env file has been populated correctly with MongoDB related information, run the command 'node/scripts/seed.js' from the root directory. This will seed the database with the necessary data for development.
+Once an .env file has been populated correctly with MongoDB related information, run the command 'node scripts/seed.js' from the root directory. This will seed the database with the necessary data for development.
 
 Once an .env.local file has been populated correctly, run the command 'yarn' (you must have yarn installed on your local) to install all dependencies.
 

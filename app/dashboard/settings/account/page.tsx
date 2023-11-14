@@ -2,15 +2,15 @@
 
 import React from 'react';
 import BackButton from '../../../(components)/ui/buttons/back';
-import { UpdateAccountReq } from '../../../(types)/api/requests/accounts';
 import HeroScreenContainer from '../../../(components)/containers/hero-screen-container';
 import useToasts from '../../../(hooks)/useToasts';
-import { TOAST_TYPE } from '../../../(types)/api';
+import { TOAST_TYPE } from '../../../(types)';
 import MainContent from '../../../(components)/containers/main-content';
 import ArrowCornersCard from '../../../(components)/containers/cards/arrow-corners';
 import SciFiStandardButton, {
     SciFiStandardButtonSize,
 } from '../../../(components)/ui/buttons/sciFiStandard';
+import { UpdateAccountReq } from '../../../../db/models/account/types';
 
 export default function AccountSettings() {
     const { createToast } = useToasts();

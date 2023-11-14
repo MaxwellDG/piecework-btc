@@ -1,6 +1,5 @@
 import mongoose, { HydratedDocument, Schema, model } from 'mongoose';
-import { UpdateTaskReq } from '../../../app/(types)/api/requests/tasks';
-import { ITask, TASK_STATUS } from './types';
+import { ITask, TASK_STATUS, UpdateTaskReq } from './types';
 
 export default {
     create,
@@ -94,7 +93,14 @@ export async function update(
     projectId: string,
     obj: UpdateTaskReq
 ): Promise<HydratedDocument<ITask> | null> {
-    const { desc, status, price, name, imageUrls }: UpdateTaskReq = obj;
+    const {
+        desc,
+        status,
+        price,
+        name,
+        imageUrls,
+        viewedBySuperAdmin,
+    }: UpdateTaskReq = obj;
     const task: HydratedDocument<ITask> | null = await findById(
         _id,
         companyId,
@@ -107,6 +113,7 @@ export async function update(
         task.price = price ?? task.price;
         task.name = name ?? task.name;
         task.imageUrls = imageUrls ?? task.imageUrls;
+        task.viewedBySuperAdmin = viewedBySuperAdmin ?? task.viewedBySuperAdmin;
         await task.save();
         return task;
     } else {

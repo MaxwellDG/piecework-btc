@@ -4,12 +4,7 @@ import ProjectsHandler from '../../../db/models/project';
 import { IProject } from '../../../db/models/project/types';
 import { NextResponse } from 'next/server';
 import ActivityHandler from '../../../db/models/activity';
-import {
-    ActivityCRUD,
-    ActivityType,
-    IActivity,
-} from '../../../db/models/activity/types';
-import CompanyHandler from '../../../db/models/company';
+import { ActivityCRUD, ActivityType } from '../../../db/models/activity/types';
 
 export async function GET(req: Request) {
     await dbConnect();
@@ -46,9 +41,6 @@ export async function POST(req: Request) {
             company,
             project._id
         );
-
-        // update company to be viewed by admin
-        await CompanyHandler.update(company, { viewedBySuperAdmin: false });
 
         return NextResponse.json(
             {

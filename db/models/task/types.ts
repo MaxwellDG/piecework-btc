@@ -22,3 +22,12 @@ export interface ITask {
     updatedAt: Date;
     viewedBySuperAdmin: boolean;
 }
+
+export type UpdateTaskReq = {
+    desc?: string;
+    name?: string;
+    price?: number;
+    status?: TASK_STATUS;
+    imageUrls?: string[];
+    viewedBySuperAdmin?: boolean;
+};

@@ -74,7 +74,7 @@ export default function Page() {
                 <ArrowCornersCard
                     header={
                         <div className="flex items-center">
-                            {Projects('#F2A900', 30)}
+                            {Projects(30, '#F2A900')}
                             <h2 className="font-bold ml-2 text-3xl">
                                 Projects
                             </h2>
@@ -143,7 +143,7 @@ export default function Page() {
                 <ArrowCornersCard
                     header={
                         <div className="flex items-center">
-                            {Messages('#F2A900', 30)}
+                            {Messages(30, '#F2A900')}
                             <h2 className="font-bold ml-2 text-3xl">
                                 Messages
                             </h2>
