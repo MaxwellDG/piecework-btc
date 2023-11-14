@@ -5,8 +5,10 @@ import { revalidatePath } from 'next/cache';
 import BackButton from '../../../../(components)/ui/buttons/back';
 import { usePathnameServer } from '../../../../(hooks)/useServerHeaders';
 import HeroScreenContainer from '../../../../(components)/containers/hero-screen-container';
+import dbConnect from '../../../../../db';
 
 export default async function Page() {
+    await dbConnect();
     const { id: companyId } = usePathnameServer();
 
     const messages = await MessagesHandler.getMessages(companyId);
