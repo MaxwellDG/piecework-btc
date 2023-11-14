@@ -1,20 +1,5 @@
-import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
-import { ICompany } from '../company/types';
-
-export enum PendingActionType {
-    PAYMENT = 'payment',
-}
-
-export interface IPendingAction {
-    id: string;
-    company: ICompany;
-    isFailed: boolean;
-    type: PendingActionType;
-    targetId: string;
-    text: string;
-    createdAt: Date;
-    updatedAt: Date;
-}
+import mongoose, { HydratedDocument, Schema, model } from 'mongoose';
+import { IPendingAction, PendingActionType } from './types';
 
 export default {
     getPendingActions,
@@ -27,7 +12,7 @@ export const pendingActionSchema = new Schema<IPendingAction>(
     {
         text: { type: String, required: true },
         company: {
-            type: mongoose.SchemaTypes.ObjectId,
+            type: Schema.Types.ObjectId,
             required: true,
             unique: true,
         },
