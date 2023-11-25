@@ -37,7 +37,8 @@
         "react-scripts": "^5.0.1",
         "react-swipeable": "^7.0.1",
         "sass": "^1.63.6",
-        "swr": "^2.2.4"
+        "swr": "^2.2.4",
+        "ws": "^8.14.2"
     },
     "devDependencies": {
         "@types/cookie": "^0.5.2",
