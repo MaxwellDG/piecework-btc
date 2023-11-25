@@ -1,14 +1,7 @@
 import mongoose, { HydratedDocument, Schema, Types, model } from 'mongoose';
 import { ICompany } from '../company/types';
-
-export interface IMessage {
-    _id: string;
-    isUser: boolean; // is from User or Piecework-BTC
-    text: string;
-    isRead: boolean;
-    company: ICompany;
-    createdAt?: Date;
-}
+import { ITask } from '../task/types';
+import { IMessage } from './types';
 
 export default {
     getMessages,
@@ -22,6 +15,7 @@ export const messageSchema = new Schema<IMessage>(
         text: { type: String, required: true },
         isRead: { type: Boolean, required: true, default: false },
         company: { type: mongoose.SchemaTypes.ObjectId, required: true },
+        task: { type: mongoose.SchemaTypes.ObjectId, required: false },
     },
     {
         // add createdAt and updatedAt timestamps
@@ -33,11 +27,14 @@ export const MessageModel =
     mongoose.models.message || model<IMessage>('message', messageSchema);
 
 export async function getMessages(
-    companyId: string
+    companyId: string,
+    taskId?: string
 ): Promise<HydratedDocument<IMessage>[]> {
-    const messages: HydratedDocument<IMessage>[] = await MessageModel.find({
-        company: companyId,
-    });
+    const payload = taskId
+        ? { company: companyId, task: taskId }
+        : { company: companyId };
+    const messages: HydratedDocument<IMessage>[] =
+        await MessageModel.find(payload);
     return messages;
 }
 
@@ -49,12 +46,16 @@ export async function deleteMessage(id: string): Promise<boolean> {
 export async function create(
     isUser: boolean,
     text: string,
-    companyId: string
+    companyId: string,
+    taskId?: string
 ): Promise<HydratedDocument<IMessage>> {
-    const message: HydratedDocument<IMessage> = await MessageModel.create({
+    const payload = {
         company: companyId,
         isUser,
         text,
-    });
+    };
+    const finalPayload = taskId ? { ...payload, task: taskId } : payload;
+    const message: HydratedDocument<IMessage> =
+        await MessageModel.create(finalPayload);
     return message;
 }

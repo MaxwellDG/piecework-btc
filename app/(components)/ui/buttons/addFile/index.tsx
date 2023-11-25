@@ -50,7 +50,7 @@ export default function AddFile({
                 ) : (
                     Add('#cbced3', 25)
                 )}
-                <div className="absolute h-32 w-32 flex flex-1 z-20 hover:bg-[rgba(255,255,255,0.3)]" />
+                <div className="absolute h-32 w-32 flex flex-1 z-20 hover:bg-[rgba(255,255,255,0.1)]" />
             </label>
             <SimpleButton
                 type="button"

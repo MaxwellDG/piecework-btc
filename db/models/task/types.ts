@@ -1,5 +1,6 @@
 import { Document, ObjectId, PopulatedDoc, Types } from 'mongoose';
 import { IProject } from '../project/types';
+import { IMessage } from '../message/types';
 
 export enum TASK_STATUS {
     UNASSIGNED = 'UNASSIGNED',
@@ -21,6 +22,7 @@ export interface ITask {
     createdAt: Date;
     updatedAt: Date;
     viewedBySuperAdmin: boolean;
+    messages: IMessage;
 }
 
 export type UpdateTaskReq = {

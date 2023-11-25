@@ -1,13 +1,11 @@
 import { headers } from 'next/headers';
 import { ITask, TASK_STATUS } from '../../../../../db/models/task/types';
 import TasksHandler from '../../../../../db/models/task';
-import TaskImages from '../../../../(components)/taskImages';
-import { getBucketFileUrls } from '../../../../(clients)/google';
-import TaskInformation from '../../../../(components)/taskInformation';
 import { getStatusColor } from '../../../../(util)/styles';
-import Question from '../../../../../public/svgs/question';
-import Task from '../../../../(components)/projects/task';
 import HoverInfo from '../../../../(components)/hoverInfo';
+import MessagesHandler from '../../../../../db/models/message';
+import TaskTabs from '../../../../(components)/containers/task-tabs';
+import { revalidatePath } from 'next/cache';
 
 export default async function Page() {
     const _headers = headers();
@@ -21,9 +19,11 @@ export default async function Page() {
         company,
         projectId
     )) as ITask;
-    const bucketFileUrls = await getBucketFileUrls(
-        `projects/${projectId}/tasks/${task._id}`
-    );
+    const messages = await MessagesHandler.getMessages(company, taskId);
+    // const bucketFileUrls = await getBucketFileUrls(
+    //     `projects/${projectId}/tasks/${task._id}`
+    // );
+
 
     function getTaskStatusText() {
         switch (task.status) {
@@ -52,17 +52,13 @@ export default async function Page() {
                 </p>
                 <HoverInfo text={getTaskStatusText()} />
             </div>
-            <TaskInformation
-                taskId={task._id.toString()}
-                _name={task.name}
-                _desc={task.desc}
-                price={task.price}
+            <TaskTabs
+                task={task}
                 projectId={projectId}
-            />
-            <TaskImages
-                projectId={projectId}
-                imageUrls={bucketFileUrls}
-                taskId={task._id.toString()}
+                companyId={company}
+                messages={messages}
+                // imageUrls={bucketFileUrls}
+                imageUrls={[]}
             />
         </div>
     );

@@ -3,7 +3,6 @@ import HeroScreenContainer from '../../../../(components)/containers/hero-screen
 import MainContent from '../../../../(components)/containers/main-content';
 import Loading from '../../../../(components)/loading';
 import dbConnect from '../../../../../db';
-import ProjectsHandler from '../../../../../db/models/project';
 import TasksHandler from '../../../../../db/models/task';
 import { headers } from 'next/headers';
 

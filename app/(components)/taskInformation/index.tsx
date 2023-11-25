@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef, use } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import NextImage from 'next/image';
 
 type Props = {
@@ -50,7 +50,7 @@ export default function TaskInformation({
 
     return (
         <div className="flex flex-col">
-            <div className="flex justify-between mb-4 items-center">
+            <div className="flex justify-between mb-2 items-center">
                 <input
                     type="text"
                     className="text-3xl font-semibold flex flex-1 mr-4 px-2"
@@ -71,7 +71,7 @@ export default function TaskInformation({
                 </div>
             </div>
             <textarea
-                className="mb-8 h-32 px-2"
+                className="mb-2 h-32 px-2"
                 value={desc}
                 onChange={(e) => {
                     setDesc(e.target.value);

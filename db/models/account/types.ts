@@ -1,5 +1,5 @@
 import { ICompany } from '../company/types';
-import { IMessage } from '../message';
+import { IMessage } from '../message/types';
 import { Types } from 'mongoose';
 
 export enum Role {
